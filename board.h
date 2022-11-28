@@ -10,6 +10,8 @@ class Board : public Subject
     class BoardImpl;
     std::unique_ptr<BoardImpl> pImpl;
 public:
+    const int height = 15;
+    const int width = 11;
     Board() noexcept;
     ~Board() noexcept;
 

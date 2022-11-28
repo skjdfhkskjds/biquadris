@@ -8,7 +8,10 @@ using namespace std;
 struct Board::BoardImpl
 {
     int ticksSinceClear;
+    int turns;
     unique_ptr<BoardState> boardState;
+
+    BoardImpl() : ticksSinceClear{0}, turns{0} {}
 };
 
 Board::Board() : pImpl{new BoardImpl} {}

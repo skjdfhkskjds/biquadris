@@ -1,9 +1,9 @@
+#ifndef _COMMANDS_
+#define _COMMANDS_
+
 #include <map>
 #include <string>
 #include <vector>
-
-#ifndef _COMMANDS_
-#define _COMMANDS_
 
 using namespace std;
 
