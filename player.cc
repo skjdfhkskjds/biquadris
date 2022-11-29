@@ -5,7 +5,6 @@ struct Player::PlayerImpl
 {
     // Board board;
     int level;
-
     PlayerImpl() : level{0} {}
 };
 
