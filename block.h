@@ -13,7 +13,6 @@ public:
     Block() noexcept;
     ~Block() noexcept;
 
-    virtual void updateCoords(int x, int y) = 0;
     virtual void rotateCounterClockwise() = 0;
     virtual void rotateClockwise() = 0;
     virtual void shiftRight() = 0;

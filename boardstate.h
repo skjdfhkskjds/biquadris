@@ -11,8 +11,8 @@ class BoardState
     std::vector<char> boardState;
 public:
     BoardState();
-    void clearRow(int row);
-    bool checkRow(int row);
+    void clearRow(int row) noexcept;
+    bool checkRow(Coordinates &row) noexcept;
 };
 
 #endif

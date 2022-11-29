@@ -24,4 +24,12 @@ public:
     string what();
 };
 
+class file_not_found : public exception
+{
+    string file;
+public:
+    file_not_found(string &command);
+    string what();
+};
+
 #endif
