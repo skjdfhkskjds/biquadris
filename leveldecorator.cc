@@ -1,7 +1,10 @@
 #include "leveldecorator.h"
 #include "board.h"
+#include <utility>
 
-LevelDecorator::LevelDecorator(Board *component)
-    : component{component} {}
+using namespace std;
+
+LevelDecorator::LevelDecorator(unique_ptr<Board> component)
+    : component{move(component)} {}
 
 LevelDecorator::~LevelDecorator() {}

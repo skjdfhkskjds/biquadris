@@ -10,7 +10,7 @@ protected:
     std::unique_ptr<Board> component;
 
 public:
-    LevelDecorator(Board *component);
+    LevelDecorator( std::unique_ptr<Board> component );
     virtual ~LevelDecorator() = default;
     virtual Block blockGenerator() = 0;
 };
