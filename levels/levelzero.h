@@ -4,10 +4,10 @@
 #include "block.h"
 #include "leveldecorator.h"
 
-class LevelZero 
+class LevelZero : public LevelDecorator
 {
 public:
-    Block blockGenerator();
+    Block blockGenerator() override;
 };
 
 #endif
