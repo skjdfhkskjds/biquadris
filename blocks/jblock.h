@@ -7,7 +7,6 @@ class JBlock : public Block
 {
 public:
     JBlock();
-    void updateCoords(int x, int y) override;
     void rotateCounterClockwise() override;
     void rotateClockwise() override;
     void shiftRight() override;

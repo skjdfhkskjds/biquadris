@@ -7,13 +7,13 @@
 
 class LevelZero : public LevelDecorator
 {
+    // in main, read in alternating characters from sequence1.txt and sequence2.txt
+    // if the game has not ended at file eof, read from file again
     std::vector<char> sequence;
-
     void popFront();
+
 public:
-// in main, read in alternating characters from sequence1.txt and sequence2.txt
-// if the game has not ended at file eof, read from file again
-    std::unique_ptr<Block> blockGenerator() override;
+        std::unique_ptr<Block> blockGenerator() override;
 };
 
 #endif
