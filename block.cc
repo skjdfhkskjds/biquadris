@@ -7,8 +7,8 @@ using namespace std;
 struct BlockImpl
 {
     vector<Coordinates> coords;
-    int blockType, age, ageLimit;
+    int blockType, age, ageLimit, rotationState;
     char c;
 
-    BlockImpl() : age{0}, ageLimit{-1} {};
+    BlockImpl() : age{0}, ageLimit{-1}, rotationState{0} {};
 };

@@ -5,8 +5,6 @@
 
 class JBlock : public Block
 {
-    int rotationState;
-
 public:
     void rotateCounterClockwise() override;
     void rotateClockwise() override;

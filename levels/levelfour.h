@@ -6,7 +6,7 @@
 
 class LevelFour : public LevelDecorator 
 {
-    Block penaltyBlock();
+    Block penalty();
 public:
     Block blockGenerator() override;
 };
