@@ -13,25 +13,27 @@ public:
     Coordinates(int x, int y);
     int getPosition(); // returns the position of (x, y) on the 1D vector
     void updateCoords(int deltaX, int deltaY);
+    int getX();
+    int getY();
     
     class Iterator
     {
         std::unique_ptr<Coordinates> coord;
     public:
-        explicit Iterator(std::unique_ptr<Coordinates> coord);
-        int operator*();
-        Iterator & operator++();
-        bool operator==(const Iterator &other);
-        bool operator!=(const Iterator &other);
+        explicit Iterator(std::unique_ptr<Coordinates> coord) noexcept;
+        int operator*() noexcept;
+        Iterator & operator++() noexcept;
+        bool operator==(const Iterator &other) noexcept;
+        bool operator!=(const Iterator &other) noexcept;
 
         friend class Coordinates;
     };
 
-    Iterator begin();
-    Iterator end();
+    Iterator begin() noexcept;
+    Iterator end() noexcept;
 
-    Iterator beginLine(int row);
-    Iterator endLine(int row);
+    Iterator beginLine() noexcept;
+    Iterator endLine() noexcept;
 };
 
 #endif

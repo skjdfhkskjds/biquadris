@@ -13,6 +13,9 @@ void Coordinates::updateCoords(int deltaX, int deltaY)
     y += deltaY;
 }
 
+int Coordinates::getX() { return x; }
+int Coordinates::getY() { return y; }
+
 Coordinates::Iterator::Iterator(std::unique_ptr<Coordinates> coord) : coord{move(coord)} {}
 
 int Coordinates::Iterator::operator*()
@@ -56,13 +59,12 @@ Coordinates::Iterator Coordinates::end()
     return Iterator(make_unique<Coordinates>(width, height));
 }
 
-
-Coordinates::Iterator Coordinates::beginLine(int row)
+Coordinates::Iterator Coordinates::beginLine()
 {
-    return Iterator(make_unique<Coordinates>(0, row));
+    return Iterator(make_unique<Coordinates>(0, y));
 }
 
-Coordinates::Iterator Coordinates::endLine(int row)
+Coordinates::Iterator Coordinates::endLine()
 {
-    return Iterator(make_unique<Coordinates>(width, row));
+    return Iterator(make_unique<Coordinates>(width, y));
 }

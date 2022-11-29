@@ -9,16 +9,33 @@ BoardState::BoardState()
     }
 }
 
-bool BoardState::checkRow(int row)
+// returns true if row is filled and false otherwise
+bool BoardState::checkRow(Coordinates &row)
 {
-    Coordinates rowBeginning{0, row, width};
-    if ()
+    for (auto it = row.beginLine(); it == row.endLine(); ++it)
     {
-
+        if (boardState[*it] == ' ') return false;
     }
+    return true;
 }
 
+// clears a single row and handles board transformation
 void BoardState::clearRow(int row)
 {
-
+    Coordinates dest{0, row};
+    // checks if row is clear
+    if (checkRow(dest))
+    {
+        // if clear, empties the row 
+        for (auto it = dest.beginLine(); it == dest.endLine(); ++it)
+        {
+            boardState[*it] = ' ';
+        }
+        // shifts the rest of the board down
+        int i = dest.getPosition() - 1;
+        for (; i >= 0; i--)
+        {
+            boardState[i + width] = boardState[i];
+        }
+    }
 }
