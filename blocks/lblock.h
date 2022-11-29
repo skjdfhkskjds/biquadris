@@ -1,15 +1,15 @@
 #ifndef _LBLOCK_
 #define _LBLOCK_
 
-#include "block.h"
+#include "../block.h"
 
-class LBlock
+class LBlock : public Block
 {
 public:
-    void rotateCounterClockwise();
-    void rotateClockwise();
-    void shiftRight();
-    void shiftLeft();
+    void rotateCounterClockwise() override;
+    void rotateClockwise() override;
+    void shiftRight() override;
+    void shiftLeft() override;
     void decay();
 };
 

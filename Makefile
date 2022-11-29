@@ -7,7 +7,7 @@ DEPENDS = ${OBJECTS:.o=.d}
 
 ${EXEC}: ${OBJECTS}
 	${CXX} ${CXXFLAGS} ${OBJECTS} -o ${EXEC}
--include ${DEPENDS}
+-include ${DEPENDS} -X11
 
 .PHONY: clean
 

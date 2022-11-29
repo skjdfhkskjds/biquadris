@@ -1,13 +1,13 @@
 #ifndef _LEVEL2_
 #define _LEVEL2_
 
-#include "block.h"
-#include "leveldecorator.h"
+#include "../block.h"
+#include "../leveldecorator.h"
 
-class LevelTwo
+class LevelTwo : public LevelDecorator
 {
 public:
-    Block blockGenerator();
+    Block blockGenerator() override;
 };
 
 #endif
