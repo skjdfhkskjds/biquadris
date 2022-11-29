@@ -44,6 +44,8 @@ void Commands::interpret(string &command)
     // search letter by letter to deal with incomplete phrases
     // THIS COULD ALSO MEAN SHORTENING THE EXISTING KEYS TO FIT MINIMUM COMMAND LENGTH
 
+    // ask dom to read in letter by letter including numbers for repetition
+
     vector<int> commandsToRun = commands[command];
     for (int c : commandsToRun)
     {
