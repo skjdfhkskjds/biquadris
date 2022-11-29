@@ -1,10 +1,10 @@
-#ifndef _LEVEL0_
-#define _LEVEL0_
+#ifndef _LEVEL3_
+#define _LEVEL3_
 
 #include "block.h"
 #include "leveldecorator.h"
 
-class LevelZero 
+class LevelThree 
 {
 public:
     Block blockGenerator();
