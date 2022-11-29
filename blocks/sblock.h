@@ -1,15 +1,17 @@
 #ifndef _SBLOCK_
 #define _SBLOCK_
 
-#include "block.h"
+#include "../block.h"
 
-class SBlock
+class SBlock : public Block
 {
+    int rotationState;
+
 public:
-    void rotateCounterClockwise();
-    void rotateClockwise();
-    void shiftRight();
-    void shiftLeft();
+    void rotateCounterClockwise() override;
+    void rotateClockwise() override;
+    void shiftRight() override;
+    void shiftLeft() override;
     void decay();
 };
 

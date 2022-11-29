@@ -4,11 +4,11 @@
 #include "block.h"
 #include "leveldecorator.h"
 
-class LevelFour 
+class LevelFour : public LevelDecorator 
 {
     Block penaltyBlock();
 public:
-    Block blockGenerator();
+    Block blockGenerator() override;
 };
 
 #endif
