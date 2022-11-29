@@ -5,11 +5,14 @@
 
 class Coordinates
 {
-    int x, y, width;
+    const int width = 11;
+    const int height = 18;
+    int x, y;
 
 public:
-    Coordinates(int x, int y, int width);
+    Coordinates(int x, int y);
     int getPosition(); // returns the position of (x, y) on the 1D vector
+    void updateCoords(int newX, int newY);
     
     class Iterator
     {
@@ -25,8 +28,10 @@ public:
     };
 
     Iterator begin();
-    Iterator begin(Coordinates &rowStart);
     Iterator end();
+
+    Iterator beginLine(int row);
+    Iterator endLine(int row);
 };
 
 #endif
