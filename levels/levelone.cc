@@ -43,4 +43,4 @@ unique_ptr<Block> LevelZero::blockGenerator()
     {
         return make_unique<TBlock>();
     }
-}
+};
