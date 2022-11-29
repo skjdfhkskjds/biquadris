@@ -14,10 +14,13 @@ class Commands
     
     // vector containing all the commands
     map<string, vector<int>> commands;
+    vector<string> nonMultCommands;
 
 public:
     Commands() noexcept;
     void interpret(string &command);
+    void rawInterpret(string &rawCommand);
+    string stringConvert(string &abbrv);
     bool rename(string &existing, string &newName);
     bool addMacro(string &command);
 };

@@ -18,3 +18,11 @@ string command_already_exists::what()
 {
     return command + " is already an existing command.";
 }
+
+//file_not_found implementation
+file_not_found::file_not_found(string &file) : file{file} {}
+
+string file_not_found::what()
+{
+    return file + " does not exist.";
+}
