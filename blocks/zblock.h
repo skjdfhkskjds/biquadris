@@ -6,6 +6,7 @@
 class ZBlock : public Block
 {
 public:
+    ZBlock();
     void rotateCounterClockwise() override;
     void rotateClockwise() override;
     void shiftRight() override;

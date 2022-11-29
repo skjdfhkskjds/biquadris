@@ -6,6 +6,7 @@
 class JBlock : public Block
 {
 public:
+    JBlock();
     void rotateCounterClockwise() override;
     void rotateClockwise() override;
     void shiftRight() override;

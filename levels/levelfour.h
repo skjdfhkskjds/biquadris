@@ -8,7 +8,7 @@ class LevelFour : public LevelDecorator
 {
     Block penalty();
 public:
-    Block blockGenerator() override;
+    std::unique_ptr<Block> blockGenerator() override;
 };
 
 #endif

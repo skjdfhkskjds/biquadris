@@ -7,7 +7,7 @@
 class LevelOne : public LevelDecorator
 {
 public:
-    Block blockGenerator() override;
+    std::unique_ptr<Block> blockGenerator() override;
 };
 
 #endif

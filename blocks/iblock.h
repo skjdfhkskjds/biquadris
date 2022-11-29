@@ -6,6 +6,7 @@
 class IBlock : public Block
 {
 public:
+    IBlock();
     void rotateCounterClockwise() override;
     void rotateClockwise() override;
     void shiftRight() override;

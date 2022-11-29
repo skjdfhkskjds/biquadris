@@ -6,6 +6,7 @@
 class TBlock : public Block
 {
 public:
+    TBlock();
     void rotateCounterClockwise() override;
     void rotateClockwise() override;
     void shiftRight() override;
