@@ -5,6 +5,7 @@
 
 class Block
 {
+protected:
     class BlockImpl;
     std::unique_ptr<BlockImpl> pImpl;
 public:

@@ -1,5 +1,9 @@
+#include <vector>
+#include <memory>
 #include "boardstate.h"
 #include "coordinates.h"
+
+using namespace std;
 
 BoardState::BoardState()
 {
@@ -14,7 +18,8 @@ bool BoardState::checkRow(Coordinates &row)
 {
     for (auto it = row.beginLine(); it == row.endLine(); ++it)
     {
-        if (boardState[*it] == ' ') return false;
+        if (boardState[*it] == ' ')
+            return false;
     }
     return true;
 }
@@ -26,7 +31,7 @@ void BoardState::clearRow(int row)
     // checks if row is clear
     if (checkRow(dest))
     {
-        // if clear, empties the row 
+        // if clear, empties the row
         for (auto it = dest.beginLine(); it == dest.endLine(); ++it)
         {
             boardState[*it] = ' ';
@@ -38,4 +43,11 @@ void BoardState::clearRow(int row)
             boardState[i + width] = boardState[i];
         }
     }
+}
+
+bool BoardState::isSafe(unique_ptr<Coordinates> dest)
+{
+    // if dest location is not currently free, collision occurs
+    if (boardState[dest->getPosition()] != ' ') return false;
+    return true;
 }

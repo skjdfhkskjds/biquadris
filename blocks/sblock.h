@@ -3,8 +3,9 @@
 
 #include "../block.h"
 
-class SBlock : public Block
+class SBlock : Block
 {
+    bool isSafe();
 public:
     SBlock();
     void rotateCounterClockwise() override;
