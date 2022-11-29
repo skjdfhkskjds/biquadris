@@ -6,7 +6,7 @@ using namespace std;
 
 struct BlockImpl
 {
-    vector<Coordinates> coords;
+    vector<unique_ptr<Coordinates>> coords;
     int blockType, age, ageLimit, rotationState;
     char c;
 

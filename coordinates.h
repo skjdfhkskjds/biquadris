@@ -12,7 +12,7 @@ class Coordinates
 public:
     Coordinates(int x, int y);
     int getPosition(); // returns the position of (x, y) on the 1D vector
-    void updateCoords(int newX, int newY);
+    void updateCoords(int deltaX, int deltaY);
     
     class Iterator
     {

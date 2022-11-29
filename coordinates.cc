@@ -7,10 +7,10 @@ Coordinates::Coordinates(int x, int y) : x{x}, y {y} {}
 
 int Coordinates::getPosition() { return ((width * y) + x); }
 
-void Coordinates::updateCoords(int newX, int newY)
+void Coordinates::updateCoords(int deltaX, int deltaY)
 {
-    x = newX;
-    y = newY;
+    x += deltaX;
+    y += deltaY;
 }
 
 Coordinates::Iterator::Iterator(std::unique_ptr<Coordinates> coord) : coord{move(coord)} {}
