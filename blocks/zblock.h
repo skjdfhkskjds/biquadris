@@ -1,15 +1,17 @@
 #ifndef _ZBLOCK_
 #define _ZBLOCK_
 
-#include "block.h"
+#include "../block.h"
 
-class ZBlock
+class ZBlock : public Block
 {
+    int rotationState;
+
 public:
-    void rotateCounterClockwise();
-    void rotateClockwise();
-    void shiftRight();
-    void shiftLeft();
+    void rotateCounterClockwise() override;
+    void rotateClockwise() override;
+    void shiftRight() override;
+    void shiftLeft() override;
     void decay();
 };
 
