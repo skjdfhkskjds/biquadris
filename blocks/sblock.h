@@ -6,6 +6,8 @@
 class SBlock : public Block
 {
 public:
+    SBlock();
+    void updateCoords(int x, int y) override;
     void rotateCounterClockwise() override;
     void rotateClockwise() override;
     void shiftRight() override;
