@@ -2,6 +2,7 @@
 #define _LEVELDECORATOR_
 
 #include "board.h"
+#include "block.h"
 #include <memory>
 
 class LevelDecorator : public Board
@@ -12,7 +13,7 @@ protected:
 public:
     LevelDecorator( std::unique_ptr<Board> component );
     virtual ~LevelDecorator() = default;
-    virtual Block blockGenerator() = 0;
+    virtual std::unique_ptr<Block> blockGenerator() = 0;
 };
 
 #endif
