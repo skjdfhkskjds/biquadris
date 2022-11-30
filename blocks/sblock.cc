@@ -1,4 +1,4 @@
-// #include "../block.h"
+#include "../block.h"
 #include "sblock.h"
 #include "coordinates.h"
 #include <vector>
@@ -6,110 +6,37 @@
 
 using namespace std;
 
-SBlock::SBlock() : Block{} 
-{
-    pImpl->coords = {make_unique<Coordinates>(new Coordinates(2, 4)),
-    make_unique<Coordinates>(new Coordinates(2, 5)),
-    make_unique<Coordinates>(new Coordinates(1, 5)),
-    make_unique<Coordinates>(new Coordinates(1, 6))}
-}
+std::map<int, std::vector<std::vector<int>>> SBlock::rotationStates = {{0, {{0, -2}, {-1, -1}, {0, 0}, {-1, 1}}}, {1, {{2, 0}, {1, -1}, {0, 0}, {-1, -1}}}, {2, {{0, 2}, {1, 1}, {0, 0}, {1, -1}}}, {3, {{-2, 0}, {-1, 1}, {0, 0}, {1, 1}}}};
 
-bool SBlock::isSafe()
-{
-    for (unique_ptr<Coordinates> coord : pImpl->coords)
-    {
-        if (!isSafe()) return false;
-    }
-    return true;
-}
+SBlock::SBlock() : Block{} {}
 
 void SBlock::rotateClockwise() 
 {
     //IMPLEMENT A COLLISION CHECK METHOD AND CALL IT BEFORE UPDATECOORDS
-    int r = pImpl->rotationState % 4;
-    switch (r)
-    {
-    case 0:
-        pImpl->coords.at(0)->updateCoords(0,-2);
-        pImpl->coords.at(1)->updateCoords(-1,-1);
-        pImpl->coords.at(2)->updateCoords(0,0);
-        pImpl->coords.at(3)->updateCoords(-1,1);
-        break;
-    case 1:
-        pImpl->coords.at(0)->updateCoords(2,0);
-        pImpl->coords.at(1)->updateCoords(1,-1);
-        pImpl->coords.at(2)->updateCoords(0,0);
-        pImpl->coords.at(3)->updateCoords(-1,-1);
-        break;
-    case 2:
-        pImpl->coords.at(0)->updateCoords(0,2);
-        pImpl->coords.at(1)->updateCoords(1,1);
-        pImpl->coords.at(2)->updateCoords(0,0);
-        pImpl->coords.at(3)->updateCoords(1,-1);
-        break;
-    case 3:
-        pImpl->coords.at(0)->updateCoords(-2,0);
-        pImpl->coords.at(1)->updateCoords(-1,1);
-        pImpl->coords.at(2)->updateCoords(0,0);
-        pImpl->coords.at(3)->updateCoords(1,1);
-        break;
-    }
-    rotationState++;
+    int r = getState() % 4;
+    updateCoords(rotationStates[r]);
+    setState(getState() + 1);
 }
 
 void SBlock::rotateCounterClockwise() 
 {
     //IMPLEMENT A COLLISION CHECK METHOD AND CALL IT BEFORE UPDATECOORDS
-    int r = rotationState % 4;
+    // 0 -> 1, 1 -> 0, 2 -> 3, 3 -> 2
+    int r = getState() % 4;
     switch (r)
     {
     case 0:
-        pImpl->coords.at(0)->updateCoords(2,0);
-        pImpl->coords.at(1)->updateCoords(1,-1);
-        pImpl->coords.at(2)->updateCoords(0,0);
-        pImpl->coords.at(3)->updateCoords(-1,-1);
+        updateCoords(rotationStates[1]);
         break;
     case 1:
-        pImpl->coords.at(0)->updateCoords(0,-2);
-        pImpl->coords.at(1)->updateCoords(1,-1);
-        pImpl->coords.at(2)->updateCoords(0,0);
-        pImpl->coords.at(3)->updateCoords(-1,1);
+        updateCoords(rotationStates[0]);
         break;
     case 2:
-        pImpl->coords.at(0)->updateCoords(-2,0);
-        pImpl->coords.at(1)->updateCoords(-1,1);
-        pImpl->coords.at(2)->updateCoords(0,0);
-        pImpl->coords.at(3)->updateCoords(1,1);
+        updateCoords(rotationStates[2]);
         break;
     case 3:
-        pImpl->coords.at(0)->updateCoords(0,2);
-        pImpl->coords.at(1)->updateCoords(1,1);
-        pImpl->coords.at(2)->updateCoords(0,0);
-        pImpl->coords.at(3)->updateCoords(1,-1);
+        updateCoords(rotationStates[3]);
         break;
     }
-    rotationState--;
+    setState(getState() + 1);
 }
-
-void SBlock::shiftRight() 
-{
-    //IMPLEMENT A COLLISION CHECK METHOD AND CALL IT BEFORE UPDATECOORDS
-    pImpl->coords.at(0)->updateCoords(1,0);
-    pImpl->coords.at(1)->updateCoords(1,0);
-    pImpl->coords.at(2)->updateCoords(1,0);
-    pImpl->coords.at(3)->updateCoords(1,0);
-}
-
-void SBlock::shiftLeft() 
-{
-    //IMPLEMENT A COLLISION CHECK METHOD AND CALL IT BEFORE UPDATECOORDS
-    pImpl->coords.at(0)->updateCoords(-1,0);
-    pImpl->coords.at(1)->updateCoords(-1,0);
-    pImpl->coords.at(2)->updateCoords(-1,0);
-    pImpl->coords.at(3)->updateCoords(-1,0);
-}
-
-
-/*
-void decay();
-    */

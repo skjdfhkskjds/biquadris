@@ -14,10 +14,17 @@ public:
     Block() noexcept;
     ~Block() noexcept;
 
+    int getState();
+    void setState(int newState);
+
+    bool isSafe();
+    void updateCoords(std::vector<std::vector<int>>& coordChanges);
+
     virtual void rotateCounterClockwise() = 0;
     virtual void rotateClockwise() = 0;
-    virtual void shiftRight() = 0;
-    virtual void shiftLeft() = 0;
+    
+    void shiftRight();
+    void shiftLeft();
     void decay();
 };
 

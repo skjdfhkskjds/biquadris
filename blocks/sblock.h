@@ -1,18 +1,18 @@
 #ifndef _SBLOCK_
 #define _SBLOCK_
 
+#include <vector>
+#include <map>
+#include <memory>
 #include "../block.h"
 
 class SBlock : Block
 {
-    bool isSafe();
+    static std::map<int, std::vector<std::vector<int>>> rotationStates;
 public:
     SBlock();
     void rotateCounterClockwise() override;
     void rotateClockwise() override;
-    void shiftRight() override;
-    void shiftLeft() override;
-    void decay();
 };
 
 #endif
