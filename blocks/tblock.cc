@@ -10,7 +10,6 @@ int up = -1;
 int down = 1;
 int left = -1;
 int right = 1;
-int stay = 0;
 // maps clockwise states
 map<int, vector<vector<int>>> TBlock::rotationStates ={
     {0, {{left,up}, {right, up}, {0, 0}, {left, down}}},
