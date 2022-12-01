@@ -10,6 +10,9 @@
 
 using namespace std;
 
+vector<string> minUnique{"lef", "ri", "do", "cl", "co", "dr", "levelu", "leveld", "nor", "ra", "se", "I", "J", "L", "O", "S", "Z", "T", "re"};
+vector<string> fullCommand{"left", "right", "down", "clockwise", "counterclockwise", "drop", "levelup", "leveldown", "norandom", "random", "sequence", "I", "J", "L", "O", "S", "Z", "T", "restart"};
+
 struct Commands::CommandsImpl
 {
     // base commands
@@ -24,6 +27,7 @@ struct Commands::CommandsImpl
 
     void interpret(string &command);
     void apply(string &command);
+    void interpretEffect(string &Effect);
     string stringConvert(string &abbrv);
     bool rename(string &existing, string &newName);
     bool addMacro(string &command);
@@ -154,8 +158,8 @@ void Commands::CommandsImpl::apply(string &command)
     }
 }
 
-void Commands::CommandsImpl::interpretSpecialEffect(string &Effect) {
-    
+void Commands::CommandsImpl::interpretEffect(string &Effect) {
+
 }
 
 void Commands::CommandsImpl::interpret(string &command) //doesn't handle macros including any of the nonMultiplier viable commands
@@ -189,7 +193,17 @@ void Commands::CommandsImpl::interpret(string &command) //doesn't handle macros 
 
 string Commands::CommandsImpl::stringConvert(string &abbrv)
 {
-    if(abbrv == )
+    int len = minUnique.size();
+    string minStr;
+    string maxStr;
+    for (int i = 0; i < len; i++) {
+        minStr = minUnique[i];
+        maxStr = fullCommand[i];
+        if ((abbrv.find(minStr) != string::npos) && (maxStr.find(abbrv) != string::npos)) {
+            return abbrv;
+        }
+    }
+    throw command_not_found{abbrv};
 }
 
 // returns true if successful, false otherwise
