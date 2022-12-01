@@ -20,9 +20,9 @@ map<int, vector<vector<int>>> LBlock::rotationStates ={
 
 LBlock::LBlock() : Block{} {
     vector<Coordinates> coords;
-    Coordinates a(3,0);
-    Coordinates b(3,1);
-    Coordinates c(3,2);
+    Coordinates a(0,3);
+    Coordinates b(1,3);
+    Coordinates c(2,3);
     Coordinates d(2,2);
     coords.emplace_back(a);
     coords.emplace_back(b);
