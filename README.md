@@ -28,7 +28,7 @@ block uses a pImpl that processes all computation of updating and checking wheth
 - runs the game until game returns winner
 - prints final statement and returns 0
 
-### game.o ?
+### game.o
 - contains game data (two players, sequences, seed, startinglevel)
 - calls for user input per move and passes it along to command interpreter
 - returns to main when game is over with an int (indicates who won)

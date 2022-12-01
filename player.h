@@ -9,6 +9,7 @@ class Player
     std::unique_ptr<PlayerImpl> pImpl;
 public:
     Player() noexcept;
+    void newTurn();
     void levelUp() noexcept;
     void levelDown() noexcept;
     void display() noexcept;
