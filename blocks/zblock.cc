@@ -11,11 +11,12 @@ int down = 1;
 int left = -1;
 int right = 1;
 // maps clockwise states
+//CAN BE CONFIGURED FOR 2 ROTATION STATES
 map<int, vector<vector<int>>> ZBlock::rotationStates ={
     {0, {{right,up}, {0,0}, {left, up}, {2 * left, 0}}},
-    {1, {{right, down}, {0,0}, {right, up}, {0, 2 * up}}},
-    {2, {{left, down}, {0,0}, {right, down}, {2 * right, 0}}}, 
-    {3, {{left, up}, {0,0}, {left, down}, {0, 2 * down}}}
+    {1, {{left, down}, {0,0}, {right, down}, {2*right, 0}}},
+    {2, {{right,up}, {0,0}, {left, up}, {2 * left, 0}}},
+    {3, {{left, down}, {0,0}, {right, down}, {2*right, 0}}}
 };
 
 ZBlock::ZBlock() : Block{} {

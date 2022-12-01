@@ -13,9 +13,9 @@ int right = 1;
 // maps clockwise states
 map<int, vector<vector<int>>> LBlock::rotationStates ={
     {0, {{0, up*2}, {left, up}, {left*2, 0}, {left, down}}},
-    {1, {{right*2, 0}, {right, up}, {0, up*2}, {left, up}}},
-    {2, {{0, down*2}, {right, down}, {right*2, 0}, {right, up}}}, 
-    {3, {{left*2, 0}, {left, down}, {0, down*2}, {right, down}}}
+    {1, {{right*2, down}, {right, 0}, {0, up}, {left, 0}}},
+    {2, {{left, down}, {0, 0}, {right, up}, {0, up*2}}}, 
+    {3, {{left, 0}, {0, down}, {right, down*2}, {right*2, down}}}
 };
 
 LBlock::LBlock() : Block{} {
