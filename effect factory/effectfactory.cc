@@ -1,3 +1,4 @@
+#include "../boardstate.h"
 #include "effect.h"
 #include "effectfactory.h"
 #include <memory>

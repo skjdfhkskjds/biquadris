@@ -6,6 +6,10 @@
 
 using namespace std;
 
+bool BlindCreator::longLastingEffect = false;
+
+BlindCreator::BlindCreator(BoardState updatedBoard) : updatedBoard{updatedBoard} {}
+
 unique_ptr<Effect> BlindCreator::createEffect()
 {
     return make_unique<BlindProduct>();

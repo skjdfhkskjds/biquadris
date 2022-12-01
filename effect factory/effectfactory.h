@@ -5,7 +5,6 @@
 #include "effect.h"
 #include <memory>
 
-
 class EffectFactory
 {
 protected:
@@ -21,5 +20,9 @@ public:
     // calls factory method to create an effect object
     void effectOperation();
 };
+
+// how to call:
+// std::unique_ptr<EffectFactory> factory = make_unique<BlindCreator>();
+// factory.effectOperation();
 
 #endif
