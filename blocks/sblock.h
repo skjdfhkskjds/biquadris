@@ -6,7 +6,7 @@
 #include <memory>
 #include "../block.h"
 
-class SBlock : Block
+class SBlock final : public Block
 {
     static std::map<int, std::vector<std::vector<int>>> rotationStates;
 public:

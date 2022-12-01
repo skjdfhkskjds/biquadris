@@ -1,16 +1,18 @@
 #ifndef _ZBLOCK_
 #define _ZBLOCK_
 
+#include <vector>
+#include <map>
+#include <memory>
 #include "../block.h"
 
 class ZBlock : public Block
 {
+    static std::map<int, std::vector<std::vector<int>>> rotationStates;
 public:
     ZBlock();
     void rotateCounterClockwise() override;
     void rotateClockwise() override;
-    void shiftRight() override;
-    void shiftLeft() override;
     void decay();
 };
 

@@ -5,17 +5,14 @@
 
 class Block
 {
-protected:
     class BlockImpl;
     std::unique_ptr<BlockImpl> pImpl;
-public:
-    const enum {I=0, J, L, O, S, Z, T, Single};
 
-    Block() noexcept;
-    ~Block() noexcept;
-
+protected:
     int getState();
+    void setCoords(std::vector<Coordinates>& coords);
     void setState(int newState);
+    void setChar(char newChar);
 
     bool isSafe();
     void updateCoords(std::vector<std::vector<int>>& coordChanges);
@@ -25,7 +22,15 @@ public:
     
     void shiftRight();
     void shiftLeft();
+    void shiftDown();
     void decay();
+
+
+public:
+    const enum {I=0, J, L, O, S, Z, T, Single};
+
+    Block() noexcept;
+    ~Block() noexcept;
 };
 
 #endif
