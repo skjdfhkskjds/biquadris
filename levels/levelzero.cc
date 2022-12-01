@@ -14,10 +14,11 @@ using namespace std;
 
 void LevelZero::popFront()
 {
-    if (sequence.size() > 0) {
+    if (sequence.size() > 0)
+    {
         sequence.erase(sequence.begin());
     }
-}  
+}
 
 unique_ptr<Block> LevelZero::blockGenerator()
 {
@@ -52,4 +53,3 @@ unique_ptr<Block> LevelZero::blockGenerator()
         return make_unique<TBlock>();
     }
 };
-

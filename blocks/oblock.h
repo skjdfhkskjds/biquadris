@@ -9,8 +9,6 @@ public:
     OBlock();
     void rotateCounterClockwise() override;
     void rotateClockwise() override;
-    void shiftRight() override;
-    void shiftLeft() override;
     void decay();
 };
 
