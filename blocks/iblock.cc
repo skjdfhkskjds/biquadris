@@ -1,5 +1,5 @@
 #include "../block.h"
-#include "zblock.h"
+#include "tblock.h"
 #include "../coordinates.h"
 #include <vector>
 #include <memory>
@@ -11,28 +11,27 @@ int down = 1;
 int left = -1;
 int right = 1;
 // maps clockwise states
-//CAN BE CONFIGURED FOR 2 ROTATION STATES
-map<int, vector<vector<int>>> ZBlock::rotationStates ={
-    {0, {{right,up}, {0,0}, {left, up}, {2 * left, 0}}},
-    {1, {{left, down}, {0,0}, {right, down}, {2*right, 0}}},
-    {2, {{right,up}, {0,0}, {left, up}, {2 * left, 0}}},
-    {3, {{left, down}, {0,0}, {right, down}, {2*right, 0}}}
+map<int, vector<vector<int>>> TBlock::rotationStates ={
+    {0, {{0,0}, {right, up}, {right*2, up*2}, {right*3, up*3}}},
+    {1, {{0, 0}, {left, down}, {left*2, down*2}, {left*3, down*3}}},
+    {2, {{0,0}, {right, up}, {right*2, up*2}, {right*3, up*3}}},
+    {3, {{0, 0}, {left, down}, {left*2, down*2}, {left*3, down*3}}}
 };
 
-ZBlock::ZBlock() : Block{} {
+TBlock::TBlock() : Block{} {
     vector<Coordinates> coords;
-    Coordinates a(0,2);
-    Coordinates b(1,2);
-    Coordinates c(1,3);
-    Coordinates d(2,3);
+    Coordinates a(0,3);
+    Coordinates b(1,3);
+    Coordinates c(2,3);
+    Coordinates d(3,3);
     coords.emplace_back(a);
     coords.emplace_back(b);
     coords.emplace_back(c);
     coords.emplace_back(d); 
-    setChar('Z');
+    setChar('T');
     setCoords(coords);
 }
-void ZBlock::rotateClockwise() 
+void TBlock::rotateClockwise() 
 {
     //IMPLEMENT A COLLISION CHECK METHOD AND CALL IT BEFORE UPDATECOORDS
     int r = getState() % 4;
@@ -40,7 +39,7 @@ void ZBlock::rotateClockwise()
     setState(getState() + 1);
 }
 
-void ZBlock::rotateCounterClockwise() 
+void TBlock::rotateCounterClockwise() 
 {
     //IMPLEMENT A COLLISION CHECK METHOD AND CALL IT BEFORE UPDATECOORDS
     // 3 -> 2, 2 -> 1, 1 -> 0, 0 -> 3

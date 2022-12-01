@@ -1,6 +1,6 @@
 # biquadris
 
-hewwo everyone!!!<3333 welcome to our wittle biquadris project plan!!uwu :D
+hewwo everyone!!!<3333 welcome to our wittle biqwuadris project plan!!uwu :D hope u likeyy hehe :3
 
 ## Problems to Solve Still
 

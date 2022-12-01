@@ -10,13 +10,12 @@ int up = -1;
 int down = 1;
 int left = -1;
 int right = 1;
-int stay = 0;
 // maps clockwise states
 map<int, vector<vector<int>>> TBlock::rotationStates ={
     {0, {{left,up}, {right, up}, {0, 0}, {left, down}}},
-    {1, {{right, up}, {right, down}, {0, 0}, {left, up}}},
-    {2, {{right, down}, {left, down}, {0, 0}, {right, up}}}, 
-    {3, {{left, down}, {left, up}, {0, 0}, {right, down}}}
+    {1, {{right, 0}, {right, down*2}, {0, down}, {left, 0}}},
+    {2, {{0, 0}, {left*2, 0}, {left, up}, {0, up*2}}}, 
+    {3, {{0, down}, {0, up}, {right, 0}, {right*2, down}}}
 };
 
 TBlock::TBlock() : Block{} {

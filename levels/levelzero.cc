@@ -12,6 +12,10 @@
 
 using namespace std;
 
+LevelZero::LevelZero(vector<char> sequence) : sequence{sequence} {}
+
+LevelZero::~LevelZero() {}
+
 void LevelZero::popFront()
 {
     if (sequence.size() > 0)

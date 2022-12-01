@@ -2,9 +2,9 @@
 #define _LEVEL04
 
 #include "../block.h"
-#include "../leveldecorator.h"
+#include "../Level.h"
 
-class LevelFour : public LevelDecorator
+class LevelFour : public Level
 {
     std::unique_ptr<Block> penalty();
 
