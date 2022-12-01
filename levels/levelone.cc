@@ -44,3 +44,12 @@ unique_ptr<Block> LevelZero::blockGenerator()
         return make_unique<TBlock>();
     }
 };
+
+
+// blockGen returns unique_ptr<Block>
+
+// blockGen calls methods based on if else that return correct block type
+
+// i.e block = SBlockGen, where
+
+// SBlockGen returns unique_ptr<SBlock>()
