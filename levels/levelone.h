@@ -13,7 +13,6 @@
 
 class LevelOne : public LevelDecorator
 {
-
 public:
     std::unique_ptr<Block> blockGenerator() override;
 };
