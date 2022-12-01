@@ -8,8 +8,8 @@ using namespace std;
 
 struct Game::GameImpl
 {
-    vector<unique_ptr<Player>> players;
-    int seed, startLvl;
+    vector<shared_ptr<Player>> players;
+    int seed;
 
     GameImpl(vector<string> sequences, int seed, int startLvl);
     ~GameImpl() = default;
@@ -43,7 +43,7 @@ vector<char> readSequence(string s)
     }
 }
 
-Game::GameImpl::GameImpl(vector<string> sequences, int seed, int startLvl) : seed{seed}, startLvl{startLvl}
+Game::GameImpl::GameImpl(vector<string> sequences, int seed, int startLvl) : seed{seed}
 {
     // creates two players
     for (int i = 0; i < 2; i++)
@@ -59,7 +59,7 @@ Game::GameImpl::GameImpl(vector<string> sequences, int seed, int startLvl) : see
             cerr << e.what() << endl;
             s = readSequence(e.getDefault(i));
         }
-        players.emplace_back(make_unique<Player>(s));
+        players.emplace_back(make_shared<Player>(s, startLvl));
     }
 }
 

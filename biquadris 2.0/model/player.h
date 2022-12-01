@@ -12,7 +12,7 @@ class Player final : public Subject
     std::unique_ptr<PlayerImpl> impl;
 
 public:
-    Player(std::vector<char> sequence);
+    Player(std::vector<char> sequence, int startLvl);
     ~Player();
 
     void newTurn(std::string effect="");

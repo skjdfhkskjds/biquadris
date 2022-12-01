@@ -158,7 +158,7 @@ void Commands::CommandsImpl::apply(string &command)
     }
 }
 
-void Commands::CommandsImpl::interpretEffect(string &Effect) {
+void Commands::CommandsImpl::interpretEffect(string &effect) {
 
 }
 

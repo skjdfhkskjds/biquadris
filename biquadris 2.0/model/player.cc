@@ -14,19 +14,22 @@ struct Player::PlayerImpl
     vector<char> sequence;
     int turns;
 
-    PlayerImpl(vector<char> sequence);
+    PlayerImpl(vector<char> sequence, int startLvl);
     ~PlayerImpl() = default;
     void newTurn(string effect="");
 };
 
-Player::PlayerImpl::PlayerImpl(vector<char> sequence) : lvl{new Level}, board{new Board}, sequence{sequence}, turns{0} {}
+Player::PlayerImpl::PlayerImpl(vector<char> sequence, int startLvl) : board{new Board}, sequence{sequence}, turns{0}
+{
+    lvl = make_unique<Level>(startLvl);
+}
 
 void Player::PlayerImpl::newTurn(string effect = "")
 {
 
 }
 
-Player::Player(vector<char> sequence) : impl{new Player::PlayerImpl{sequence}} {}
+Player::Player(vector<char> sequence, int startLvl) : impl{new Player::PlayerImpl{sequence, startLvl}} {}
 
 Player::~Player() = default;
 
