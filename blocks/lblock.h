@@ -6,7 +6,7 @@
 class LBlock : public Block
 {
 public:
-    LBlock();
+    LBlock() noexcept;
     void rotateCounterClockwise() override;
     void rotateClockwise() override;
     void decay();

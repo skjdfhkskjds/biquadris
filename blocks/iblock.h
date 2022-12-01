@@ -6,7 +6,7 @@
 class IBlock : public Block
 {
 public:
-    IBlock();
+    IBlock() noexcept;
     void rotateCounterClockwise() override;
     void rotateClockwise() override;
     void decay();
