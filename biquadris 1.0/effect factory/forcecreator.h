@@ -10,7 +10,6 @@ class ForceCreator : public EffectFactory
 {
     static bool longLastingEffect;
     BoardState updatedBoard;
-
 public:
     ForceCreator(BoardState updatedBoard) noexcept;
     std::unique_ptr<Effect> createEffect() override;

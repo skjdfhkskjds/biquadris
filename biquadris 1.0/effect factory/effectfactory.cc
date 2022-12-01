@@ -15,5 +15,5 @@ bool EffectFactory::isLongLasting()
 void EffectFactory::effectOperation()
 {
     unique_ptr<Effect> effect = this->createEffect();
-    effect->runEffect();
+    effect->runEffect(updatedBoard);
 }
