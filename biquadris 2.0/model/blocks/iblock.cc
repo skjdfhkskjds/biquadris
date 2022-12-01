@@ -1,5 +1,5 @@
 #include "../block.h"
-#include "tblock.h"
+#include "iblock.h"
 #include "../coordinates.h"
 #include <vector>
 #include <memory>
@@ -11,14 +11,14 @@ int down = 1;
 int left = -1;
 int right = 1;
 // maps clockwise states
-map<int, vector<vector<int>>> TBlock::rotationStates ={
+map<int, vector<vector<int>>> IBlock::rotationStates ={
     {0, {{0,0}, {right, up}, {right*2, up*2}, {right*3, up*3}}},
     {1, {{0, 0}, {left, down}, {left*2, down*2}, {left*3, down*3}}},
     {2, {{0,0}, {right, up}, {right*2, up*2}, {right*3, up*3}}},
     {3, {{0, 0}, {left, down}, {left*2, down*2}, {left*3, down*3}}}
 };
 
-TBlock::TBlock() : Block{} {
+IBlock::IBlock() : Block{} {
     vector<Coordinates> coords;
     Coordinates a(0,3);
     Coordinates b(1,3);
@@ -31,19 +31,19 @@ TBlock::TBlock() : Block{} {
     setChar('T');
     setCoords(coords);
 }
-void TBlock::rotateClockwise() 
+void IBlock::rotateClockwise() 
 {
-    //IMPLEMENT A COLLISION CHECK METHOD AND CALL IT BEFORE UPDATECOORDS
+    //IMPLEMENT A COLLISION CHECK METHOD AND CALL IT BEFORE update
     int r = getState() % 4;
-    updateCoords(rotationStates[r]);
+    update(rotationStates[r]);
     setState(getState() + 1);
 }
 
-void TBlock::rotateCounterClockwise() 
+void IBlock::rotateCounterClockwise() 
 {
-    //IMPLEMENT A COLLISION CHECK METHOD AND CALL IT BEFORE UPDATECOORDS
+    //IMPLEMENT A COLLISION CHECK METHOD AND CALL IT BEFORE update
     // 3 -> 2, 2 -> 1, 1 -> 0, 0 -> 3
     int r = (getState() + 3) % 4;
-    updateCoords(rotationStates[r]);
+    update(rotationStates[r]);
     setState(getState() - 1);
 }

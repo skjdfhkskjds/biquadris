@@ -33,17 +33,17 @@ JBlock::JBlock() : Block{} {
 }
 void JBlock::rotateClockwise() 
 {
-    //IMPLEMENT A COLLISION CHECK METHOD AND CALL IT BEFORE UPDATECOORDS
+    //IMPLEMENT A COLLISION CHECK METHOD AND CALL IT BEFORE update
     int r = getState() % 4;
-    updateCoords(rotationStates[r]);
+    update(rotationStates[r]);
     setState(getState() + 1);
 }
 
 void JBlock::rotateCounterClockwise() 
 {
-    //IMPLEMENT A COLLISION CHECK METHOD AND CALL IT BEFORE UPDATECOORDS
+    //IMPLEMENT A COLLISION CHECK METHOD AND CALL IT BEFORE update
     // 3 -> 2, 2 -> 1, 1 -> 0, 0 -> 3
     int r = (getState() + 3) % 4;
-    updateCoords(rotationStates[r]);
+    update(rotationStates[r]);
     setState(getState() - 1);
 }

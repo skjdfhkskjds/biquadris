@@ -5,39 +5,47 @@
 #include <memory>
 
 using namespace std;
+//SHORTEN THIS TO TWO STATES LATER
+// maps clockwise states
+int up = -1;
+int down = 1;
+int left = -1;
+int right = 1;
 
-std::map<int, std::vector<std::vector<int>>> SBlock::rotationStates = {{0, {{0, -2}, {-1, -1}, {0, 0}, {-1, 1}}}, {1, {{2, 0}, {1, -1}, {0, 0}, {-1, -1}}}, {2, {{0, 2}, {1, 1}, {0, 0}, {1, -1}}}, {3, {{-2, 0}, {-1, 1}, {0, 0}, {1, 1}}}};
+map<int, vector<vector<int>>> SBlock::rotationStates = {
+    {0, {{0, up*2}, {left, up}, {0, 0}, {left, down}}},
+    {1, {{0, down*2}, {right, down}, {0, 0}, {right, up}}},
+    {3, {{0, up*2}, {left, up}, {0, 0}, {left, down}}},
+    {4, {{0, down*2}, {right, down}, {0, 0}, {right, up}}}
+};
 
-SBlock::SBlock() : Block{} {}
+SBlock::SBlock() : Block{} {
+    vector<Coordinates> coords;
+    Coordinates a(0,3);
+    Coordinates b(1,3);
+    Coordinates c(1,2);
+    Coordinates d(2,2);
+    coords.emplace_back(a);
+    coords.emplace_back(b);
+    coords.emplace_back(c);
+    coords.emplace_back(d); 
+    setChar('S');
+    setCoords(coords);
+}
 
 void SBlock::rotateClockwise() 
 {
-    //IMPLEMENT A COLLISION CHECK METHOD AND CALL IT BEFORE UPDATECOORDS
+    //IMPLEMENT A COLLISION CHECK METHOD AND CALL IT BEFORE update
     int r = getState() % 4;
-    updateCoords(rotationStates[r]);
+    update(rotationStates[r]);
     setState(getState() + 1);
 }
 
 void SBlock::rotateCounterClockwise() 
 {
-    //IMPLEMENT A COLLISION CHECK METHOD AND CALL IT BEFORE UPDATECOORDS
-    // 0 -> 1, 1 -> 0, 2 -> 3, 3 -> 2
-    int r = getState() % 4;
-    switch (r)
-    {
-    case 0:
-        updateCoords(rotationStates[1]);
-        break;
-    case 1:
-        updateCoords(rotationStates[0]);
-        break;
-    case 2:
-        updateCoords(rotationStates[2]);
-        break;
-    case 3:
-        updateCoords(rotationStates[3]);
-        break;
-    }
-    setState(getState() + 1);
+    //IMPLEMENT A COLLISION CHECK METHOD AND CALL IT BEFORE update
+    // 3 -> 2, 2 -> 1, 1 -> 0, 0 -> 3
+    int r = (getState() + 3) % 4;
+    update(rotationStates[r]);
+    setState(getState() - 1);
 }
-
