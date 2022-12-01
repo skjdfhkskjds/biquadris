@@ -16,6 +16,7 @@ public:
 
     std::vector<char> applyEffect(std::string effect); // applies the effect to current board
     std::vector<char> getState();                      // returns the boardState
+    char getNextBlockChar();
 };
 
 #endif

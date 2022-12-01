@@ -46,3 +46,11 @@ void BoardState::clearPiece(Coordinates &c)
 {
     boardState[c.index()] = ' ';
 }
+
+std::vector<char> BoardState::getState() {
+    return boardState;
+}
+
+char BoardState::getNextBlockChar() {
+    return nextBlock->getBlockChar();
+}

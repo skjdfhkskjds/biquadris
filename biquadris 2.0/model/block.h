@@ -8,6 +8,7 @@ class Block
 {
     class BlockImpl;
     std::unique_ptr<BlockImpl> impl;
+    char c;
 
 protected:
     int getState();
@@ -29,6 +30,7 @@ protected:
 public:
     Block() noexcept;
     ~Block() noexcept;
+    char getBlockChar();
 };
 
 #endif
