@@ -7,7 +7,7 @@
 class BlindProduct : public Effect
 {
 public:
-    BoardState runEffect() override;
+    BoardState runEffect(BoardState updatedBoard) override;
 };
 
 #endif

@@ -15,14 +15,16 @@ public:
     virtual ~EffectFactory() noexcept {}
     BoardState getState();
     bool isLongLasting();
+
     // method to return object of effect class; subclasses will override this method to change resulting effect type
     virtual std::unique_ptr<Effect> createEffect() = 0;
+
     // calls factory method to create an effect object
     void effectOperation();
 };
 
 // how to call:
-// std::unique_ptr<EffectFactory> factory = make_unique<BlindCreator>();
+// std::unique_ptr<EffectFactory> factory = make_unique<BlindCreator>(BoardState updatedBoard);
 // factory.effectOperation();
 
 #endif

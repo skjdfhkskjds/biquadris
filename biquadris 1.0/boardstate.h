@@ -9,12 +9,14 @@ class BoardState
 {
     const int width = 11;
     const int height = 18;
-    std::vector<char> boardState;
+    
 public:
+    std::vector<char> boardState;
     BoardState();
     void clearRow(int row) noexcept;
     bool checkRow(Coordinates &row) noexcept;
     bool isSafe(std::unique_ptr<Coordinates> dest);
+
 };
 
 #endif

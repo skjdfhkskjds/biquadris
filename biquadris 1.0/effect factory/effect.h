@@ -8,7 +8,7 @@ class Effect
 {
 public:
     virtual ~Effect() noexcept {}
-    virtual BoardState runEffect() = 0;
+    virtual BoardState runEffect(BoardState updatedBoard) = 0;
 };
 
 #endif
