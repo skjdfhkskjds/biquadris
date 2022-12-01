@@ -98,3 +98,7 @@ void Block::shiftDown()
     vector<vector<int>> changes = {{0, 1}, {0, 1}, {0, 1}, {0, 1}};
     update(changes);
 }
+
+char Block::getBlockChar() {
+    return c;
+}
