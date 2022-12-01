@@ -1,3 +1,4 @@
+#include "../boardstate.h"
 #include "effect.h"
 #include "effectfactory.h"
 #include "heavycreator.h"
@@ -5,6 +6,10 @@
 #include <memory>
 
 using namespace std;
+
+bool HeavyCreator::longLastingEffect = true;
+
+HeavyCreator::HeavyCreator(BoardState updatedBoard) : updatedBoard{updatedBoard} {}
 
 unique_ptr<Effect> HeavyCreator::createEffect()
 {
