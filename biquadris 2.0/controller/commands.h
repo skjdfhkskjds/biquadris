@@ -4,9 +4,8 @@
 #include <string>
 #include <memory>
 
-class Commands
+class Commands final
 {
-protected:
     class CommandsImpl;
     std::unique_ptr<CommandsImpl> impl;
 

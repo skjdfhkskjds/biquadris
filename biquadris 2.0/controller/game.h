@@ -6,7 +6,7 @@
 #include <vector>
 #include "player.h"
 
-class Game
+class Game final
 {
     class GameImpl;
     std::unique_ptr<GameImpl> impl;

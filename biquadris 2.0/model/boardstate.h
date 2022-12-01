@@ -5,7 +5,7 @@
 #include "block.h"
 #include "coordinates.h"
 
-class BoardState
+class BoardState final
 {
     const int width = 11;
     const int height = 18;
