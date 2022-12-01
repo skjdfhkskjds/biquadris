@@ -51,3 +51,11 @@ void BoardState::clearPiece(Coordinates &c)
 bool BoardState::isSafe(std::vector<std::vector<int>> transform) {
 
 }
+
+std::vector<char> BoardState::getState() {
+    return boardState;
+}
+
+char BoardState::getNextBlockChar() {
+    return nextBlock->getBlockChar();
+}

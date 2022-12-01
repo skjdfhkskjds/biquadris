@@ -34,3 +34,7 @@ vector<char> Board::getState()
     // apply effects first
     return outState;
 }
+
+char Board::getNextBlockChar() {
+    return impl->boardState->getNextBlockChar();
+}

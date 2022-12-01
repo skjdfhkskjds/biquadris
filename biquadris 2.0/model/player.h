@@ -18,6 +18,9 @@ public:
     void newTurn(std::string effect="");
 
     std::vector<char> getState() override;
+    char getNextBlockChar();
+    int getScore();
+    int getLevel();
 };
 
 #endif

@@ -13,6 +13,8 @@ struct Player::PlayerImpl
     unique_ptr<Board> board;
     vector<char> sequence;
     int turns;
+    int score;
+    int level;
 
     PlayerImpl(vector<char> sequence, int startLvl);
     ~PlayerImpl() = default;
@@ -29,11 +31,23 @@ void Player::PlayerImpl::newTurn(string effect = "")
 
 }
 
+int Player::getScore() {
+    return impl->score;
+}
+
+int Player::getLevel() {
+    return impl->level;
+}
+
 Player::Player(vector<char> sequence, int startLvl) : impl{new Player::PlayerImpl{sequence, startLvl}} {}
 
 Player::~Player() = default;
 
 vector<char> Player::getState()
 {
-    // return impl->board.getState();
+    return impl->board->getState();
+}
+
+char Player::getNextBlockChar() {
+    return impl->board->getNextBlockChar();
 }
