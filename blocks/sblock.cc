@@ -19,7 +19,7 @@ SBlock::SBlock() : Block{} {
     coords.emplace_back(b);
     coords.emplace_back(c);
     coords.emplace_back(d); 
-    setChar('s');
+    setChar('S');
     setCoords(coords);
 }
 
