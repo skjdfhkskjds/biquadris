@@ -3,16 +3,9 @@
 
 #include <vector>
 #include "../block.h"
-#include "../blocks/iblock.h"
-#include "../blocks/sblock.h"
-#include "../blocks/jblock.h"
-#include "../blocks/lblock.h"
-#include "../blocks/oblock.h"
-#include "../blocks/tblock.h"
-#include "../blocks/zblock.h"
-#include "../leveldecorator.h"
+#include "../Level.h"
 
-class LevelZero : public LevelDecorator
+class LevelZero : public Level
 {
     // in main, read in alternating characters from sequence1.txt and sequence2.txt
     // if the game has not ended at file eof, read from file again
@@ -21,6 +14,8 @@ class LevelZero : public LevelDecorator
     void popFront();
 
 public:
+    LevelZero(std::vector<char> sequence) noexcept;
+    ~LevelZero() noexcept;
     std::unique_ptr<Block> blockGenerator() override;
 };
 
