@@ -4,9 +4,10 @@
 #include "../block.h"
 #include "../leveldecorator.h"
 
-class LevelFour : public LevelDecorator 
+class LevelFour : public LevelDecorator
 {
-    Block penalty();
+    std::unique_ptr<Block> penalty();
+
 public:
     std::unique_ptr<Block> blockGenerator() override;
 };

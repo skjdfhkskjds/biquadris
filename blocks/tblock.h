@@ -13,6 +13,7 @@ public:
     TBlock();
     void rotateCounterClockwise() override;
     void rotateClockwise() override;
+    void decay();
 };
 
 #endif

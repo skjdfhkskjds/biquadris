@@ -3,6 +3,13 @@
 
 #include <vector>
 #include "../block.h"
+#include "../blocks/iblock.h"
+#include "../blocks/sblock.h"
+#include "../blocks/jblock.h"
+#include "../blocks/lblock.h"
+#include "../blocks/oblock.h"
+#include "../blocks/tblock.h"
+#include "../blocks/zblock.h"
 #include "../leveldecorator.h"
 
 class LevelZero : public LevelDecorator
@@ -13,7 +20,7 @@ class LevelZero : public LevelDecorator
     void popFront();
 
 public:
-        std::unique_ptr<Block> blockGenerator() override;
+    std::unique_ptr<Block> blockGenerator() override;
 };
 
 #endif
