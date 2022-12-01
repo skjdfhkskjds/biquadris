@@ -7,8 +7,8 @@
 
 class BoardState final
 {
-    const int width = 11;
-    const int height = 18;
+    static const int width = 11;
+    static const int height = 18;
     std::vector<char> boardState;
     std::unique_ptr<Block> latestBlock;
 

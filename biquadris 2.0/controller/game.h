@@ -12,7 +12,7 @@ class Game final
     std::unique_ptr<GameImpl> impl;
 
 public:
-    Game(std::vector<std::string> sequences, int seed, int startLvl);
+    Game(std::vector<std::string> sequences, int seed, int startLvl); // strong guarantee of exception safety
     void runGame();
 };
 

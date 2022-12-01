@@ -1,46 +1,68 @@
-// #include <iostream>
+#include <iostream>
 #include <fstream>
 #include <memory>
 #include "game.h"
+#include "../misc/exceptions.h"
 
 using namespace std;
 
 struct Game::GameImpl
 {
-    unique_ptr<Player> p1;
-    unique_ptr<Player> p2;
+    vector<unique_ptr<Player>> players;
     int seed, startLvl;
-
 
     GameImpl(vector<string> sequences, int seed, int startLvl);
     ~GameImpl() = default;
+
+private:
+    vector<char> readSequence(string s);
 };
 
-Game::GameImpl::GameImpl(vector<string> sequences, int seed, int startLvl) : seed{seed}, startLvl{startLvl} 
+
+vector<char> readSequence(string s)
 {
-    vector<char> s1, s2;
-    for (auto s : sequences)
+    vector<char> sequence;
+    ifstream file{s};
+    if (file.is_open())
     {
-        ifstream file{s};
-        if (file.is_open())
+        char c;
+        while (file >> c)
         {
-            char c;
-            while (file >> c)
+            if (file.fail())
             {
-                if (file.fail())
-                {
-                    file.clear();
-                    file.ignore();
-                    continue;
-                }
-                
+                file.clear();
+                file.ignore();
+                continue;
             }
+            sequence.emplace_back(c);
         }
     }
-    p1 = make_unique<Player>();
+    else
+    {
+        throw file_not_found{s};
+    }
 }
 
-Game::Game(vector<string> sequences, int seed, int startLvl) : impl{new GameImpl{sequences, seed, startLvl}} {}
+Game::GameImpl::GameImpl(vector<string> sequences, int seed, int startLvl) : seed{seed}, startLvl{startLvl}
+{
+    // 
+    for (int i = 0; i < 2; i++)
+    {
+        vector<char> s;
+        try
+        {
+            s = readSequence(sequences[i]);
+        }
+        catch(file_not_found& e)
+        {
+            cerr << e.what() << endl;
+            s = readSequence(e.getDefault(i));
+        }
+        players.emplace_back(make_unique<Player>(s));
+    }
+}
+
+Game::Game(vector<string> sequences, int seed, int startLvl) : impl{new Game::GameImpl{sequences, seed, startLvl}} {}
 
 void Game::runGame()
 {

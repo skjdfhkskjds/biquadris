@@ -4,32 +4,36 @@
 #include <exception>
 #include <string>
 
-using namespace std;
-
 // EXCEPTIONS CLASS : ADD TO IT AS NEEDED
 
 class command_not_found : public exception
 {
-    string command;
+    std::string command;
+
 public:
-    command_not_found(string &command);
-    string what();
+    command_not_found(std::string &command);
+    std::string what();
 };
 
 class command_already_exists : public exception
 {
-    string command;
+    std::string command;
+
 public:
-    command_already_exists(string &command);
-    string what();
+    command_already_exists(std::string &command);
+    std::string what();
 };
 
 class file_not_found : public exception
 {
-    string file;
+    static std::string sequence1;
+    static std::string sequence2;
+    std::string file;
+
 public:
-    file_not_found(string &command);
-    string what();
+    file_not_found(std::string &command);
+    std::string what();
+    std::string getDefault(int type); // returns the default file for sequence 'type'
 };
 
 #endif
