@@ -166,7 +166,7 @@ void Commands::CommandsImpl::interpret(string &command) //doesn't handle macros 
     {
         if (commandName == i)
         {
-            interpret(commandName);
+            apply(commandName);
             return;
         }
     }
@@ -174,17 +174,17 @@ void Commands::CommandsImpl::interpret(string &command) //doesn't handle macros 
     /*sequence works funny because it takes in a file name, but also can be called multiple times*/
     if (multiplier == 1) 
     {
-        interpret(commandName);
+        apply(commandName);
     } 
     else 
     {
-        for (int i = 0; i < multiplier; i++) interpret(commandName);
+        for (int i = 0; i < multiplier; i++) apply(commandName);
     }
 }
 
 string Commands::CommandsImpl::stringConvert(string &abbrv)
 {
-    //recieves a string, returns the full name of a command
+    if(abbrv == )
 }
 
 // returns true if successful, false otherwise
