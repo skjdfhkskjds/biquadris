@@ -5,9 +5,19 @@
 #include <memory>
 
 using namespace std;
-
+//SHORTEN THIS TO TWO STATES LATER
 // maps clockwise states
-map<int, vector<vector<int>>> SBlock::rotationStates = {{0, {{0, -2}, {-1, -1}, {0, 0}, {-1, 1}}}, {1, {{2, 0}, {1, -1}, {0, 0}, {-1, -1}}}, {2, {{0, 2}, {1, 1}, {0, 0}, {1, -1}}}, {3, {{-2, 0}, {-1, 1}, {0, 0}, {1, 1}}}};
+int up = -1;
+int down = 1;
+int left = -1;
+int right = 1;
+
+map<int, vector<vector<int>>> SBlock::rotationStates = {
+    {0, {{0, up*2}, {left, up}, {0, 0}, {left, down}}},
+    {1, {{0, down*2}, {right, down}, {0, 0}, {right, up}}},
+    {3, {{0, up*2}, {left, up}, {0, 0}, {left, down}}},
+    {4, {{0, down*2}, {right, down}, {0, 0}, {right, up}}}
+};
 
 SBlock::SBlock() : Block{} {
     vector<Coordinates> coords;
