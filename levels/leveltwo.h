@@ -2,9 +2,9 @@
 #define _LEVEL2_
 
 #include "../block.h"
-#include "../leveldecorator.h"
+#include "../Level.h"
 
-class LevelTwo : public LevelDecorator
+class LevelTwo : public Level
 {
 public:
     std::unique_ptr<Block> blockGenerator() override;
