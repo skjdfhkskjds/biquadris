@@ -18,7 +18,7 @@ private:
     vector<char> readSequence(string s);
 };
 
-
+// reads in the file "s" and outputs a vector containing its contents
 vector<char> readSequence(string s)
 {
     vector<char> sequence;
@@ -45,10 +45,11 @@ vector<char> readSequence(string s)
 
 Game::GameImpl::GameImpl(vector<string> sequences, int seed, int startLvl) : seed{seed}, startLvl{startLvl}
 {
-    // 
+    // creates two players
     for (int i = 0; i < 2; i++)
     {
         vector<char> s;
+        // makes vector sequence if file exists
         try
         {
             s = readSequence(sequences[i]);

@@ -33,7 +33,7 @@ struct Commands::CommandsImpl
     bool addMacro(string &command);
 };
 
-// constructs the pImpl and establishes the vector map
+// constructs the impl and establishes the vector map
 Commands::CommandsImpl::CommandsImpl()
 {
     // defining the built in vectors
@@ -241,32 +241,31 @@ bool Commands::CommandsImpl::addMacro(string &command)
     commands[command] = newCommand;
 }
 
+// Implementation for the Command class using impl
 
-// Implementation for the Command class using pImpl
-
-// constructor declares the pImpl
-Commands::Commands() : pImpl{new Commands::CommandsImpl} {}
+// constructor declares the impl
+Commands::Commands() : impl{new Commands::CommandsImpl} {}
 
 Commands::~Commands() = default;
 
 void Commands::interpret(string &command)
 {
-    pImpl->interpret(command);
+    impl->interpret(command);
 }
 
 void Commands::apply(string &command)
 {
-    pImpl->apply(command);
+    impl->apply(command);
 }
 
 bool Commands::rename(string &existing, string &newName)
 {
-    pImpl->rename(existing, newName);
+    impl->rename(existing, newName);
 }
 
 bool Commands::addMacro(string &command)
 {
-    pImpl->addMacro(command);
+    impl->addMacro(command);
 }
 
 

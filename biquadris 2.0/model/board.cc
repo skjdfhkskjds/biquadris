@@ -8,8 +8,8 @@ using namespace std;
 
 struct Board::BoardImpl
 {
-    const int width = 11;
-    const int height = 18;
+    static const int width = 11;
+    static const int height = 18;
     unique_ptr<BoardState> boardState;
 
     BoardImpl();
