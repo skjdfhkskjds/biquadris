@@ -1,6 +1,7 @@
 #include <iostream>
 #include "../biquadris 2.0/model/block.h"
 #include "../biquadris 2.0/model/blocks/sblock.h"
+
 #include <vector>
 
 using namespace std;
@@ -41,14 +42,14 @@ void pCOG(std::vector<std::vector<int>> coords, char c) { //printCoordinatesOnGr
 int main(int argc, char *argv[]) {
     SBlock s;
     printCoords(s.getCoords());
-    pCOG(s.getCoords(), s.getBlockChar());
+    pCOG(s.getCoords(), s.getChar());
     s.shiftRight();
     printCoords(s.getCoords());
-    pCOG(s.getCoords(), s.getBlockChar());
+    pCOG(s.getCoords(), s.getChar());
     s.shiftRight();
     printCoords(s.getCoords());
-    pCOG(s.getCoords(), s.getBlockChar());
+    pCOG(s.getCoords(), s.getChar());
     s.shiftDown();
     printCoords(s.getCoords());
-    pCOG(s.getCoords(), s.getBlockChar());
+    pCOG(s.getCoords(), s.getChar());
 }

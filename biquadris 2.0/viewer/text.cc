@@ -4,6 +4,7 @@
 #include <memory>
 #include <vector>
 #include <iostream>
+#include <map>
 using namespace std;
 const int width = 11;
 const int height = 18;
@@ -21,6 +22,16 @@ void pagebreak() {
         cout << "-";
     }
     cout <<endl;
+}
+
+map<char, string> zero =  {{'I', "I "}, {'J'," J"}, {'L',"L "}, {'O',"OO"}, {'S',"S "},{'Z'," Z"}, {'T',"T "}};
+map<char, string> one =   {{'I', "I "}, {'J'," J"}, {'L',"L "}, {'O',"OO"}, {'S',"SS"},{'Z',"ZZ"}, {'T',"TT"}};
+map<char, string> two =   {{'I', "I "}, {'J',"JJ"}, {'L',"LL"}, {'O',"  "}, {'S'," S"},{'Z',"Z "}, {'T',"T "}};
+map<char, string> three = {{'I', "I "}, {'J',"  "}, {'L',"  "}, {'O',"  "}, {'S',"  "},{'Z',"  "}, {'T',"  "}};
+vector<map<char, string>> blockRow = {zero, one, two, three};
+
+void tbfp(char c, int row) { //twobyfourprinter
+   cout <<blockRow[row][c] << "         ";
 }
 
 void Text::notify()
@@ -67,5 +78,14 @@ void Text::notify()
     divider();
     cout << "Next:     ";
     //create a function that uses p1->getNextBlockChar(), and prints the block on a 2x4
+    char p1Next = p1->getNext();
+    char p2Next = p2->getNext();
+    for (int i = 0; i < 4; i++) {
+        tbfp(p1Next, i);
+        cout << "       ";
+        divider();
+        tbfp(p2Next, i);
+        cout << endl;
+    }
 }
 
