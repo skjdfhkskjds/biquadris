@@ -2,6 +2,9 @@
 #include <vector>
 #include "boardstate.h"
 
+#define width 11
+#define height 18
+
 BoardState::BoardState() : latestBlock{nullptr} 
 {
     for (int i = 0; i < width * height; i++)

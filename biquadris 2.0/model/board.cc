@@ -3,34 +3,65 @@
 #include <string>
 #include "board.h"
 #include "boardstate.h"
+#include "block.h"
+#include "level.h"
 
 using namespace std;
 
 struct Board::BoardImpl
 {
-    static const int width = 11;
-    static const int height = 18;
     unique_ptr<BoardState> boardState;
+    unique_ptr<Block> currBlock, nextBlock;
+    unique_ptr<Level> lvl;
 
-    BoardImpl();
+    BoardImpl(unique_ptr<Block> currBlock, unique_ptr<Block> nextBlock, unique_ptr<Level> lvl);
     ~BoardImpl() = default;
 };
 
-Board::BoardImpl::BoardImpl() : boardState{new BoardState} {}
+Board::BoardImpl::BoardImpl(unique_ptr<Block> currBlock, unique_ptr<Block> nextBlock, unique_ptr<Level> lvl) : boardState{new BoardState}, currBlock{move(currBlock)}, nextBlock{move(nextBlock)}, lvl{move(lvl)} {}
 
-Board::Board() : impl{new BoardImpl} {}
+Board::Board(unique_ptr<Block> currBlock, unique_ptr<Block> nextBlock, unique_ptr<Level> lvl) : impl{new Board::BoardImpl{move(currBlock), move(nextBlock), move(lvl)}} {}
 
 Board::~Board() = default;
 
-// returns a boardstate representing 
-vector<char> Board::applyEffect(string effect)
+unique_ptr<Block> Board::getBlock(char c)
 {
     // to be implemented
 }
 
+void Board::setBlock(unique_ptr<Block> block)
+{
+    impl->currBlock = move(block);
+}
+
 vector<char> Board::getState()
 {
+    // to be implemented
     vector<char> outState = impl->boardState->getState();
-    // apply effects first
     return outState;
+}
+
+void Board::counterClockwise()
+{
+
+}
+
+void Board::clockwise()
+{
+
+}
+
+void Board::left()
+{
+
+}
+
+void Board::right()
+{
+
+}
+
+void Board::down()
+{
+
 }

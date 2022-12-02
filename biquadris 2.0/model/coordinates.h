@@ -3,7 +3,6 @@
 
 class Coordinates
 {
-    static const int width = 11;
     int x, y;
 
 public:

@@ -95,6 +95,39 @@ block uses a pImpl that processes all computation of updating and checking wheth
 - handle decay if true
   - in coordinates, if not -1, remove from boardstate and set to -1
 
+
+### POTENTIAL IMPLEMENTATIONS OF BLOCKS
+
+### blocks as a decorator
+
+
+### blocks as a factory
+
+**Advantages**
+- BIG ADVANTAGE: BASICALLY HOW WE PROGRAMMED IT ALREADY (without the abstraction)
+- easy to produce new blocks without worrying about underlying type
+- simple storage (we can store board as either a char vector or vector of unique_ptr to blocks)
+- allows us to make standard issue checks and comparisons with individual non-connected blocks
+- each block type would have overrides on movement and transformation, with an external interface to block which allows public users to access and manipulate the block
+- would have some getState() function that returns the current coordinates of the block (maybe we can just access the field and modify directly (removes the need for coordinates as unique_ptr))
+
+
+**Disadvantages**
+- difficult to implement decay and effects, as blocks are more "static" as they are produced without consideration for different effects on the board
+  - decay:
+    - every end of turn, increment the age values of each of the blocks in the vector
+    - if age == limit && decays: set coordinates to -1
+  - heavy:
+    - this effect needs to be implemented in different ways depending on the way that it is called
+      - as an effect
+        - applyHeavy() is applied on left and right shifts only
+      - as a level
+        - applyHeavy() is applied on all moves (rotations and shifts)
+    - this means that some external class must handle transformations, that can be decorated with an effect
+      - at runtime, we apply a layer over the transformation wrapper class to handle the "next block" such that it overrides the original interpretation of commands
+      - the decorator takes in the current transformation wrapper as a unique_ptr
+        - in this case decorates a block? class since the block class handles block transformations in current implementation
+
 ### effects.o
 - parent class for various effects
 - contains:
@@ -115,3 +148,35 @@ block uses a pImpl that processes all computation of updating and checking wheth
 
 ### xwindow.o
 - logic for all graphical output (written by cs246 staff)
+
+
+
+**player:**
+- unqiue_ptr<Block> getNext();
+  - asks level to produce a new block
+- vector<char> getState();
+  - gets state from the abstract board
+- bool changeLvl(int newLvl);
+  - acutlaly should be 2 methods, one going up and one going down
+  - returns whether a level has been successfully changed (not sure if this is useful)
+
+contains:
+- **abstractboard**
+  - handles board functions that are overriden by the base class and decorator
+  - contains:
+    - **level:**
+      - 
+
+**abstractboard:**
+- virtual apply(Board &board) = 0;
+
+contains:
+- **board:**
+  - 
+- **effectdecorator:**
+  - shared_ptr<abstractboard> board
+  - virtual apply(Board &board) = 0;
+  - contains:
+    - **heavy:**
+      - apply(Board &board) override;
+        - 

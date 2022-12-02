@@ -2,20 +2,31 @@
 #define _BOARD_
 
 #include <memory>
-#include <vector>
 #include <string>
+#include "abstractboard.h"
+#include "block.h"
+#include "level.h"
 
-class Board
+class Board : public AbstractBoard
 {
     class BoardImpl;
     std::unique_ptr<BoardImpl> impl;
 
 public:
-    Board() noexcept;
+    Board(std::unique_ptr<Block> currBlock, std::unique_ptr<Block> nextBlock, std::unique_ptr<Level> lvl) noexcept;
     ~Board() noexcept;
 
-    std::vector<char> applyEffect(std::string effect); // applies the effect to current board
-    std::vector<char> getState();                      // returns the boardState
+    std::unique_ptr<Block> getBlock(char c) override;     // gets a new block based on level or c
+    void setBlock(std::unique_ptr<Block> block) override; // sets current block to block
+
+    std::vector<char> getState() override; // returns the boardState
+
+    void counterClockwise();
+    void clockwise();
+
+    void right() override;
+    void left() override;
+    void down() override;
 };
 
 #endif

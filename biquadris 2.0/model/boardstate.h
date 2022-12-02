@@ -7,8 +7,6 @@
 
 class BoardState final
 {
-    static const int width = 11;
-    static const int height = 18;
     std::vector<char> boardState;
     std::unique_ptr<Block> latestBlock;
 
@@ -20,7 +18,7 @@ public:
     void clearPiece(Coordinates &c); // clears the piece at c
 
     bool isSafe(std::vector<std::vector<int>> transform); // checks whether a transformation is safe
-    void addBlock(Block block);                           // adds a block to the boardState
+    void addBlock(Block& block);                           // adds a block to the boardState
 
     std::vector<char> getState(); // returns the boardState
 };

@@ -1,5 +1,7 @@
 #include "coordinates.h"
 
+#define width 11
+
 Coordinates::Coordinates(int x, int y) : x{x}, y{y} {}
 
 int Coordinates::index() { return ((width * y) + x); }

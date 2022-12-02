@@ -2,6 +2,7 @@
 #define _BLOCK_
 
 #include <memory>
+#include <vector>
 #include "coordinates.h"
 
 class Block
