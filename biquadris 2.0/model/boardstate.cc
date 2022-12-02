@@ -3,6 +3,7 @@
 #include "boardstate.h"
 #include "coordinates.h"
 #include "board.h"
+#include "../misc/exceptions.h"
 using namespace std;
 
 #define width 11
@@ -57,7 +58,7 @@ void BoardState::clearPiece(Coordinates &c)
 bool BoardState::isSafe(vector<vector<int>> transform)
 {
     vector<vector<int>> temp = currBlock->getCoords();
-  
+
     int len = temp.size();
     for (int i = 0; i < len; i++)
     {
@@ -84,7 +85,23 @@ bool BoardState::isSafe(vector<vector<int>> transform)
 
 void BoardState::addBlock(vector<vector<int>> transform)
 {
-    //latestBlock->update(transform);
+    if (isSafe(transform))
+    {
+        currBlock->update(transform);
+        char blockType = currBlock->getChar();
+        vector<vector<int>> temp = currBlock->getCoords();
+
+        int len = temp.size();
+        for (int i = 0; i < len; i++)
+        {
+            Coordinates coords(temp[i][0], temp[i][1]);
+            boardState[coords.index()] = blockType;
+        }
+    }
+    else
+    {
+        throw invalid_move();
+    }
 }
 
 std::vector<char> BoardState::getState()
@@ -114,15 +131,15 @@ void BoardState::clockwise()
 
 void BoardState::left()
 {
-    currBlock->left();
+    currBlock->shiftLeft();
 }
 
 void BoardState::right()
 {
-    currBlock->right();
+    currBlock->shiftRight();
 }
 
 void BoardState::down()
 {
-    currBlock->down();
+    currBlock->shiftDown();
 }

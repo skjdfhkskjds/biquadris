@@ -36,4 +36,12 @@ public:
     std::string getDefault(int type); // returns the default file for sequence 'type'
 };
 
+class invalid_move : public exception
+{
+
+public:
+    invalid_move();
+    std::string what();
+};
+
 #endif

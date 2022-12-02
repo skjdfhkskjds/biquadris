@@ -19,7 +19,7 @@ public:
     void clearRow(int row);          // clears the row and shifts all elements above it down
     void clearPiece(Coordinates &c); // clears the piece at c
 
-    bool isSafe(std::vector<std::vector<int>> transform);                 // checks whether a transformation is safe
+    bool isSafe(std::vector<std::vector<int>> transform);   // checks whether a transformation is safe
     void addBlock(std::vector<std::vector<int>> transform); // adds a block to the boardState
 
     std::vector<char> getState(); // returns the boardState
