@@ -57,20 +57,15 @@ void BoardState::clearPiece(Coordinates &c)
 bool BoardState::isSafe(vector<vector<int>> transform)
 {
     vector<vector<int>> temp = currBlock->getCoords();
-    vector<Coordinates> coords;
+  
     int len = temp.size();
     for (int i = 0; i < len; i++)
     {
-        Coordinates v(temp[i][0], temp[i][1]);
-        coords.emplace_back(v);
-    }
-    int i = 0;
-    for (auto coord : coords)
-    {
-        coords[i].update(transform[i][0], transform[i][1]);
-        int currIndex = coords[i].index();
-        int currX = coords[i].getX();
-        int currY = coords[i].getY();
+        Coordinates coords(temp[i][0], temp[i][1]);
+        coords.update(transform[i][0], transform[i][1]);
+        int currIndex = coords.index();
+        int currX = coords.getX();
+        int currY = coords.getY();
 
         // collision check at index of board
         if (boardState[currIndex] != ' ')
@@ -83,14 +78,13 @@ bool BoardState::isSafe(vector<vector<int>> transform)
         {
             return false;
         }
-        i++;
     }
     return true;
 }
 
 void BoardState::addBlock(vector<vector<int>> transform)
 {
-    latestBlock->update(transform);
+    //latestBlock->update(transform);
 }
 
 std::vector<char> BoardState::getState()
