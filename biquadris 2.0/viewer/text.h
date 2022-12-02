@@ -13,7 +13,6 @@ public:
     Text(std::vector<std::shared_ptr<Player>> players);
     ~Text();
     void notify() override;
-    void draw() override;
 };
 
 #endif
