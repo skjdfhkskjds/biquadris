@@ -28,12 +28,12 @@ public:
     std::vector<Coordinates &> getCoords(); // returns the block's coordinates
 
     // block transformations
-    void right(); // shifts the block right
-    void left();  // shifts the block left
-    void down();  // shifts the block down
+    void right();                // shifts the block right
+    void left();                 // shifts the block left
+    void down();                 // shifts the block down
+    void counterClockwise(); // rotates the block counter clockwise
 
-    virtual void counterClockwise() = 0; // rotates the block counter clockwise
-    virtual void clockwise() = 0;        // rotates the block clockwise
+    virtual void clockwise() = 0; // rotates the block clockwise
 
     void decay(); // decays the block
 };

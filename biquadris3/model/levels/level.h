@@ -7,9 +7,12 @@ class Level
 {
     int seed, lvl;
 public:
-    Level(int seed);
+    Level(int seed, int lvl);
 
-    virtual char generateBlock() = 0;
+    // getter methods
+    int getLvl(); // returns lvl
+
+    virtual char generateBlock() = 0; // generates a block
 };
 
 #endif

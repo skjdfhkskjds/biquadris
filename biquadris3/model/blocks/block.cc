@@ -59,6 +59,14 @@ void Block::down()
     update(changes);
 }
 
+void Block::counterClockwise()
+{
+    for (int i = 0; i < 3; i++)
+    {
+        clockwise();
+    }
+}
+
 void Block::decay()
 {
 

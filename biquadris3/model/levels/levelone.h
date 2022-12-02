@@ -1,14 +1,14 @@
-#ifndef _LEVELZERO_
-#define _LEVELZERO_
+#ifndef _LEVELONE_
+#define _LEVELONE_
 
 #include <vector>
 #include "level.h"
 
-class LevelZero : public Level
+class LevelOne : public Level
 {
     std::vector<char> sequence;
 public:
-    LevelZero(int seed, std::vector<char> sequence);
+    LevelOne(int seed, std::vector<char> sequence);
 
     char generateBlock() override;
 };

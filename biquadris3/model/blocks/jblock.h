@@ -1,17 +1,18 @@
-#ifndef _SBLOCK_
-#define _SBLOCK_
+#ifndef _JBLOCK_
+#define _JBLOCK_
 
 #include <vector>
 #include <map>
 #include <memory>
 #include "block.h"
 
-class SBlock final : public Block
+class JBlock : public Block
 {
     static std::map<int, std::vector<std::vector<int>>> rotationStates;
 public:
-    SBlock(int lvl) noexcept;
+    JBlock(int lvl) noexcept;
     void clockwise() override;
+    void decay();
 };
 
 #endif

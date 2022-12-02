@@ -1,16 +1,16 @@
-#ifndef _SBLOCK_
-#define _SBLOCK_
+#ifndef _TBLOCK_
+#define _TBLOCK_
 
 #include <vector>
 #include <map>
 #include <memory>
 #include "block.h"
 
-class SBlock final : public Block
+class TBlock : public Block
 {
     static std::map<int, std::vector<std::vector<int>>> rotationStates;
 public:
-    SBlock(int lvl) noexcept;
+    TBlock(int lvl) noexcept;
     void clockwise() override;
 };
 
