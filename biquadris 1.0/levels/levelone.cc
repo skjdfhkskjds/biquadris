@@ -13,6 +13,7 @@ using namespace std;
 
 unique_ptr<Block> LevelZero::blockGenerator()
 {
+    // use seed for srand time (from main)
     srand((unsigned)time(NULL));
     int random = rand() % 12;
     if (random == 0)
