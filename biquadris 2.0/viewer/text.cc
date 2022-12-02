@@ -82,7 +82,6 @@ void Text::notify()
     char p2Next = p2->getNext();
     for (int i = 0; i < 4; i++) {
         tbfp(p1Next, i);
-        cout << "       ";
         divider();
         tbfp(p2Next, i);
         cout << endl;
