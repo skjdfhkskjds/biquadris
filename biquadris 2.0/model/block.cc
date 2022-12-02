@@ -87,21 +87,21 @@ void Block::update(vector<vector<int>>& coordChanges)
     impl->update(coordChanges);
 }
 
-void Block::right() 
+void Block::shiftRight() 
 {
     //IMPLEMENT A COLLISION CHECK METHOD AND CALL IT BEFORE update
     vector<vector<int>> changes = {{1, 0}, {1, 0}, {1, 0}, {1, 0}};
     update(changes);
 }
 
-void Block::left() 
+void Block::shiftLeft() 
 {
     //IMPLEMENT A COLLISION CHECK METHOD AND CALL IT BEFORE update
     vector<vector<int>> changes = {{-1, 0}, {-1, 0}, {-1, 0}, {-1, 0}};
     update(changes);
 }
 
-void Block::down() 
+void Block::shiftDown() 
 {
     //IMPLEMENT A COLLISION CHECK METHOD AND CALL IT BEFORE update
     vector<vector<int>> changes = {{0, 1}, {0, 1}, {0, 1}, {0, 1}};

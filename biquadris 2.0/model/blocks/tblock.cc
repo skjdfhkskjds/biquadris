@@ -31,7 +31,7 @@ TBlock::TBlock() : Block{} {
     setChar('T');
     setCoords(coords);
 }
-void TBlock::rotateClockwise() 
+void TBlock::clockwise() 
 {
     //IMPLEMENT A COLLISION CHECK METHOD AND CALL IT BEFORE update
     int r = getState() % 4;
@@ -39,7 +39,7 @@ void TBlock::rotateClockwise()
     setState(getState() + 1);
 }
 
-void TBlock::rotateCounterClockwise() 
+void TBlock::counterClockwise() 
 {
     //IMPLEMENT A COLLISION CHECK METHOD AND CALL IT BEFORE update
     // 3 -> 2, 2 -> 1, 1 -> 0, 0 -> 3
