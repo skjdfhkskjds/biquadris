@@ -4,6 +4,9 @@
 #include <fstream>
 #include <exception>
 #include "commands.h"
+#include "../viewer/text.h"
+#include "../viewer/observer.h"
+#include "../viewer/graphics.h"
 #include <vector>
 #include "game.h"
 #include "../misc/exceptions.h"
@@ -55,6 +58,9 @@ int main(int argc, char **argv)
     Game bisexual(seq, seed, startLvl);
     string s;
     Commands commander;
+    if (graphics) {
+        
+    }
     while (cin >> s)
     {
         istringstream iss{s};
