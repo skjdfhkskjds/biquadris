@@ -1,0 +1,32 @@
+#ifndef _ABSBOARD_
+#define _ABSBOARD_
+
+#include <memory>
+#include <string>
+#include "../blocks/block.h"
+
+class AbstractBoard
+{
+public:
+    std::unique_ptr<AbstractBoard> component;
+
+    AbstractBoard(std::unique_ptr<AbstractBoard> component) noexcept;
+    ~AbstractBoard() noexcept;
+
+    // pure virtual getter methods
+    virtual char getNext() = 0;
+    virtual std::vector<char> getState();
+
+    // pure virtual block manipulation methods
+    virtual std::unique_ptr<Block> makeBlock(char c) = 0;
+    virtual void setBlock(std::unique_ptr<Block> block) = 0;
+
+    // pure virtual transform methods
+    virtual void counterClockwise() = 0;
+    virtual void clockwise() = 0;
+    virtual void right() = 0;
+    virtual void left() = 0;
+    virtual void down() = 0;
+};
+
+#endif

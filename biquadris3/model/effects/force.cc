@@ -1,0 +1,45 @@
+#include <memory>
+#include "force.h"
+#include "effectdecorator.h"
+
+using namespace std;
+
+Force::Force(unique_ptr<AbstractBoard> component, char forcedBlock) : forcedBlock{forcedBlock}, EffectDecorator{move(component)} {}
+
+void Force::apply()
+{
+    unique_ptr<Block> block = move(component->makeBlock(forcedBlock));
+    component->setBlock(move(block));
+}
+
+char Force::getNext() { return component->getNext(); }
+
+vector<char> Force::getState()
+{
+    return component->getState();
+}
+
+unique_ptr<Block> Force::makeBlock(char c)
+{
+    return component->makeBlock(c);
+}
+
+void Force::setBlock(unique_ptr<Block> block)
+{
+    component->setBlock(move(block));
+}
+
+void Force::left()
+{
+    component->left();
+}
+
+void Force::right()
+{
+    component->right();
+}
+
+void Force::down()
+{
+    component->down();
+}
