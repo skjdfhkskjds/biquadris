@@ -7,6 +7,7 @@
 #include "../viewer/text.h"
 #include "../viewer/observer.h"
 #include "../viewer/graphics.h"
+#include "../model/abstractboard.h"
 #include <vector>
 #include "game.h"
 #include "../misc/exceptions.h"
@@ -54,20 +55,20 @@ int main(int argc, char **argv)
     }
     seq.emplace_back(file1);
     seq.emplace_back(file2);
-
     Game bisexual(seq, seed, startLvl);
     string s;
     Commands commander;
     if (graphics) {
+        unique_ptr<AbstractBoard> abstractBoard1;
+        unique_ptr<AbstractBoard> abstractBoard2;
         
+
+
     }
     while (cin >> s)
     {
         istringstream iss{s};
         commander.interpret(s);
     }
-    if (graphics) {
-        //do stuff to create graphics;
-    }
-    //do stuff to create text
+
 }
