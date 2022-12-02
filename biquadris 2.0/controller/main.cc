@@ -4,6 +4,9 @@
 #include <fstream>
 #include <exception>
 #include "commands.h"
+#include "../viewer/text.h"
+#include "../viewer/observer.h"
+#include "../viewer/graphics.h"
 #include <vector>
 #include "game.h"
 #include "../misc/exceptions.h"
@@ -16,12 +19,12 @@ int main(int argc, char **argv)
     string file2 = "sequence2.txt";
     int seed = 0;
     int startLvl = 0;
-    bool Graphics = true;
+    bool graphics = true;
     for (int i = 0; i < argc; i++)
     {
         if (argv[i] == "-text")
         {
-            bool Graphics = false;
+            bool graphics = false;
         }
         else if (argv[i] == "-seed")
         {
@@ -54,9 +57,13 @@ int main(int argc, char **argv)
     Game bisexual(seq, seed, startLvl);
     string s;
     Commands commander;
+    if (graphics) {
+        
+    }
     while (cin >> s)
     {
         istringstream iss{s};
         commander.interpret(s);
     }
+
 }
