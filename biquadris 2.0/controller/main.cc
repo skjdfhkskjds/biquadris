@@ -2,48 +2,61 @@
 #include <string>
 #include <sstream>
 #include <fstream>
+#include <exception>
 #include "commands.h"
+#include <vector>
+#include "game.h"
+#include "../misc/exceptions.h"
 using namespace std;
 
 int main(int argc, char **argv)
-
 {
-    bool onlyText = false;
+    vector<string> seq;
+    string file1 = "sequence1.txt";
+    string file2 = "sequence2.txt";
+    int seed = 0;
+    int startLvl = 0;
+    bool Graphics = true;
     for (int i = 0; i < argc; i++)
     {
         if (argv[i] == "-text")
         {
-            bool onlyText = true;
+            bool Graphics = false;
         }
         else if (argv[i] == "-seed")
         {
             i++;
-            int seed = stoi(argv[i]);
+            seed = stoi(argv[i]);
         }
         else if (argv[i] == "-scriptfile")
         {
             i++;
-            ifstream file1{argv[i]};
+            file1 = argv[i];
         }
         else if (argv[i] == "-scriptfile2")
         {
             i++;
-            ifstream file2{argv[i]};
+            file2 = argv[i];
         }
         else if (argv[i] == "-startlevel")
         {
             i++;
-            int level = stoi(argv[i]);
+            startLvl = stoi(argv[i]);
         }
         else
-        { // show text and graphics
+        {
+            string command = argv[i];
+            throw command_not_found(command);
         }
     }
+    seq.emplace_back(file1);
+    seq.emplace_back(file2);
+    Game bisexual(seq, seed, startLvl);
     string s;
     Commands commander;
-    while (cin >> s) {
+    while (cin >> s)
+    {
         istringstream iss{s};
         commander.interpret(s);
     }
-
 }
