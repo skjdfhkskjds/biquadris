@@ -1,6 +1,20 @@
 #include <memory>
 #include "board.h"
 #include "../levels/level.h"
+#include "../levels/levelzero.h"
+#include "../levels/levelone.h"
+#include "../levels/leveltwo.h"
+#include "../levels/levelthree.h"
+#include "../levels/levelfour.h"
+#include "../blocks/block.h"
+#include "../blocks/iblock.h"
+#include "../blocks/jblock.h"
+#include "../blocks/lblock.h"
+#include "../blocks/oblock.h"
+#include "../blocks/sblock.h"
+#include "../blocks/tblock.h"
+#include "../blocks/zblock.h"
+
 #include "boardstate.h"
 
 using namespace std;

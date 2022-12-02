@@ -16,10 +16,13 @@ public:
     // boardstate manipulations
     bool checkRow(int row);
     void clearRow(int row);
+    int getScore(int row);
 
     // transformation modifiers
     bool isSafe(std::vector<std::vector<int>> transform);                 // checks whether a transformation is safe
     void addBlock(Block &block, std::vector<std::vector<int>> transform); // adds a block to the boardState
+
+    void placeBlock(std::unique_ptr<Block> block); // attaches the block to the "solid" state of the board
 
     // getter methods
     std::vector<char> getState(); // returns the boardState
