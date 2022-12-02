@@ -8,7 +8,7 @@ using namespace std;
 #define width 11
 #define height 18
 
-BoardState::BoardState() : latestBlock{nullptr} 
+BoardState::BoardState() : latestBlock{nullptr}
 {
     for (int i = 0; i < width * height; i++)
     {
@@ -21,7 +21,8 @@ bool BoardState::checkRow(int row)
     for (int x = 0; x < width; x++)
     {
         Coordinates toCheck{x, row};
-        if (boardState[toCheck.index()] == ' ') return false;
+        if (boardState[toCheck.index()] == ' ')
+            return false;
     }
     return true;
 }
@@ -55,14 +56,21 @@ void BoardState::clearPiece(Coordinates &c)
 
 bool BoardState::isSafe(vector<vector<int>> transform)
 {
-    vector<vector coords = latestBlock->getCoords();
-    int i = 0;
-    for (auto &&coord : coords)
+    vector<vector<int>> temp = latestBlock->getCoords();
+    vector<Coordinates> coords;
+    int len = temp.size();
+    for (int i = 0; i < len; i++)
     {
-        coords[i]->update(transform[i][0], transform[i][1]);
-        int currIndex = coords[i]->index();
-        int currX = coords[i]->getX();
-        int currY = coords[i]->getY();
+        Coordinates v(temp[i][0], temp[i][1]);
+        coords.emplace_back(v);
+    }
+    int i = 0;
+    for (auto coord : coords)
+    {
+        coords[i].update(transform[i][0], transform[i][1]);
+        int currIndex = coords[i].index();
+        int currX = coords[i].getX();
+        int currY = coords[i].getY();
 
         // collision check at index of board
         if (boardState[currIndex] != ' ')
@@ -80,17 +88,17 @@ bool BoardState::isSafe(vector<vector<int>> transform)
     return true;
 }
 
-void addBlock(std::unique_ptr<Block> block)
+void BoardState::addBlock(vector<vector<int>> transform)
 {
-
+    latestBlock->update(transform);
 }
 
-std::vector<char> BoardState::getState() 
+std::vector<char> BoardState::getState()
 {
     return boardState;
 }
 
-char BoardState::getNextBlockChar() 
+char BoardState::getNextBlockChar()
 {
     return nextBlock->getBlockChar();
 }

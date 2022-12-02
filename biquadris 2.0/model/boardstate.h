@@ -19,7 +19,7 @@ public:
     void clearPiece(Coordinates &c); // clears the piece at c
 
     bool isSafe(std::vector<std::vector<int>> transform); // checks whether a transformation is safe
-    void addBlock(Block& block);                           // adds a block to the boardState
+    void addBlock(Block& block, std::vector<std::vector<int>> transform); // adds a block to the boardState
 
     std::vector<char> getState(); // returns the boardState
     char getNextBlockChar(); //returns the typeof next Block
