@@ -17,6 +17,7 @@ struct Block::BlockImpl
     bool isSafe();
     void update(vector<vector<int>>& coordChanges);
     void setCoord(Coordinates& newCoord);
+    vector<vector<int>> getCoords();
 };
 
 Block::BlockImpl::BlockImpl(): blockType{0}, age{0}, ageLimit{-1}, rotationState{0} {};
@@ -24,6 +25,16 @@ Block::BlockImpl::BlockImpl(): blockType{0}, age{0}, ageLimit{-1}, rotationState
 Block::Block() : impl{new Block::BlockImpl} {}
 
 Block::~Block() = default;
+
+vector<vector<int>> Block::BlockImpl::getCoords() {
+    vector<vector<int>> v;
+    int len = coords.size();
+    for (int i = 0; i < len; i++) {
+        vector<int> vi = {coords[i]->getX(), coords[i]->getY()};
+        v.emplace_back(vi);
+    }
+    return v;
+}
 
 
 // check new coord safety right before update
@@ -100,5 +111,8 @@ void Block::shiftDown()
 }
 
 char Block::getBlockChar() {
-    return c;
+    return impl->c;
 }
+ vector<vector<int>> Block::getCoords() {
+    return impl->getCoords();
+ }
