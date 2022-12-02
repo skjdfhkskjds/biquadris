@@ -11,7 +11,7 @@ class TBlock : public Block
     static std::map<int, std::vector<std::vector<int>>> rotationStates;
 public:
     TBlock() noexcept;
-    void rotateCounterClockwise() override;
+    void counterClockwise() override;
     void rotateClockwise() override;
     void decay();
 };

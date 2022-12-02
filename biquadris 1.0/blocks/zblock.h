@@ -11,7 +11,7 @@ class ZBlock : public Block
     static std::map<int, std::vector<std::vector<int>>> rotationStates;
 public:
     ZBlock() noexcept;
-    void rotateCounterClockwise() override;
+    void counterClockwise() override;
     void rotateClockwise() override;
     void decay();
 };

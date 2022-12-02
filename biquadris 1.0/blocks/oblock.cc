@@ -41,7 +41,7 @@ void OBlock::rotateClockwise() //do nothing
     */
 }
 
-void OBlock::rotateCounterClockwise() //do nothing
+void OBlock::counterClockwise() //do nothing
 {
     //IMPLEMENT A COLLISION CHECK METHOD AND CALL IT BEFORE UPDATECOORDS
     // 3 -> 2, 2 -> 1, 1 -> 0, 0 -> 3

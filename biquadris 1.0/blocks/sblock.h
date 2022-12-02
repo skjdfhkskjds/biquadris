@@ -11,7 +11,7 @@ class SBlock final : public Block
     static std::map<int, std::vector<std::vector<int>>> rotationStates;
 public:
     SBlock() noexcept;
-    void rotateCounterClockwise() override;
+    void counterClockwise() override;
     void rotateClockwise() override;
 };
 

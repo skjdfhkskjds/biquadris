@@ -20,9 +20,9 @@ protected:
     void update(std::vector<std::vector<int>>& coordChanges);
 
 public:
-    void right();
-    void left();
-    void down();
+    void shiftRight();
+    void shiftLeft();
+    void shiftDown();
     void decay();
 
     virtual void counterClockwise() = 0;

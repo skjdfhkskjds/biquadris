@@ -18,7 +18,7 @@ protected:
     bool isSafe();
     void updateCoords(std::vector<std::vector<int>>& coordChanges);
 
-    virtual void rotateCounterClockwise() = 0;
+    virtual void counterClockwise() = 0;
     virtual void rotateClockwise() = 0;
     
     void shiftRight();

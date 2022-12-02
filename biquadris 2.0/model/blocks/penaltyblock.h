@@ -7,8 +7,8 @@ class PenaltyBlock : public Block
 {
 public:
     PenaltyBlock();
-    void rotateCounterClockwise() override;
-    void rotateClockwise() override;
+    void counterClockwise() override;
+    void clockwise() override;
     void decay();
 };
 
