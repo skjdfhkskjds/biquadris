@@ -1,6 +1,7 @@
 #include <memory>
 #include <vector>
 #include "boardstate.h"
+#include "coordinates.h"
 
 #define width 11
 #define height 18
@@ -48,4 +49,16 @@ void BoardState::clearRow(int row)
 void BoardState::clearPiece(Coordinates &c)
 {
     boardState[c.index()] = ' ';
+}
+
+bool BoardState::isSafe(std::vector<std::vector<int>> transform) {
+
+}
+
+std::vector<char> BoardState::getState() {
+    return boardState;
+}
+
+char BoardState::getNextBlockChar() {
+    return nextBlock->getBlockChar();
 }

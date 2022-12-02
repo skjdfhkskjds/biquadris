@@ -4,6 +4,7 @@
 #include <memory>
 #include <vector>
 #include "coordinates.h"
+#include <vector>
 
 class Block
 {
@@ -21,15 +22,16 @@ protected:
 
     virtual void rotateCounterClockwise() = 0;
     virtual void rotateClockwise() = 0;
-    
+public:
     void shiftRight();
     void shiftLeft();
     void shiftDown();
     void decay();
 
-public:
     Block() noexcept;
     ~Block() noexcept;
+    char getBlockChar();
+    std::vector<std::vector<int>> getCoords();
 };
 
 #endif

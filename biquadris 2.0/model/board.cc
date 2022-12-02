@@ -65,3 +65,7 @@ void Board::down()
 {
 
 }
+
+char Board::getNextBlockChar() {
+    return impl->boardState->getNextBlockChar();
+}

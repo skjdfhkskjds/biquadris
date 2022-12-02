@@ -9,6 +9,7 @@ class BoardState final
 {
     std::vector<char> boardState;
     std::unique_ptr<Block> latestBlock;
+    std::unique_ptr<Block> nextBlock;
 
 public:
     BoardState() noexcept;
@@ -21,6 +22,7 @@ public:
     void addBlock(Block& block);                           // adds a block to the boardState
 
     std::vector<char> getState(); // returns the boardState
+    char getNextBlockChar(); //returns the typeof next Block
 };
 
 #endif

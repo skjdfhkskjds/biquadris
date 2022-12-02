@@ -27,6 +27,7 @@ public:
     void right() override;
     void left() override;
     void down() override;
+    char getNextBlockChar();
 };
 
 #endif
