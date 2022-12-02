@@ -3,12 +3,12 @@
 
 #include <memory>
 #include "coordinates.h"
+#include <vector>
 
 class Block
 {
     class BlockImpl;
     std::unique_ptr<BlockImpl> impl;
-    char c;
 
 protected:
     int getState();
@@ -31,6 +31,7 @@ public:
     Block() noexcept;
     ~Block() noexcept;
     char getBlockChar();
+    std::vector<std::vector<int>> getCoords();
 };
 
 #endif
