@@ -3,10 +3,12 @@
 #include "boardstate.h"
 #include "coordinates.h"
 #include "board.h"
-
 using namespace std;
 
-BoardState::BoardState() : latestBlock{nullptr}
+#define width 11
+#define height 18
+
+BoardState::BoardState() : latestBlock{nullptr} 
 {
     for (int i = 0; i < width * height; i++)
     {
@@ -19,8 +21,7 @@ bool BoardState::checkRow(int row)
     for (int x = 0; x < width; x++)
     {
         Coordinates toCheck{x, row};
-        if (boardState[toCheck.index()] == ' ')
-            return false;
+        if (boardState[toCheck.index()] == ' ') return false;
     }
     return true;
 }
@@ -84,12 +85,12 @@ void addBlock(std::unique_ptr<Block> block)
 
 }
 
-std::vector<char> BoardState::getState()
+std::vector<char> BoardState::getState() 
 {
     return boardState;
 }
 
-char BoardState::getNextBlockChar()
+char BoardState::getNextBlockChar() 
 {
     return nextBlock->getBlockChar();
 }
