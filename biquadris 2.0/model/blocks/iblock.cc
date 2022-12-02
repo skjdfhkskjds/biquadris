@@ -39,7 +39,7 @@ void IBlock::rotateClockwise()
     setState(getState() + 1);
 }
 
-void IBlock::rotateCounterClockwise() 
+void IBlock::counterClockwise() 
 {
     //IMPLEMENT A COLLISION CHECK METHOD AND CALL IT BEFORE update
     // 3 -> 2, 2 -> 1, 1 -> 0, 0 -> 3

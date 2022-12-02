@@ -40,7 +40,7 @@ void ZBlock::rotateClockwise()
     setState(getState() + 1);
 }
 
-void ZBlock::rotateCounterClockwise() 
+void ZBlock::counterClockwise() 
 {
     //IMPLEMENT A COLLISION CHECK METHOD AND CALL IT BEFORE UPDATECOORDS
     // 3 -> 2, 2 -> 1, 1 -> 0, 0 -> 3

@@ -39,7 +39,7 @@ void LBlock::rotateClockwise()
     setState(getState() + 1);
 }
 
-void LBlock::rotateCounterClockwise() 
+void LBlock::counterClockwise() 
 {
     //IMPLEMENT A COLLISION CHECK METHOD AND CALL IT BEFORE UPDATECOORDS
     // 3 -> 2, 2 -> 1, 1 -> 0, 0 -> 3

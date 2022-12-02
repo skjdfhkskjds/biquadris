@@ -33,7 +33,7 @@ SBlock::SBlock() : Block{} {
     setCoords(coords);
 }
 
-void SBlock::rotateClockwise() 
+void SBlock::clockwise() 
 {
     //IMPLEMENT A COLLISION CHECK METHOD AND CALL IT BEFORE update
     int r = getState() % 4;
@@ -41,7 +41,7 @@ void SBlock::rotateClockwise()
     setState(getState() + 1);
 }
 
-void SBlock::rotateCounterClockwise() 
+void SBlock::counterClockwise() 
 {
     //IMPLEMENT A COLLISION CHECK METHOD AND CALL IT BEFORE update
     // 3 -> 2, 2 -> 1, 1 -> 0, 0 -> 3
