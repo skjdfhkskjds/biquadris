@@ -1,3 +1,5 @@
 #include "level.h"
 
-Level::Level(int startLvl) {}
+Level::Level() {}
+
+Level::~Level() = default;

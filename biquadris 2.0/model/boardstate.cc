@@ -8,7 +8,7 @@ using namespace std;
 #define width 11
 #define height 18
 
-BoardState::BoardState() : latestBlock{nullptr}
+BoardState::BoardState(unique_ptr<Block> currBlock, unique_ptr<Block> nextBlock) : currBlock{move(currBlock)}, nextBlock{move(nextBlock)}
 {
     for (int i = 0; i < width * height; i++)
     {
@@ -56,7 +56,7 @@ void BoardState::clearPiece(Coordinates &c)
 
 bool BoardState::isSafe(vector<vector<int>> transform)
 {
-    vector<vector<int>> temp = latestBlock->getCoords();
+    vector<vector<int>> temp = currBlock->getCoords();
     vector<Coordinates> coords;
     int len = temp.size();
     for (int i = 0; i < len; i++)
@@ -98,7 +98,37 @@ std::vector<char> BoardState::getState()
     return boardState;
 }
 
-char BoardState::getNextBlockChar()
+char BoardState::getNext()
 {
-    return nextBlock->getBlockChar();
+    return nextBlock->getChar();
+}
+
+void BoardState::setBlock(unique_ptr<Block> block)
+{
+    currBlock = move(block);
+}
+
+void BoardState::counterClockwise()
+{
+    currBlock->counterClockwise();
+}
+
+void BoardState::clockwise()
+{
+    currBlock->clockwise();
+}
+
+void BoardState::left()
+{
+    currBlock->left();
+}
+
+void BoardState::right()
+{
+    currBlock->right();
+}
+
+void BoardState::down()
+{
+    currBlock->down();
 }

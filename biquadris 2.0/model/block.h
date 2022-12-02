@@ -19,18 +19,18 @@ protected:
     bool isSafe();
     void update(std::vector<std::vector<int>>& coordChanges);
 
-    virtual void rotateCounterClockwise() = 0;
-    virtual void rotateClockwise() = 0;
-    
 public:
-    void shiftRight();
-    void shiftLeft();
-    void shiftDown();
+    void right();
+    void left();
+    void down();
     void decay();
+
+    virtual void counterClockwise() = 0;
+    virtual void clockwise() = 0;
 
     Block() noexcept;
     ~Block() noexcept;
-    char getBlockChar();
+    char getChar();
     std::vector<std::vector<int>> getCoords();
 };
 

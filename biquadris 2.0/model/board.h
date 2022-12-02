@@ -13,7 +13,7 @@ class Board : public AbstractBoard
     std::unique_ptr<BoardImpl> impl;
 
 public:
-    Board(std::unique_ptr<Block> currBlock, std::unique_ptr<Block> nextBlock, std::unique_ptr<Level> lvl) noexcept;
+    Board(std::unique_ptr<Level> lvl, std::unique_ptr<Block> currBlock, std::unique_ptr<Block> nextBlock) noexcept;
     ~Board() noexcept;
 
     std::unique_ptr<Block> getBlock(char c) override;     // gets a new block based on level or c
@@ -21,13 +21,14 @@ public:
 
     std::vector<char> getState() override; // returns the boardState
 
-    void counterClockwise();
-    void clockwise();
+    void counterClockwise(); // rotates the block counter clockwise
+    void clockwise();        // rotates the block clockwise
 
-    void right() override;
-    void left() override;
-    void down() override;
-    char getNextBlockChar();
+    void right() override; // shifts the block right
+    void left() override;  // shifts the block left
+    void down() override;  // shifts the block down
+
+    char getNext(); // returns the next block's char
 };
 
 #endif

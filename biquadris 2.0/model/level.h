@@ -6,7 +6,7 @@
 class Level
 {
 public:
-    Level(int startLvl);
+    Level();
     virtual ~Level();
     virtual std::unique_ptr<Block> blockGenerator() = 0;
 };

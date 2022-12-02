@@ -8,7 +8,7 @@ using namespace std;
 struct Block::BlockImpl
 {
     vector<unique_ptr<Coordinates>> coords;
-    int blockType, age, ageLimit, rotationState;
+    int blockType, age, maxAge, rotationState;
     char c;
 
     BlockImpl();
@@ -20,7 +20,7 @@ struct Block::BlockImpl
     vector<vector<int>> getCoords();
 };
 
-Block::BlockImpl::BlockImpl(): blockType{0}, age{0}, ageLimit{-1}, rotationState{0} {};
+Block::BlockImpl::BlockImpl(): blockType{0}, age{0}, maxAge{-1}, rotationState{0} {};
 
 Block::Block() : impl{new Block::BlockImpl} {}
 
@@ -36,9 +36,7 @@ vector<vector<int>> Block::BlockImpl::getCoords() {
     return v;
 }
 
-
 // check new coord safety right before update
-
 bool Block::BlockImpl::isSafe()
 {
     // check if any part of the piece is off the board first
@@ -89,28 +87,28 @@ void Block::update(vector<vector<int>>& coordChanges)
     impl->update(coordChanges);
 }
 
-void Block::shiftRight() 
+void Block::right() 
 {
     //IMPLEMENT A COLLISION CHECK METHOD AND CALL IT BEFORE update
     vector<vector<int>> changes = {{1, 0}, {1, 0}, {1, 0}, {1, 0}};
     update(changes);
 }
 
-void Block::shiftLeft() 
+void Block::left() 
 {
     //IMPLEMENT A COLLISION CHECK METHOD AND CALL IT BEFORE update
     vector<vector<int>> changes = {{-1, 0}, {-1, 0}, {-1, 0}, {-1, 0}};
     update(changes);
 }
 
-void Block::shiftDown() 
+void Block::down() 
 {
     //IMPLEMENT A COLLISION CHECK METHOD AND CALL IT BEFORE update
     vector<vector<int>> changes = {{0, 1}, {0, 1}, {0, 1}, {0, 1}};
     update(changes);
 }
 
-char Block::getBlockChar() {
+char Block::getChar() {
     return impl->c;
 }
  vector<vector<int>> Block::getCoords() {
