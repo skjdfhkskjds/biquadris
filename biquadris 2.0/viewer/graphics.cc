@@ -26,10 +26,23 @@ public:
 map<int,char> Graphics::getDeltas(int p) {  // takes int p, 0 for player1, 1 for player2
     map<int,char> deltas;
     for(int i = 0; i < width * height; i++) {
-        char curr = newStates[p][i]''
+        char curr = newStates[p][i];
         if (curr != oldStates[p][i]) {
-            map[i] = curr;
+            deltas[i] = curr;
         }
+    }
+    oldStates[p] = newStates[p];
+}
+
+void Graphics::notify() {
+    map<int,char> p1Deltas = getDeltas(0);
+    map<int,char> p2Deltas = getDeltas(1);
+    //something render deltas
+    for (auto i : p1Deltas) {
+        //render i.second at i.first
+    }
+    for (auto i : p2Deltas) {
+        //render i.second at i.first
     }
 }
 

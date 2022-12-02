@@ -1,4 +1,3 @@
-
 #include <memory>
 #include "board.h"
 #include "../levels/level.h"
@@ -15,16 +14,42 @@ struct Board::BoardImpl
     unique_ptr<Block> makeBlock(char c);    // makes block of type c
     void setBlock(unique_ptr<Block> block); // sets currBlock to block
 
-    BoardImpl(int startLvl);
+    BoardImpl(int startLvl, int seed);
 };
 
-Board::BoardImpl::BoardImpl(int startLvl)
+Board::BoardImpl::BoardImpl(int startLvl, int seed)
 {
-    lvl = make_unique<Level>(startLvl);
-    char curr = lvl->generateBlock();
-    char next = lvl->generateBlock();
-    currBlock = move(makeBlock(curr));
-    nextBlock = move(makeBlock(next));
+    lvl = make_unique<Level>(startLvl, seed);
+    switch(startLvl)
+    {
+        case 0:
+        {
+            lvl = make_unique<LevelZero>(seed);
+            break;
+        }
+        case 1:
+        {
+            lvl = make_unique<LevelOne>(seed);
+            break;
+        }
+        case 2:
+        {
+            lvl = make_unique<LevelTwo>(seed);
+            break;
+        }
+        case 3:
+        {
+            lvl = make_unique<LevelThree>(seed);
+            break;
+        }
+        case 4:
+        {
+            lvl = make_unique<LevelFour>(seed);
+            break;
+        }
+    }
+    currBlock = move(makeBlock(lvl->generateBlock()));
+    nextBlock = move(makeBlock(lvl->generateBlock()));
 }
 
 unique_ptr<Block> Board::BoardImpl::makeBlock(char c)
@@ -34,37 +59,37 @@ unique_ptr<Block> Board::BoardImpl::makeBlock(char c)
     {
         case 'I':
         {
-            newBlock = make_unique<IBlock>();
+            newBlock = make_unique<IBlock>(lvl->getLvl());
             break;
         }
         case 'J':
         {
-            newBlock = make_unique<JBlock>();
+            newBlock = make_unique<JBlock>(lvl->getLvl());
             break;
         }
         case 'L':
         {
-            newBlock = make_unique<LBlock>();
+            newBlock = make_unique<LBlock>(lvl->getLvl());
             break;
         }
         case 'O':
         {
-            newBlock = make_unique<OBlock>();
+            newBlock = make_unique<OBlock>(lvl->getLvl());
             break;
         }
         case 'S':
         {
-            newBlock = make_unique<SBlock>();
+            newBlock = make_unique<SBlock>(lvl->getLvl());
             break;
         }
         case 'Z':
         {
-            newBlock = make_unique<ZBlock>();
+            newBlock = make_unique<ZBlock>(lvl->getLvl());
             break;
         }
         case 'T':
         {
-            newBlock = make_unique<TBlock>();
+            newBlock = make_unique<TBlock>(lvl->getLvl());
             break;
         }
         default:
@@ -79,37 +104,37 @@ void Board::BoardImpl::setBlock(unique_ptr<Block> block)
     currBlock = move(block);
 }
 
-Board::Board(int startLvl) : AbstractBoard{nullptr}, impl{make_unique<BoardImpl>(startLvl)} {}
+Board::Board(int startLvl, int seed) : AbstractBoard{nullptr}, impl{make_unique<BoardImpl>(startLvl, seed)} {}
 
 unique_ptr<Block> Board::makeBlock(char c) { impl->makeBlock(c); }
 
 void Board::setBlock(unique_ptr<Block> block) { impl->setBlock(move(block)); }
 
-vector<char> Board::getState() { return impl->state->state; }
+vector<char> Board::getState() { return impl->state->getState(); }
 
 char Board::getNext() { return impl->nextBlock->getChar(); }
 
 void Board::counterClockwise()
 {
-    impl->state->counterClockwise();
+    impl->currBlock = impl->state->counterClockwise(move(impl->currBlock));
 }
 
 void Board::clockwise()
 {
-    impl->state->clockwise();
+    impl->currBlock = impl->state->clockwise(move(impl->currBlock));
 }
 
 void Board::left()
 {
-    impl->state->left();
+    impl->currBlock = impl->state->left(move(impl->currBlock));
 }
 
 void Board::right()
 {
-    impl->state->right();
+    impl->currBlock = impl->state->right(move(impl->currBlock));
 }
 
 void Board::down()
 {
-    impl->state->down();
+    impl->currBlock = impl->state->down(move(impl->currBlock));
 }
