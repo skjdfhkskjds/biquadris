@@ -16,12 +16,12 @@ int main(int argc, char **argv)
     string file2 = "sequence2.txt";
     int seed = 0;
     int startLvl = 0;
-    bool Graphics = true;
+    bool graphics = true;
     for (int i = 0; i < argc; i++)
     {
         if (argv[i] == "-text")
         {
-            bool Graphics = false;
+            bool graphics = false;
         }
         else if (argv[i] == "-seed")
         {
@@ -51,6 +51,7 @@ int main(int argc, char **argv)
     }
     seq.emplace_back(file1);
     seq.emplace_back(file2);
+
     Game bisexual(seq, seed, startLvl);
     string s;
     Commands commander;
@@ -59,4 +60,8 @@ int main(int argc, char **argv)
         istringstream iss{s};
         commander.interpret(s);
     }
+    if (graphics) {
+        //do stuff to create graphics;
+    }
+    //do stuff to create text
 }
