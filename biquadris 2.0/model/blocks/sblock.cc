@@ -15,8 +15,8 @@ int right = 1;
 map<int, vector<vector<int>>> SBlock::rotationStates = {
     {0, {{0, up*2}, {left, up}, {0, 0}, {left, down}}},
     {1, {{0, down*2}, {right, down}, {0, 0}, {right, up}}},
-    {3, {{0, up*2}, {left, up}, {0, 0}, {left, down}}},
-    {4, {{0, down*2}, {right, down}, {0, 0}, {right, up}}}
+    {2, {{0, up*2}, {left, up}, {0, 0}, {left, down}}},
+    {3, {{0, down*2}, {right, down}, {0, 0}, {right, up}}}
 };
 
 SBlock::SBlock() : Block{} {

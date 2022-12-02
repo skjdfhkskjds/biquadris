@@ -2,11 +2,11 @@
 #include <vector>
 #include "boardstate.h"
 #include "coordinates.h"
+#include "board.h"
+`
+using namespace std;
 
-#define width 11
-#define height 18
-
-BoardState::BoardState() : latestBlock{nullptr} 
+BoardState::BoardState() : latestBlock{nullptr}
 {
     for (int i = 0; i < width * height; i++)
     {
@@ -19,7 +19,8 @@ bool BoardState::checkRow(int row)
     for (int x = 0; x < width; x++)
     {
         Coordinates toCheck{x, row};
-        if (boardState[toCheck.index()] == ' ') return false;
+        if (boardState[toCheck.index()] == ' ')
+            return false;
     }
     return true;
 }
@@ -51,14 +52,44 @@ void BoardState::clearPiece(Coordinates &c)
     boardState[c.index()] = ' ';
 }
 
-bool BoardState::isSafe(std::vector<std::vector<int>> transform) {
+bool BoardState::isSafe(vector<vector<int>> transform)
+{
+    vector<vector coords = latestBlock->getCoords();
+    int i = 0;
+    for (auto &&coord : coords)
+    {
+        coords[i]->update(transform[i][0], transform[i][1]);
+        int currIndex = coords[i]->index();
+        int currX = coords[i]->getX();
+        int currY = coords[i]->getY();
+
+        // collision check at index of board
+        if (boardState[currIndex] != ' ')
+        {
+            return false;
+        }
+
+        // check if block is out of bounds
+        if (currX < 0 || currX > width || currY < 0 || currY > height)
+        {
+            return false;
+        }
+        i++;
+    }
+    return true;
+}
+
+void addBlock(std::unique_ptr<Block> block)
+{
 
 }
 
-std::vector<char> BoardState::getState() {
+std::vector<char> BoardState::getState()
+{
     return boardState;
 }
 
-char BoardState::getNextBlockChar() {
+char BoardState::getNextBlockChar()
+{
     return nextBlock->getBlockChar();
 }
