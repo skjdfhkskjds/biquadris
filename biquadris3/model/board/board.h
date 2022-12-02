@@ -12,7 +12,7 @@ class Board : public AbstractBoard
     std::unique_ptr<BoardImpl> impl;
 
 public:
-    Board(int startLvl) noexcept;
+    Board(int startLvl, int seed) noexcept;
     ~Board() noexcept;
 
     std::unique_ptr<Block> makeBlock(char c) override;    // makes a new block based on level or c
