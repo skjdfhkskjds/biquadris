@@ -35,6 +35,8 @@ int Block::getState() { return impl->rotationState; }
 
 char Block::getChar() { return impl->c; }
 
+int Block::getLvl() { return impl->lvl; }
+
 vector<Coordinates &> Block::getCoords() { return impl->coords; }
 
 void Block::setCoords(std::vector<Coordinates> &coords) { }

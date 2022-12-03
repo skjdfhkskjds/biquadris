@@ -10,6 +10,8 @@ class BoardState
     std::vector<char> state;
     std::vector<std::unique_ptr<Block>> placed;
 
+    Coordinates & clearPiece(Coordinates &target); // removes the piece at target
+
 public:
     BoardState();
 

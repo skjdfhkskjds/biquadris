@@ -7,15 +7,17 @@ Coordinates::Coordinates(int x, int y) : x{x}, y{y} {}
 
 int Coordinates::index() { return ((width * y) + x); }
 
-void Coordinates::update(int x2, int y2)
+void Coordinates::update(int deltaX, int deltaY)
 {
-    x = x2;
-    y = y2;
+    x += deltaX;
+    y += deltaY;
 }
 
 int Coordinates::getX() { return x; }
 
 int Coordinates::getY() { return y; }
+
+bool Coordinates::removed() { return (x == -1 && y == -1); }
 
 void Coordinates::print()
 {

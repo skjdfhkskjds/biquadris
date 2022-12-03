@@ -26,12 +26,13 @@ public:
     // getter methods
     char getChar();                         // returns the block's char
     std::vector<Coordinates &> getCoords(); // returns the block's coordinates
+    int getLvl();                           // returns the level that the block was made
 
     // block transformations
-    void right();                // shifts the block right
-    void left();                 // shifts the block left
-    void down();                 // shifts the block down
-    void counterClockwise(); // rotates the block counter clockwise
+    void right();            // shifts the block right
+    void left();             // shifts the block left
+    void down();             // shifts the block down
+    void counterClockwise(); // rotates the block counters clockwise
 
     virtual void clockwise() = 0; // rotates the block clockwise
 
