@@ -15,7 +15,15 @@ map<int, vector<vector<int>>> SBlock::rotationStates = {
     {0, {{0, up * 2}, {left, up}, {0, 0}, {left, down}}},
     {1, {{0, down * 2}, {right, down}, {0, 0}, {right, up}}},
     {2, {{0, up * 2}, {left, up}, {0, 0}, {left, down}}},
-    {3, {{0, down * 2}, {right, down}, {0, 0}, {right, up}}}};
+    {3, {{0, down * 2}, {right, down}, {0, 0}, {right, up}}}
+};
+
+map<int, vector<vector<int>>> SBlock::spawnStates = {
+    {0, {{0, 3}, {1,3}, {1,2}, {2,2}}},
+    {1, {{0,1},{0,2},{1,2},{1,3}}},
+    {2, {{0, 3}, {1,3}, {1,2}, {2,2}}},
+    {3, {{0,1},{0,2},{1,2},{1,3}}}
+};
 
 SBlock::SBlock(int lvl) : Block{'S', lvl}
 {
@@ -29,7 +37,7 @@ SBlock::SBlock(int lvl) : Block{'S', lvl}
     coords.emplace_back(c);
     coords.emplace_back(d);
     setCoords(coords);
-}
+};
 
 void SBlock::clockwise()
 {
