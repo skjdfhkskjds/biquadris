@@ -9,6 +9,7 @@
 class JBlock : public Block
 {
     static std::vector<std::map<int, std::vector<std::vector<int>>>> rotationStates;
+    static std::map<int, std::vector<std::vector<int>>> spawnStates;
 public:
     JBlock(int lvl) noexcept;
 
