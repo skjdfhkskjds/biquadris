@@ -17,6 +17,13 @@ map<int, vector<vector<int>>> OBlock::rotationStates = {
     {2, {{0, down}, {0, down}, {0, down}, {0, down}}},
     {3, {{left, 0}, {left, 0}, {left, 0}, {left, 0}}}};
 
+map<int, vector<vector<int>>> OBlock::spawnStates = {
+    {0, {{0,2},{1,2},{0,3},{1,3}}},
+    {1, {{0,2},{1,2},{0,3},{1,3}}},
+    {2, {{0,2},{1,2},{0,3},{1,3}}},
+    {3, {{0,2},{1,2},{0,3},{1,3}}}
+};
+
 OBlock::OBlock(int lvl) : Block{'O', lvl}
 {
     vector<Coordinates> coords;

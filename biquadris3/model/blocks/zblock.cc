@@ -18,6 +18,13 @@ map<int, vector<vector<int>>> ZBlock::rotationStates = {
     {2, {{right, up}, {0, 0}, {left, up}, {2 * left, 0}}},
     {3, {{left, down}, {0, 0}, {right, down}, {2 * right, 0}}}};
 
+map<int, vector<vector<int>>> ZBlock::spawnStates = {
+    {0, {{0,2},{1,2},{1,3},{2,3}}},
+    {1, {{1,1},{1,2},{0,2},{0,3}}},
+    {2, {{0,2},{1,2},{1,3},{2,3}}},
+    {3, {{1,1},{1,2},{0,2},{0,3}}},
+};
+
 ZBlock::ZBlock(int lvl) : Block{'Z', lvl}
 {
     vector<Coordinates> coords;
