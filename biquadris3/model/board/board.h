@@ -15,8 +15,9 @@ public:
     Board(int startLvl, int seed) noexcept;
     ~Board() noexcept;
 
-    std::unique_ptr<Block> makeBlock(char c) override;    // makes a new block based on level or c
-    void setBlock(std::unique_ptr<Block> block) override; // sets current block to block
+    std::shared_ptr<Block> makeBlock(char c) override;     // makes a new block based on level or c
+    void setBlock(std::shared_ptr<Block> &block) override; // sets current block to block
+    void setLevel(int level) override;                     // sets the current level to level
 
     // getter methods
     std::vector<char> getState() override; // returns the boardState

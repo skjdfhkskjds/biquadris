@@ -35,3 +35,15 @@ string file_not_found::getDefault(int type)
 {
     return (type == 1) ? sequence1 : sequence2;
 }
+
+invalid_level::invalid_level(int level) : level{level} {}
+
+string invalid_level::what()
+{
+    return "invalid level change, you are already at level: " + level;
+}
+
+string invalid_move::what()
+{
+    return "invalid move.";
+}

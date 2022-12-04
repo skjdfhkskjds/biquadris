@@ -21,108 +21,127 @@ using namespace std;
 
 struct Board::BoardImpl
 {
+    int seed;
     unique_ptr<Level> lvl;
     unique_ptr<BoardState> state;
-    unique_ptr<Block> currBlock, nextBlock;
+    shared_ptr<Block> currBlock, nextBlock;
 
-    unique_ptr<Block> makeBlock(char c);    // makes block of type c
-    void setBlock(unique_ptr<Block> block); // sets currBlock to block
+    shared_ptr<Block> makeBlock(char c);       // makes block of type c
+    unique_ptr<Level> makeLevel(int startLvl); // makes a lvl level
+
+    void setBlock(shared_ptr<Block> &block); // sets currBlock to block
+    void setLevel(int level);                // sets lvl to level
 
     BoardImpl(int startLvl, int seed);
 };
 
-Board::BoardImpl::BoardImpl(int startLvl, int seed)
+unique_ptr<Level> Board::BoardImpl::makeLevel(int startLvl)
 {
-    lvl = make_unique<Level>(startLvl, seed);
-    switch(startLvl)
+    unique_ptr<Level> level;
+    switch (startLvl)
     {
-        case 0:
-        {
-            lvl = make_unique<LevelZero>(seed);
-            break;
-        }
-        case 1:
-        {
-            lvl = make_unique<LevelOne>(seed);
-            break;
-        }
-        case 2:
-        {
-            lvl = make_unique<LevelTwo>(seed);
-            break;
-        }
-        case 3:
-        {
-            lvl = make_unique<LevelThree>(seed);
-            break;
-        }
-        case 4:
-        {
-            lvl = make_unique<LevelFour>(seed);
-            break;
-        }
+    case 0:
+    {
+        level = make_unique<LevelZero>(seed);
+        break;
     }
+    case 1:
+    {
+        level = make_unique<LevelOne>(seed);
+        break;
+    }
+    case 2:
+    {
+        level = make_unique<LevelTwo>(seed);
+        break;
+    }
+    case 3:
+    {
+        level = make_unique<LevelThree>(seed);
+        break;
+    }
+    case 4:
+    {
+        level = make_unique<LevelFour>(seed);
+        break;
+    }
+    }
+    return move(level);
+}
+
+Board::BoardImpl::BoardImpl(int startLvl, int seed) : seed{seed}
+{
+    lvl = makeLevel(startLvl);
+
     currBlock = move(makeBlock(lvl->generateBlock()));
     nextBlock = move(makeBlock(lvl->generateBlock()));
 }
 
-unique_ptr<Block> Board::BoardImpl::makeBlock(char c)
+shared_ptr<Block> Board::BoardImpl::makeBlock(char c)
 {
-    unique_ptr<Block> newBlock;
-    switch(c)
+    shared_ptr<Block> newBlock;
+    switch (c)
     {
-        case 'I':
-        {
-            newBlock = make_unique<IBlock>(lvl->getLvl());
-            break;
-        }
-        case 'J':
-        {
-            newBlock = make_unique<JBlock>(lvl->getLvl());
-            break;
-        }
-        case 'L':
-        {
-            newBlock = make_unique<LBlock>(lvl->getLvl());
-            break;
-        }
-        case 'O':
-        {
-            newBlock = make_unique<OBlock>(lvl->getLvl());
-            break;
-        }
-        case 'S':
-        {
-            newBlock = make_unique<SBlock>(lvl->getLvl());
-            break;
-        }
-        case 'Z':
-        {
-            newBlock = make_unique<ZBlock>(lvl->getLvl());
-            break;
-        }
-        case 'T':
-        {
-            newBlock = make_unique<TBlock>(lvl->getLvl());
-            break;
-        }
-        default:
-            // handle c isn't a block
-            break;
+        int level = lvl->getLvl();
+    case 'I':
+    {
+        newBlock = make_shared<IBlock>(level);
+        break;
     }
-    return move(newBlock);
+    case 'J':
+    {
+        newBlock = make_shared<JBlock>(level);
+        break;
+    }
+    case 'L':
+    {
+        newBlock = make_shared<LBlock>(level);
+        break;
+    }
+    case 'O':
+    {
+        newBlock = make_shared<OBlock>(level);
+        break;
+    }
+    case 'S':
+    {
+        newBlock = make_shared<SBlock>(level);
+        break;
+    }
+    case 'Z':
+    {
+        newBlock = make_shared<ZBlock>(level);
+        break;
+    }
+    case 'T':
+    {
+        newBlock = make_shared<TBlock>(level);
+        break;
+    }
+    default:
+        // handle c isn't a block
+        break;
+    }
+    return newBlock;
 }
 
-void Board::BoardImpl::setBlock(unique_ptr<Block> block)
+void Board::BoardImpl::setBlock(shared_ptr<Block> &block)
 {
-    currBlock = move(block);
+    currBlock = block;
+}
+
+void Board::BoardImpl::setLevel(int level)
+{
+    lvl = makeLevel(level);
 }
 
 Board::Board(int startLvl, int seed) : AbstractBoard{nullptr}, impl{make_unique<BoardImpl>(startLvl, seed)} {}
 
-unique_ptr<Block> Board::makeBlock(char c) { impl->makeBlock(c); }
+shared_ptr<Block> Board::makeBlock(char c) { impl->makeBlock(c); }
 
-void Board::setBlock(unique_ptr<Block> block) { impl->setBlock(move(block)); }
+void Board::setBlock(shared_ptr<Block> &block) { impl->setBlock(block); }
+
+void Board::setLevel(int level) { impl->setLevel(level); }
 
 vector<char> Board::getState() { return impl->state->getState(); }
 
@@ -130,25 +149,25 @@ char Board::getNext() { return impl->nextBlock->getChar(); }
 
 void Board::counterClockwise()
 {
-    impl->currBlock = impl->state->counterClockwise(move(impl->currBlock));
+    impl->state->counterClockwise(impl->currBlock);
 }
 
 void Board::clockwise()
 {
-    impl->currBlock = impl->state->clockwise(move(impl->currBlock));
+    impl->state->clockwise(impl->currBlock);
 }
 
 void Board::left()
 {
-    impl->currBlock = impl->state->left(move(impl->currBlock));
+    impl->state->left(impl->currBlock);
 }
 
 void Board::right()
 {
-    impl->currBlock = impl->state->right(move(impl->currBlock));
+    impl->state->right(impl->currBlock);
 }
 
 void Board::down()
 {
-    impl->currBlock = impl->state->down(move(impl->currBlock));
+    impl->state->down(impl->currBlock);
 }

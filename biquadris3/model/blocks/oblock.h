@@ -8,11 +8,13 @@
 
 class OBlock : public Block
 {
+    static std::vector<std::map<int, std::vector<std::vector<int>>>> rotationStates;
     static std::map<int, std::vector<std::vector<int>>> spawnStates;
-    static std::map<int, std::vector<std::vector<int>>> rotationStates;
 public:
     OBlock(int lvl) noexcept;
-    void clockwise() override;
+
+    std::vector<std::vector<int>> clockwise() override;
+    std::vector<std::vector<int>> counterClockwise() override;
 };
 
 #endif

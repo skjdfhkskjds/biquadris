@@ -2,6 +2,9 @@
 #include <map>
 #include <string>
 #include "player.h"
+#include "board/abstractboard.h"
+#include "board/board.h"
+#include "../common/exceptions.h"
 #include "effects/blind.h"
 #include "effects/force.h"
 #include "effects/heavy.h"
@@ -27,8 +30,7 @@ struct Player::PlayerImpl
 
 Player::PlayerImpl::PlayerImpl(vector<char> seq, int startLvl, int seed) : seq{seq}, lvl{startLvl}, turns{0}, score{0}, effects{{"heavy", false}, {"blind", false}, {"force", false}}
 {
-    // init lvl
-    // init board
+    board = make_unique<Board>(startLvl, seed);
 }
 
 void Player::PlayerImpl::apply()
@@ -59,6 +61,7 @@ void Player::PlayerImpl::apply()
 // play turn must call apply then create a sequence to read and execute user commands
 unique_ptr<AbstractBoard> Player::PlayerImpl::playTurn()
 {
+    // update score
 }
 
 Player::Player(vector<char> seq, int startLvl, int seed) : impl{make_unique<Player::PlayerImpl>(seq, startLvl, seed)} {}
@@ -75,11 +78,13 @@ unique_ptr<AbstractBoard> Player::apply() { impl->apply(); }
 
 void Player::resetEffects()
 {
+    // for each effect, set it to false
     for (auto &e : impl->effects)
     {
         e.second = false;
     }
 
+    // reset the board component to only contain the base, non-effect decorated board
     while (impl->board->component != nullptr)
     {
         impl->board = move(impl->board->component);
@@ -96,14 +101,14 @@ void Player::setEffect(std::string effect)
 
 void Player::levelUp()
 {
-    if (impl->lvl == MAX_LEVEL) return;
+    if (impl->lvl == MAX_LEVEL) throw invalid_level{MAX_LEVEL};
     impl->lvl++;
-    // make appropriate level with board->
+    impl->board->setLevel(impl->lvl);
 }
 
 void Player::levelDown()
 {
-    if (impl->lvl == MIN_LEVEL) return;
+    if (impl->lvl == MIN_LEVEL) throw invalid_level{MIN_LEVEL};
     impl->lvl--;
-    // make appropriate level with board->
+    impl->board->setLevel(impl->lvl);
 }

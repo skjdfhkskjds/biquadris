@@ -4,38 +4,39 @@
 #include <vector>
 #include <memory>
 #include "../blocks/block.h"
+#include "../common/coordinates.h"
+#include "../common/square.h"
 
 class BoardState
 {
-    std::vector<char> state;
-    std::vector<std::unique_ptr<Block>> placed;
+    int lvl;
+    std::vector<Square &> state;
 
-    Coordinates & clearPiece(Coordinates &target); // removes the piece at target
+    void clearSquare(Coordinates &c);        // clears the square at c
+    void swap(Square &target, Square &dest); // swaps target and dest squares
+    void move(Square &target, Square &dest); // moves target to dest
+
+    void apply(std::shared_ptr<Block> &block, std::vector<std::vector<int>> transform); // applies transform to block
+
+    bool isSafe(std::shared_ptr<Block> &block, std::vector<std::vector<int>> transform); // checks if a transformation is safe
+    int rowScore(std::vector<std::shared_ptr<Block> &> cleared);                         // returns the score of clearing the caller
 
 public:
-    BoardState();
+    BoardState(int lvl);
 
-    // boardstate manipulations
-    bool checkRow(int row);
-    void clearRow(int row);
-    int getScore(int row);
+    // getter functions
+    std::vector<char> getState(); // returns the state
 
-    // transformation modifiers
-    bool isSafe(std::vector<std::vector<int>> transform);                 // checks whether a transformation is safe
-    void addBlock(Block &block, std::vector<std::vector<int>> transform); // adds a block to the boardState
+    // row functions
+    bool checkRow(int row); // returns whether row is filled
+    int clearRow(int row);  // clears all squares on row and returns the score for clearing the row
 
-    void placeBlock(std::unique_ptr<Block> block); // attaches the block to the "solid" state of the board
-
-    // getter methods
-    std::vector<char> getState(); // returns the boardState
-    char getNext();               // returns the typeof next Block
-
-    // block transformation
-    unique_ptr<Block> counterClockwise(unique_ptr<Block> block); // rotates the block counter clockwise
-    unique_ptr<Block> clockwise(unique_ptr<Block> block);        // rotates the block clockwise
-    unique_ptr<Block> right(unique_ptr<Block> block);            // shifts the block right
-    unique_ptr<Block> left(unique_ptr<Block> block);             // shifts the block left
-    unique_ptr<Block> down(unique_ptr<Block> block);             // shifts the block down
+    // block transformations (update the square's block + update block coords)
+    void clockwise(std::shared_ptr<Block> &block);
+    void counterClockwise(std::shared_ptr<Block> &block);
+    void left(std::shared_ptr<Block> &block);
+    void right(std::shared_ptr<Block> &block);
+    void down(std::shared_ptr<Block> &block);
 };
 
 #endif

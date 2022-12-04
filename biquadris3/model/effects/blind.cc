@@ -32,27 +32,14 @@ vector<char> Blind::getState()
     return ;
 }
 
-unique_ptr<Block> Blind::makeBlock(char c)
-{
-    return component->makeBlock(c);
-}
+shared_ptr<Block> Blind::makeBlock(char c) { return component->makeBlock(c); }
 
-void Blind::setBlock(unique_ptr<Block> block)
-{
-    component->setBlock(move(block));
-}
+void Blind::setBlock(shared_ptr<Block> &block) { component->setBlock(block); }
 
-void Blind::left()
-{
-    component->left();
-}
+void Blind::setLevel(int level) { component->setLevel(level); }
 
-void Blind::right()
-{
-    component->right();
-}
+void Blind::left() { component->left(); }
 
-void Blind::down()
-{
-    component->down();
-}
+void Blind::right() { component->right(); }
+
+void Blind::down() { component->down(); }

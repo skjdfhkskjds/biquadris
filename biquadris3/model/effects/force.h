@@ -18,8 +18,9 @@ public:
     char getNext() override;
     std::vector<char> getState() override;
 
-    std::unique_ptr<Block> makeBlock(char c) override;
-    void setBlock(std::unique_ptr<Block> block) override;
+    std::shared_ptr<Block> makeBlock(char c) override;
+    void setBlock(std::shared_ptr<Block> &block) override;
+    void setLevel(int level) override;
 
     void clockwise() override;
     void counterClockwise() override;
