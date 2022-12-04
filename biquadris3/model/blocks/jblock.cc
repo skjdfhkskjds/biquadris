@@ -17,6 +17,13 @@ map<int, vector<vector<int>>> JBlock::rotationStates = {
     {2, {{left * 2, 0}, {left, down}, {0, 0}, {right, up}}},
     {3, {{0, up}, {left, 0}, {0, down}, {right, down * 2}}}};
 
+map<int, vector<vector<int>>> JBlock::spawnStates = {
+    {0, {{0,2},{0,3},{1,3},{2,3}}},
+    {1, {{1,1},{0,1},{0,2},{0,3}}},
+    {2, {{2,3},{2,2},{1,2},{0,2}}},
+    {3, {{1,3},{1,2},{1,1},{0,1}}}
+}
+
 JBlock::JBlock(int lvl) : Block{'J', lvl}
 {
     vector<Coordinates> coords;
