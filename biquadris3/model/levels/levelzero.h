@@ -6,6 +6,7 @@
 
 class LevelZero : public Level
 {
+    int i;
     std::vector<char> sequence;
 public:
     LevelZero(int seed, std::vector<char> sequence);

@@ -1,7 +1,7 @@
 #include <vector>
 #include "block.h"
 #include "zblock.h"
-#include "../../misc/coordinates.h"
+#include "../../common/coordinates.h"
 
 #define up -1
 #define down 1

@@ -1,7 +1,7 @@
 #include <vector>
 #include "block.h"
 #include "penaltyblock.h"
-#include "../../misc/coordinates.h"
+#include "../../common/coordinates.h"
 
 #define MAX_LEVEL 4
 

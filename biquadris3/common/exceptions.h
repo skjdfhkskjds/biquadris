@@ -24,6 +24,7 @@ public:
     std::string what();
 };
 
+// requires careful definition of sequences
 class file_not_found : public exception
 {
     static std::string sequence1;
@@ -34,6 +35,21 @@ public:
     file_not_found(std::string &command);
     std::string what();
     std::string getDefault(int type); // returns the default file for sequence 'type'
+};
+
+class invalid_level : public exception
+{
+    int level;
+public:
+    invalid_level(int level);
+    std::string what();
+};
+
+class invalid_move : public exception
+{
+public:
+    invalid_move();
+    std::string what();
 };
 
 #endif

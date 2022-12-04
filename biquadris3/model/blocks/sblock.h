@@ -8,10 +8,12 @@
 
 class SBlock final : public Block
 {
-    static std::map<int, std::vector<std::vector<int>>> rotationStates;
+    static std::vector<std::map<int, std::vector<std::vector<int>>>> rotationStates;
 public:
     SBlock(int lvl) noexcept;
-    void clockwise() override;
+
+    std::vector<std::vector<int>> clockwise() override;
+    std::vector<std::vector<int>> counterClockwise() override;
 };
 
 #endif

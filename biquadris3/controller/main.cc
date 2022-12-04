@@ -2,7 +2,7 @@
 #include <vector>
 #include <string>
 // #include "game.h"
-#include "../misc/coordinates.h"
+#include "../common/coordinates.h"
 
 using namespace std;
 
@@ -47,3 +47,67 @@ int main(int argc, char ** argv)
     // Game g{};
     // int winner = g.run();
 }
+
+/*
+
+int main(int argc, char **argv)
+{
+    vector<string> seq;
+    string file1 = "sequence1.txt";
+    string file2 = "sequence2.txt";
+    int seed = 0;
+    int startLvl = 0;
+    bool graphics = true;
+    for (int i = 0; i < argc; i++)
+    {
+        if (argv[i] == "-text")
+        {
+            bool graphics = false;
+        }
+        else if (argv[i] == "-seed")
+        {
+            i++;
+            seed = stoi(argv[i]);
+        }
+        else if (argv[i] == "-scriptfile")
+        {
+            i++;
+            file1 = argv[i];
+        }
+        else if (argv[i] == "-scriptfile2")
+        {
+            i++;
+            file2 = argv[i];
+        }
+        else if (argv[i] == "-startlevel")
+        {
+            i++;
+            startLvl = stoi(argv[i]);
+        }
+        else
+        {
+            string command = argv[i];
+            throw command_not_found(command);
+        }
+    }
+    seq.emplace_back(file1);
+    seq.emplace_back(file2);
+    Game bisexual(seq, seed, startLvl);
+    string s;
+    Commands commander;
+    if (graphics) {
+        unique_ptr<AbstractBoard> abstractBoard1;
+        unique_ptr<AbstractBoard> abstractBoard2;
+        
+
+
+    }
+    while (cin >> s)
+    {
+        istringstream iss{s};
+        commander.interpret(s);
+    }
+
+}
+
+*/
