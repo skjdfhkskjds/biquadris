@@ -9,6 +9,7 @@
 class IBlock : public Block
 {
     static std::map<int, std::vector<std::vector<int>>> rotationStates;
+    static std::map<int, std::vector<std::vector<int>>> spawnStates;
 public:
     IBlock(int lvl) noexcept;
     void clockwise() override;
