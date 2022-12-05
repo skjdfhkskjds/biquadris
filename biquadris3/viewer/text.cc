@@ -9,11 +9,11 @@ using namespace std;
 const int width = 11;
 const int height = 18;
 
-void divider() {
+void divider() {//prints a divider
     cout << "      ";
 }
 
-void pagebreak() {
+void pagebreak() { //prints the bottom line of the two biquadris boards
     for (int x = 0; x < width; x++) {
         cout << "-";
     }
@@ -30,14 +30,14 @@ map<char, string> two =   {{'I', "I "}, {'J',"JJ"}, {'L',"LL"}, {'O',"  "}, {'S'
 map<char, string> three = {{'I', "I "}, {'J',"  "}, {'L',"  "}, {'O',"  "}, {'S',"  "},{'Z',"  "}, {'T',"  "}};
 vector<map<char, string>> blockRow = {zero, one, two, three};
 
-void tbfp(char c, int row) { //twobyfourprinter
+void segmentedBlockPrinter(char c, int row) { //twobyfourprinter
    cout <<blockRow[row][c] << "         ";
 }
 
 void Text::notify() {
 
-    shared_ptr<Player> p1 = players[0];//stuff to get the boardstate
-    shared_ptr<Player> p2 = players[1];//stuff to get the boardstate
+    shared_ptr<Player> p1 = players[0];//shit to get the boardstate
+    shared_ptr<Player> p2 = players[1];//shit to get the boardstate
     vector<char> b1 = p1->getState();
     vector<char> b2 = p2->getState();
 
@@ -81,9 +81,9 @@ void Text::notify() {
     char p1Next = p1->getNext();
     char p2Next = p2->getNext();
     for (int i = 0; i < 4; i++) {
-        tbfp(p1Next, i);
+        segmentedBlockPrinter(p1Next, i);
         divider();
-        tbfp(p2Next, i);
+        segmentedBlockPrinter(p2Next, i);
         cout << endl;
     }
 }
