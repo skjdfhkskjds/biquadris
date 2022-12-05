@@ -1,6 +1,7 @@
 #ifndef _BLOCK_
 #define _BLOCK_
 
+#include <map>
 #include <vector>
 #include <memory>
 #include "../../common/coordinates.h"
@@ -25,7 +26,7 @@ protected:
 
 public:
     Block(char c, int lvl) noexcept;
-    ~Block();
+    ~Block() noexcept;
 
     // getter methods
     char getChar();                       // returns the block's char

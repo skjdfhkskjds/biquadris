@@ -26,7 +26,7 @@ map<int, vector<vector<int>>> LBlock::spawnStates = {
 };
 
 
-LBlock::LBlock(int lvl) : Block{'L', lvl}
+LBlock::LBlock(int lvl) noexcept : Block{'L', lvl}
 {
     vector<Coordinates> coords;
     Coordinates a(0, 3);

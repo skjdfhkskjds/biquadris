@@ -25,7 +25,7 @@ map<int, vector<vector<int>>> SBlock::spawnStates = {
     {3, {{0,1},{0,2},{1,2},{1,3}}}
 };
 
-SBlock::SBlock(int lvl) : Block{'S', lvl}
+SBlock::SBlock(int lvl) noexcept : Block{'S', lvl}
 {
     vector<Coordinates> coords;
     Coordinates a(0, 3);

@@ -33,7 +33,7 @@ map<int, vector<vector<int>>> IBlock::spawnStates = {
     {3, {{},{},{},{}}}
 };*/
 
-IBlock::IBlock(int lvl) : Block{'I', lvl}
+IBlock::IBlock(int lvl) noexcept : Block{'I', lvl}
 {
     vector<Coordinates> coords;
     Coordinates a(0, 3);

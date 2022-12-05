@@ -28,7 +28,7 @@ map<int, vector<vector<int>>> JBlock::spawnStates = {
     {3, {{1,3},{1,2},{1,1},{0,1}}}
 };
 
-JBlock::JBlock(int lvl) : Block{'J', lvl}
+JBlock::JBlock(int lvl) noexcept : Block{'J', lvl}
 {
     vector<Coordinates> coords;
     Coordinates a(0, 2);

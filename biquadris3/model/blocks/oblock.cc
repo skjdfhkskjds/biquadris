@@ -24,7 +24,7 @@ map<int, vector<vector<int>>> OBlock::spawnStates = {
     {3, {{0,2},{1,2},{0,3},{1,3}}}
 };
 
-OBlock::OBlock(int lvl) : Block{'O', lvl}
+OBlock::OBlock(int lvl) noexcept : Block{'O', lvl}
 {
     vector<Coordinates> coords;
     Coordinates a(0, 2);
@@ -39,6 +39,11 @@ OBlock::OBlock(int lvl) : Block{'O', lvl}
 }
 
 vector<vector<int>> OBlock::clockwise() {
+    vector<vector<int>> retVal = {{0,0}, {0,0}, {0,0}, {0,0}};
+    return retVal;
+}
+
+vector<vector<int>> OBlock::counterClockwise() {
     vector<vector<int>> retVal = {{0,0}, {0,0}, {0,0}, {0,0}};
     return retVal;
 }

@@ -9,17 +9,25 @@ struct Block::BlockImpl
     bool isHeavy; // heavinesss based on level
     std::vector<Coordinates> coords;
 
-    BlockImpl(char c, int lvl);
-    ~BlockImpl() = default;
+    BlockImpl(char c, int lvl) noexcept;
+    ~BlockImpl() noexcept = default;
 
     Coordinates &getCoords();
 };
 
-Block::BlockImpl::BlockImpl(char c, int lvl): lvl{lvl}, age{0}, maxAge{-1}, rotationState{0}, c{c}, isHeavy{(lvl >= 3) ? true : false} {};
+Block::BlockImpl::BlockImpl(char c, int lvl) noexcept //: lvl{lvl}, age{0}, maxAge{-1}, rotationState{0}, c{c}, isHeavy{(lvl >= 3) ? true : false}
+{
+    lvl = lvl;
+    age = 0;
+    maxAge = -1;
+    rotationState = 0;
+    c = c;
+    isHeavy = ((lvl >= 3) ? true : false);
+}
 
-Block::Block(char c, int lvl) : impl{make_unique<Block::BlockImpl>(c, lvl)} {}
+Block::Block(char c, int lvl) noexcept : impl{make_unique<Block::BlockImpl>(c, lvl)} {}
 
-Block::~Block() = default;
+Block::~Block() noexcept = default;
 
 int Block::getState() { return impl->rotationState; }
 
