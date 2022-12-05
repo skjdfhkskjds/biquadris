@@ -17,9 +17,10 @@ protected:
     void setChar(char newChar);
 
     bool isSafe();
-    void update(std::vector<std::vector<int>>& coordChanges);
+    
 
 public:
+    void update(std::vector<std::vector<int>>& coordChanges);
     void shiftRight();
     void shiftLeft();
     void shiftDown();
