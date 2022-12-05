@@ -7,7 +7,7 @@ struct Block::BlockImpl
     char c;
     int lvl, age, maxAge, rotationState;
     bool isHeavy; // heavinesss based on level
-    std::vector<Coordinates &> coords;
+    std::vector<Coordinates> coords;
 
     BlockImpl(char c, int lvl);
     ~BlockImpl() = default;
@@ -34,9 +34,9 @@ bool Block::fullCleared()
     return true;
 }
 
-vector<Coordinates &> Block::getCoords() { return impl->coords; }
+vector<Coordinates> Block::getCoords() { return impl->coords; }
 
-void Block::setCoords(std::vector<Coordinates &> &coords) { impl->coords = coords; }
+void Block::setCoords(std::vector<Coordinates> &coords) { impl->coords = coords; }
 
 bool Block::isHeavy() { return impl->isHeavy; }
 
@@ -62,6 +62,15 @@ vector<vector<int>> Block::down()
 void Block::decay()
 {
 
+}
+
+void Block::updateCoords(Coordinates oldCoords, Coordinates newCoords=Coordinates{-1, -1})
+{
+    int len = impl->coords.size();
+    for (int i = 0; i < len; i++)
+    {
+        if (impl->coords[i] == oldCoords) impl->coords[i] = newCoords;
+    }
 }
 
 /*vector<vector<int>> Block::spawnTransformation(vector<vector<int>> coords, map<int, vector<vector<int>>> spawnState, int currState) {
@@ -96,7 +105,7 @@ vector<vector<int>> Block::vviSubtraction(const vector<vector<int>> a, const  ve
 
 vector<vector<int>> Block::getVVICoords() {
     vector<vector<int>> retVal;
-    vector<Coordinates &> tempC = getCoords();
+    vector<Coordinates> tempC = getCoords();
     for (int i = 0; i < 4; i++) {
         vector<int> temp = {tempC[i].getX(), tempC[i].getY()};
         retVal.emplace_back(temp);

@@ -23,16 +23,17 @@ BoardState::BoardState(int lvl) : lvl{lvl}
 // clears the block from square and sets that block's coordinate at square to (-1, -1)
 void BoardState::clearSquare(Coordinates &c) 
 {
-    vector<Coordinates &> coords = state[c.index()].getBlock()->getCoords();
-    for (Coordinates & coord : coords)
-    {
-        // sets the current coordinate of block to (-1, -1)
-        if (coord == c) 
-        {
-            coord.update(neg(c.getX()) - 1, neg(c.getY()) - 1);
-            break;
-        }
-    }
+    state[c.index()].getBlock()->updateCoords(c);
+    // vector<Coordinates &> coords = state[c.index()].getBlock()->getCoords();
+    // for (Coordinates & coord : coords)
+    // {
+    //     // sets the current coordinate of block to (-1, -1)
+    //     if (coord == c) 
+    //     {
+    //         coord.update(neg(c.getX()) - 1, neg(c.getY()) - 1);
+    //         break;
+    //     }
+    // }
     state[c.index()].removeBlock();
 }
 
