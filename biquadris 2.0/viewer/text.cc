@@ -36,8 +36,8 @@ void tbfp(char c, int row) { //twobyfourprinter
 
 void Text::notify() {
 
-    shared_ptr<Player> p1 = players[0];//shit to get the boardstate
-    shared_ptr<Player> p2 = players[1];//shit to get the boardstate
+    shared_ptr<Player> p1 = players[0];//stuff to get the boardstate
+    shared_ptr<Player> p2 = players[1];//stuff to get the boardstate
     vector<char> b1 = p1->getState();
     vector<char> b2 = p2->getState();
 

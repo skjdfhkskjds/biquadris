@@ -1,6 +1,7 @@
 #include "graphics.h"
 #include "../model/player.h"
 #include "../model/board.h"
+#include "window.h"
 #include <memory>
 #include <vector>
 #include <iostream>
@@ -9,6 +10,7 @@ using namespace std;
 const int width = 11;
 const int height = 18;
 
+//Xwindow xWindow(width * 2 + 6, height + 9);
 /*
 class Graphics : public Observer
 {
@@ -34,19 +36,39 @@ map<int,char> Graphics::getDeltas(int p) {  // takes int p, 0 for player1, 1 for
     oldStates[p] = newStates[p];
 }
 
+//string color_vals[10]={"white", "black", "red", "green", "blue", "cyan", "yellow", "magenta", "orange", "brown"};
+
+map<char,int> blockColour = {
+    {'I', 5},   //cyan
+    {'J', 4},   //blue
+    {'L', 8},   //orange
+    {'O', 6},   //yellow
+    {'S', 3},   //green
+    {'Z', 2},    //red
+    {'T', 7} //magenta
+}
+
 void Graphics::notify() {
     map<int,char> p1Deltas = getDeltas(0);
     map<int,char> p2Deltas = getDeltas(1);
     //something render deltas
+    int x;
+    int y;
     for (auto i : p1Deltas) {
         //render i.second at i.first
+        x = i.first % width;
+        y = (i.first / width) + 3;
+        xWindow.fillRectangle(x, y, 1, 1, blockColour[i.second]);
     }
     for (auto i : p2Deltas) {
         //render i.second at i.first
+        x = (i.first % width) + width + 6;
+        y = (i.first / width) + 3;
+        xWindow.fillRectangle(x, y, 1, 1, blockColour[i.second]);
     }
 }
 
-Graphics::Graphics(vector<shared_ptr<Player>> players) : players{players} {
+Graphics::Graphics(vector<shared_ptr<Player>> players, Xwindow xWindow) : players{players}, xWindow{xWindow} {
     newStates[0] = players[0]->getState();
     newStates[1] = players[1]->getState();
     for(int i = 0; i < width * height; i++) {
