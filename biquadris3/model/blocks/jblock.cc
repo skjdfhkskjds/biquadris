@@ -30,7 +30,7 @@ map<int, vector<vector<int>>> JBlock::spawnStates = {
 
 JBlock::JBlock(int lvl) : Block{'J', lvl}
 {
-    vector<Coordinates &> coords;
+    vector<Coordinates> coords;
     Coordinates a(0, 2);
     Coordinates b(0, 3);
     Coordinates c(1, 3);
