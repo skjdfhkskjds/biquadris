@@ -5,6 +5,7 @@
 
 LevelOne::LevelOne(int seed) : Level{seed, seed} , i{1}, randNum{Random{seed}} {}
 
+void LevelOne::setRandom(bool newValue) {}
 
 char LevelOne::generateBlock()
 {

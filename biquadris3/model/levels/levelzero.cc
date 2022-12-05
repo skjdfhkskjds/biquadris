@@ -4,6 +4,8 @@
 
 LevelZero::LevelZero(int seed, std::vector<char> sequence) : Level{seed, 0}, sequence{sequence}, i{0} {}
 
+void LevelZero::setRandom(bool newValue) {}
+
 char LevelZero::generateBlock()
 {
     if (i == sequence.size()) i = 0;

@@ -1,4 +1,5 @@
 #include "levelthree.h"
+#include "../../common/random.h"
 #include <vector>
 
 using namespace std;

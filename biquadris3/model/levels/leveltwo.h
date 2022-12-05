@@ -11,7 +11,7 @@ class LevelTwo : public Level
 
 public:
     LevelTwo(int seed);
-
+    void setRandom(bool newValue) override;
     char generateBlock() override;
 };
 

@@ -14,7 +14,7 @@ class LevelThree : public Level
 
 public:
     LevelThree(int seed, std::vector<char> sequence);
-    void setRandom(bool newValue); // modifies isRandom
+    void setRandom(bool newValue) override; // modifies isRandom
     char generateBlock() override;
 };
 

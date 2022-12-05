@@ -12,7 +12,7 @@ public:
     // getter methods
     int getLvl(); // returns lvl
     int getSeed(); // returns seed
-
+    virtual void setRandom(bool newValue) = 0;
     virtual char generateBlock() = 0; // generates a block
 };
 
