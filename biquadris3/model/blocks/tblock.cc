@@ -44,7 +44,7 @@ vector<vector<int>> TBlock::clockwise()
     int r = getState() % 4;
     setState(getState() + 1);
     int dr = getState() % 4;
-    vector<vector<int>> retVal = vviSubtraction(getVVICoords(), vviAddition(spawnStates[dr], vviSubtraction(getVVICoords(), spawnStates[r])));
+    vector<vector<int>> retVal = vviSubtraction(spawnStates[dr], spawnStates[r]);
     return retVal;
 }
 
@@ -53,6 +53,6 @@ vector<vector<int>> TBlock::counterClockwise()
     int r = getState() % 4;
     setState(getState() + 3);
     int dr = getState() % 4;
-    vector<vector<int>> retVal = vviSubtraction(getVVICoords(), vviAddition(spawnStates[dr], vviSubtraction(getVVICoords(), spawnStates[r])));
+    vector<vector<int>> retVal = vviSubtraction(spawnStates[dr], spawnStates[r]);
     return retVal;
 }
