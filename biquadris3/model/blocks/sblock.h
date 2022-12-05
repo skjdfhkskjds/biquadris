@@ -8,7 +8,6 @@
 
 class SBlock final : public Block
 {
-    static std::vector<std::map<int, std::vector<std::vector<int>>>> rotationStates;
     static std::map<int, std::vector<std::vector<int>>> spawnStates;
 public:
     SBlock(int lvl) noexcept;
