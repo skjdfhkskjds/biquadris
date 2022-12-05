@@ -12,6 +12,7 @@ class Player final
 
 public:
     Player(std::vector<char> seq, int startLvl, int seed);
+    ~Player();
 
     void playTurn(); // plays a turn
 

@@ -25,6 +25,7 @@ protected:
 
 public:
     Block(char c, int lvl) noexcept;
+    ~Block();
 
     // getter methods
     char getChar();                       // returns the block's char

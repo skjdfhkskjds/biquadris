@@ -66,6 +66,8 @@ unique_ptr<AbstractBoard> Player::PlayerImpl::playTurn()
 
 Player::Player(vector<char> seq, int startLvl, int seed) : impl{make_unique<Player::PlayerImpl>(seq, startLvl, seed)} {}
 
+Player::~Player() = default;
+
 void Player::playTurn() { impl->playTurn(); }
 
 int Player::getLevel() { return impl->lvl; }

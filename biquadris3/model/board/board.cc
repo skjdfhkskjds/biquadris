@@ -138,6 +138,8 @@ void Board::BoardImpl::setLevel(int level)
 
 Board::Board(int startLvl, int seed) : AbstractBoard{nullptr}, impl{make_unique<BoardImpl>(startLvl, seed)} {}
 
+Board::~Board() = default;
+
 shared_ptr<Block> Board::makeBlock(char c) { impl->makeBlock(c); }
 
 void Board::setBlock(shared_ptr<Block> &block) { impl->setBlock(block); }

@@ -19,6 +19,8 @@ Block::BlockImpl::BlockImpl(char c, int lvl): lvl{lvl}, age{0}, maxAge{-1}, rota
 
 Block::Block(char c, int lvl) : impl{make_unique<Block::BlockImpl>(c, lvl)} {}
 
+Block::~Block() = default;
+
 int Block::getState() { return impl->rotationState; }
 
 char Block::getChar() { return impl->c; }
@@ -37,6 +39,8 @@ bool Block::fullCleared()
 vector<Coordinates> Block::getCoords() { return impl->coords; }
 
 void Block::setCoords(std::vector<Coordinates> &coords) { impl->coords = coords; }
+
+void Block::setState(int newState) { impl->rotationState = newState; }
 
 bool Block::isHeavy() { return impl->isHeavy; }
 
