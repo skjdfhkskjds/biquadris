@@ -3,6 +3,7 @@
 #include "boardstate.h"
 #include "coordinates.h"
 #include "board.h"
+#include "../misc/exceptions.h"
 using namespace std;
 
 #define width 11
@@ -57,20 +58,15 @@ void BoardState::clearPiece(Coordinates &c)
 bool BoardState::isSafe(vector<vector<int>> transform)
 {
     vector<vector<int>> temp = currBlock->getCoords();
-    vector<Coordinates> coords;
+
     int len = temp.size();
     for (int i = 0; i < len; i++)
     {
-        Coordinates v(temp[i][0], temp[i][1]);
-        coords.emplace_back(v);
-    }
-    int i = 0;
-    for (auto coord : coords)
-    {
-        coords[i].update(transform[i][0], transform[i][1]);
-        int currIndex = coords[i].index();
-        int currX = coords[i].getX();
-        int currY = coords[i].getY();
+        Coordinates coords(temp[i][0], temp[i][1]);
+        coords.update(transform[i][0], transform[i][1]);
+        int currIndex = coords.index();
+        int currX = coords.getX();
+        int currY = coords.getY();
 
         // collision check at index of board
         if (boardState[currIndex] != ' ')
@@ -83,14 +79,29 @@ bool BoardState::isSafe(vector<vector<int>> transform)
         {
             return false;
         }
-        i++;
     }
     return true;
 }
 
 void BoardState::addBlock(vector<vector<int>> transform)
 {
-    latestBlock->update(transform);
+    if (isSafe(transform))
+    {
+        currBlock->update(transform);
+        char blockType = currBlock->getChar();
+        vector<vector<int>> temp = currBlock->getCoords();
+
+        int len = temp.size();
+        for (int i = 0; i < len; i++)
+        {
+            Coordinates coords(temp[i][0], temp[i][1]);
+            boardState[coords.index()] = blockType;
+        }
+    }
+    else
+    {
+        throw invalid_move();
+    }
 }
 
 std::vector<char> BoardState::getState()
@@ -120,15 +131,15 @@ void BoardState::clockwise()
 
 void BoardState::left()
 {
-    currBlock->left();
+    currBlock->shiftLeft();
 }
 
 void BoardState::right()
 {
-    currBlock->right();
+    currBlock->shiftRight();
 }
 
 void BoardState::down()
 {
-    currBlock->down();
+    currBlock->shiftDown();
 }

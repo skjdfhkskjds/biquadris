@@ -6,6 +6,7 @@ struct Block::BlockImpl
 {
     char c;
     int lvl, age, maxAge, rotationState;
+    bool isHeavy; // heavinesss based on level
     std::vector<Coordinates &> coords;
 
     BlockImpl(char c, int lvl);
@@ -14,7 +15,7 @@ struct Block::BlockImpl
     Coordinates &getCoords();
 };
 
-Block::BlockImpl::BlockImpl(char c, int lvl): lvl{lvl}, age{0}, maxAge{-1}, rotationState{0}, c{c} {};
+Block::BlockImpl::BlockImpl(char c, int lvl): lvl{lvl}, age{0}, maxAge{-1}, rotationState{0}, c{c}, isHeavy{(lvl >= 3) ? true : false} {};
 
 Block::Block(char c, int lvl) : impl{make_unique<Block::BlockImpl>(c, lvl)} {}
 
@@ -35,7 +36,9 @@ bool Block::fullCleared()
 
 vector<Coordinates &> Block::getCoords() { return impl->coords; }
 
-void Block::setCoords(std::vector<Coordinates> &coords) { }
+void Block::setCoords(std::vector<Coordinates &> &coords) { impl->coords = coords; }
+
+bool Block::isHeavy() { return impl->isHeavy; }
 
 vector<vector<int>> Block::right() 
 {

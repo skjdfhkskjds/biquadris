@@ -24,19 +24,27 @@
       - calls resetEffects() 
       - if generateBlock() == invalid_move, return loss
 
+
+<!-- michelle is making random numbers work for levels -->
 - level.o:
     - implement generateBlock() for all levels.
 
+
+<!-- dom working on making clockwise and counterclockwise work -->
 - block.cc:
     - implement decay() ???
     - penaltyblock.cc:
       - implement ctor as directed
+
+- add a function to render the block to the board
+  - need this since nextBlock doesn't "exist" yet while the turn is playing out but must be spawned as the current block (on the squares) by the beginning on the opponents turn
 
 main/command interpreter
 - if player level change is invalid, must catch
 - send effect commands to other player
 - write out all implementations for the commands
 
+<!-- force.apply() needs to implemented in the player effect handler -->
 force.cc
 - doesnt seem to call apply() anywhere
 
@@ -57,5 +65,5 @@ OVERALL CHANGE
 
 **Decorator** used to decorate AbstractBoard with an Effect layer
 
-**Factory** used to produce Levels
+**Factory** used to produce Levels (lol!)
 

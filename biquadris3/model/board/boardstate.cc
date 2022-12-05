@@ -138,6 +138,8 @@ void BoardState::apply(shared_ptr<Block> &block, vector<vector<int>> transform)
         state[before.index()].removeBlock();
         swap(state[before.index()], state[block->getCoords()[i].index()]);
     }
+    // handles level heaviness
+    if (block->isHeavy()) block->down();
 }
 
 void BoardState::clockwise(shared_ptr<Block> &block)

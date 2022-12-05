@@ -1,3 +1,38 @@
-#include "leveltwo.h"
+#include "levelone.h"
 
 #define toUpper(c) (char)(('a' <= c && c <= 'z') ? (c - 'a' + 'A') : c)
+
+LevelOne::LevelOne(int seed) : Level{seed, seed}, randNum{Random{seed}} {}
+
+char LevelOne::generateBlock()
+{
+    int random = randNum.getRand(7);
+    if (random == 0)
+    {
+        return 'S';
+    }
+    else if (random == 1)
+    {
+        return 'Z';
+    }
+    else if (random == 2)
+    {
+        return 'I';
+    }
+    else if (random == 3)
+    {
+        return 'J';
+    }
+    else if (random == 4)
+    {
+        return 'L';
+    }
+    else if (random == 5)
+    {
+        return 'O';
+    }
+    else
+    {
+        return 'T';
+    }
+}

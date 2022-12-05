@@ -35,3 +35,8 @@ string file_not_found::getDefault(int type)
 {
     return (type == 1) ? sequence1 : sequence2;
 }
+
+string invalid_move::what()
+{
+    return "Invalid move";
+}
