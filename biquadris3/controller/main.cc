@@ -3,8 +3,17 @@
 #include <string>
 // #include "game.h"
 #include "../common/coordinates.h"
-
+#include "../model/blocks/iblock.h"
+#include "../model/blocks/jblock.h"
+#include "../model/blocks/lblock.h"
+#include "../model/blocks/oblock.h"
+#include "../model/blocks/sblock.h"
+#include "../model/blocks/tblock.h"
+#include "../model/blocks/zblock.h"
 using namespace std;
+
+const int width = 11;
+const int height = 18;
 
 void print(Coordinates &c)
 {
@@ -28,100 +37,67 @@ vector<Coordinates &> foo(vector<Coordinates &> coords)
     return coords;
 }
 
+void psuedoPrint(vector<Coordinates> coords, char c) {
+    for (int x = 0; x < width; x++) {
+        cout << "-";
+    }
+    int len = coords.size();
+    int mybool = true;
+    cout << endl;
+    for (int y = 0; y < height; y++) {
+        for (int x = 0; x < width; x++) {
+            for (int z = 0; z < len; z++) {
+                if ((y == coords[z].getY()) && (x == coords[z].getX())) {
+                    cout << c;
+                    mybool = false;
+                    break;
+                }
+            }
+            if (mybool) {
+                cout << ' ';
+            }
+            mybool = true;
+        }
+        cout << endl;
+    }
+    for (int x = 0; x < width; x++) {
+        cout << "-";
+    }
+    cout << endl;
+}
+
 int main(int argc, char ** argv)
 {
-    vector<Coordinates &> coords;
-    Coordinates a{0, 0};
-    Coordinates b{1, 0};
-    Coordinates c{1, 1};
-    Coordinates d{2, 1};
-    Coordinates e{2, 1};
-    
-    coords.emplace_back(a);
-    coords.emplace_back(b);
-    coords.emplace_back(c);
-    coords.emplace_back(d);
-
-    cout << (d == e) << endl;
-    cout << (c == e) << endl;
-
-    cout << (e.index()) << endl;
-
-    print(coords);
-    coords = foo(coords);
-    print(coords);
-
-    e.update(-3, -2);
-    cout << e.removed() << endl;
-
-    // for (int i = 1; i < argc; i++)
-    // {
-
-    // }
-    // Game g{};
-    // int winner = g.run();
-}
-
-/*
-
-int main(int argc, char **argv)
-{
-    vector<string> seq;
-    string file1 = "sequence1.txt";
-    string file2 = "sequence2.txt";
-    int seed = 0;
-    int startLvl = 0;
-    bool graphics = true;
-    for (int i = 0; i < argc; i++)
-    {
-        if (argv[i] == "-text")
-        {
-            bool graphics = false;
-        }
-        else if (argv[i] == "-seed")
-        {
-            i++;
-            seed = stoi(argv[i]);
-        }
-        else if (argv[i] == "-scriptfile")
-        {
-            i++;
-            file1 = argv[i];
-        }
-        else if (argv[i] == "-scriptfile2")
-        {
-            i++;
-            file2 = argv[i];
-        }
-        else if (argv[i] == "-startlevel")
-        {
-            i++;
-            startLvl = stoi(argv[i]);
-        }
-        else
-        {
-            string command = argv[i];
-            throw command_not_found(command);
-        }
-    }
-    seq.emplace_back(file1);
-    seq.emplace_back(file2);
-    Game bisexual(seq, seed, startLvl);
-    string s;
-    Commands commander;
-    if (graphics) {
-        unique_ptr<AbstractBoard> abstractBoard1;
-        unique_ptr<AbstractBoard> abstractBoard2;
-        
-
-
-    }
-    while (cin >> s)
-    {
-        istringstream iss{s};
-        commander.interpret(s);
-    }
+    IBlock myBlock(0); 
+    cout << myBlock.getLvl();
+    cout << myBlock.fullCleared();
+    //cout <<
+    psuedoPrint(myBlock.getCoords(), myBlock.getChar());
+    myBlock.right();
+    psuedoPrint(myBlock.getCoords(), myBlock.getChar());
+    myBlock.left();
+    psuedoPrint(myBlock.getCoords(), myBlock.getChar());
+    myBlock.down();
+    myBlock.right();
+    psuedoPrint(myBlock.getCoords(), myBlock.getChar());
+    myBlock.down();
+    myBlock.right();
+    psuedoPrint(myBlock.getCoords(), myBlock.getChar());
+    myBlock.clockwise();
+    psuedoPrint(myBlock.getCoords(), myBlock.getChar());
+    myBlock.clockwise();
+    psuedoPrint(myBlock.getCoords(), myBlock.getChar());
+    myBlock.clockwise();
+    psuedoPrint(myBlock.getCoords(), myBlock.getChar());
+    myBlock.clockwise();
+    psuedoPrint(myBlock.getCoords(), myBlock.getChar());
+    myBlock.counterClockwise();
+    psuedoPrint(myBlock.getCoords(), myBlock.getChar());
+    myBlock.counterClockwise();
+    psuedoPrint(myBlock.getCoords(), myBlock.getChar());
+    myBlock.counterClockwise();
+    psuedoPrint(myBlock.getCoords(), myBlock.getChar());
+    myBlock.counterClockwise();
+    psuedoPrint(myBlock.getCoords(), myBlock.getChar());
 
 }
-
-*/
