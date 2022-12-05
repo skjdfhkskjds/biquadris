@@ -65,6 +65,10 @@ int Game::run()
     // gamestate vars
     int turns = 0;
 
+    while (!isFinished)
+    {
+        players[turns % 2]->playTurn();
+    }
     string input;
     while (cin >> input)
     {
@@ -74,6 +78,7 @@ int Game::run()
             cin.clear();
             continue;
         }
+
         interpreter.interpret(input);
     }
 }
