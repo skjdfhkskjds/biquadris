@@ -9,7 +9,7 @@ class Random
 public:
     Random(int seed=1); // default random seed of 1
 
-    int getRand(); // gets random number
+    int getRand(int mod); // gets random number
 };
 
 #endif

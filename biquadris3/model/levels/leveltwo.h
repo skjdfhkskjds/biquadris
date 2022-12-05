@@ -3,12 +3,14 @@
 
 #include <vector>
 #include "level.h"
+#include "../../common/random.h"
 
 class LevelTwo : public Level
 {
-    std::vector<char> sequence;
+    Random randNum;
+
 public:
-    LevelTwo(int seed, std::vector<char> sequence);
+    LevelTwo(int seed);
 
     char generateBlock() override;
 };

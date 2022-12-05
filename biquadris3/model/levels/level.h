@@ -11,6 +11,7 @@ public:
 
     // getter methods
     int getLvl(); // returns lvl
+    int getSeed(); // returns seed
 
     virtual char generateBlock() = 0; // generates a block
 };
