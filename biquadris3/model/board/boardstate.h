@@ -4,8 +4,8 @@
 #include <vector>
 #include <memory>
 #include "../blocks/block.h"
-#include "../common/coordinates.h"
-#include "../common/square.h"
+#include "../../common/coordinates.h"
+#include "../../common/square.h"
 
 class BoardState
 {

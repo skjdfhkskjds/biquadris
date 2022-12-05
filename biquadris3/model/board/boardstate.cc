@@ -1,5 +1,5 @@
 #include "boardstate.h"
-#include "../common/exceptions.h"
+#include "../../common/exceptions.h"
 
 #define width 11
 #define height 18
