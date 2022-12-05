@@ -5,4 +5,4 @@ Random::Random(int seed=1)
     srand(seed);
 }
 
-int getRand() { return rand(); }
+int getRand(int mod) { return rand() % mod; }

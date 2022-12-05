@@ -11,11 +11,11 @@
 using namespace std;
 
 // maps clockwise states
-map<int, vector<vector<int>>> OBlock::rotationStates = {
+/*map<int, vector<vector<int>>> OBlock::rotationStates = {
     {0, {{0, up}, {0, up}, {0, up}, {0, up}}},
     {1, {{right, 0}, {right, 0}, {right, 0}, {right, 0}}},
     {2, {{0, down}, {0, down}, {0, down}, {0, down}}},
-    {3, {{left, 0}, {left, 0}, {left, 0}, {left, 0}}}};
+    {3, {{left, 0}, {left, 0}, {left, 0}, {left, 0}}}}; */
 
 map<int, vector<vector<int>>> OBlock::spawnStates = {
     {0, {{0,2},{1,2},{0,3},{1,3}}},
@@ -26,7 +26,7 @@ map<int, vector<vector<int>>> OBlock::spawnStates = {
 
 OBlock::OBlock(int lvl) : Block{'O', lvl}
 {
-    vector<Coordinates &> coords;
+    vector<Coordinates> coords;
     Coordinates a(0, 2);
     Coordinates b(1, 2);
     Coordinates c(0, 3);
@@ -37,4 +37,8 @@ OBlock::OBlock(int lvl) : Block{'O', lvl}
     coords.emplace_back(d);
     setCoords(coords);
 }
-void OBlock::clockwise() {}
+
+vector<vector<int>> OBlock::clockwise() {
+    vector<vector<int>> retVal = {{0,0}, {0,0}, {0,0}, {0,0}};
+    return retVal;
+}

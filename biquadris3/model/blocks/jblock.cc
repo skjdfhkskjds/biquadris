@@ -30,7 +30,7 @@ map<int, vector<vector<int>>> JBlock::spawnStates = {
 
 JBlock::JBlock(int lvl) : Block{'J', lvl}
 {
-    vector<Coordinates &> coords;
+    vector<Coordinates> coords;
     Coordinates a(0, 2);
     Coordinates b(0, 3);
     Coordinates c(1, 3);
@@ -46,12 +46,16 @@ vector<vector<int>> JBlock::clockwise()
 {
     int r = getState() % 4;
     setState(getState() + 1);
-    return rotationStates[0][r];
+    int dr = getState() % 4;
+    vector<vector<int>> retVal = vviSubtraction(getVVICoords(), vviAddition(spawnStates[dr], vviSubtraction(getVVICoords(), spawnStates[r])));
+    return retVal;
 }
 
 vector<vector<int>> JBlock::counterClockwise()
 {
     int r = getState() % 4;
     setState(getState() + 3);
-    return rotationStates[1][r];
+    int dr = getState() % 4;
+    vector<vector<int>> retVal = vviSubtraction(getVVICoords(), vviAddition(spawnStates[dr], vviSubtraction(getVVICoords(), spawnStates[r])));
+    return retVal;
 }

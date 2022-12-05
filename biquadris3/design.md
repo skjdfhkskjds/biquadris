@@ -62,5 +62,5 @@ OVERALL CHANGE
 
 **Decorator** used to decorate AbstractBoard with an Effect layer
 
-**Factory** used to produce Levels
+**Factory** used to produce Levels (lol!)
 

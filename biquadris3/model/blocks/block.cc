@@ -1,5 +1,5 @@
 #include "block.h"
-
+#include <map>
 using namespace std;
 
 struct Block::BlockImpl
@@ -58,7 +58,48 @@ vector<vector<int>> Block::down()
     return transform;
 }
 
+
 void Block::decay()
 {
 
+}
+
+/*vector<vector<int>> Block::spawnTransformation(vector<vector<int>> coords, map<int, vector<vector<int>>> spawnState, int currState) {
+    vector<vector<int>> retVal;
+    for (int i = 0; i < 4; i++) {
+        vector<int> temp = {-1 * (spawnState[currState][i][0] - coords[i][0]),
+            -1 * (spawnState[currState][i][1] - coords[i][1])};
+        retVal.emplace_back(temp);
+    };
+    return retVal;
+} */
+
+vector<vector<int>> Block::vviAddition(const vector<vector<int>> a, const vector<vector<int>> b) {
+    vector<vector<int>> retVal;
+    for (int i = 0; i < 4; i++) {
+        vector<int> temp = {a[i][0] + b[i][0],
+            a[i][1] + b[i][1]};
+        retVal.emplace_back(temp);
+    };
+    return retVal;
+}
+
+vector<vector<int>> Block::vviSubtraction(const vector<vector<int>> a, const  vector<vector<int>> b) {
+    vector<vector<int>> retVal;
+    for (int i = 0; i < 4; i++) {
+        vector<int> temp = {a[i][0] - b[i][0],
+            a[i][1] - b[i][1]};
+        retVal.emplace_back(temp);
+    };
+    return retVal;
+}
+
+vector<vector<int>> Block::getVVICoords() {
+    vector<vector<int>> retVal;
+    vector<Coordinates &> tempC = getCoords();
+    for (int i = 0; i < 4; i++) {
+        vector<int> temp = {tempC[i].getX(), tempC[i].getY()};
+        retVal.emplace_back(temp);
+    }
+    return retVal;
 }
