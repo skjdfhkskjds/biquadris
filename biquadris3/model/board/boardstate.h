@@ -31,6 +31,9 @@ public:
     bool checkRow(int row); // returns whether row is filled
     int clearRow(int row);  // clears all squares on row and returns the score for clearing the row
 
+    // setter functions
+    void initBlock(std::shared_ptr<Block> block); // initializes the block to the boardstate
+
     // block transformations (update the square's block + update block coords)
     void clockwise(std::shared_ptr<Block> &block);
     void counterClockwise(std::shared_ptr<Block> &block);

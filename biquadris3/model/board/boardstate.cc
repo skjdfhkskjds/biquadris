@@ -55,13 +55,26 @@ bool BoardState::isSafe(shared_ptr<Block> &block, vector<vector<int>> transform)
     {
         Coordinates temp = block->getCoords()[i];
         temp.update(transform[i][0], transform[i][1]);
-        // if new spot is already filled
-        if (state[temp.index()].getChar() != ' ') return false;
 
         // check if block is out of bounds
         if (temp.getX() < 0 || temp.getX() > width || temp.getY() < 0 || temp.getY() > height)
         {
             return false;
+        }
+
+        // if new spot is already filled
+        if (state[temp.index()].getChar() != ' ') 
+        {
+            bool safe = false;
+            for (Coordinates coord : block->getCoords())
+            {
+                if (temp == coord)
+                {
+                    safe = true;
+                    break;
+                }
+            }
+            if (!safe) return false;
         }
     }
     return true;
@@ -125,6 +138,14 @@ int BoardState::clearRow(int row)
         }
     }
     return score;
+}
+
+void BoardState::initBlock(std::shared_ptr<Block> block)
+{
+    for (Coordinates coord : block->getCoords())
+    {
+        state[coord.index()].setBlock(block);
+    }
 }
 
 void BoardState::apply(shared_ptr<Block> &block, vector<vector<int>> transform)
