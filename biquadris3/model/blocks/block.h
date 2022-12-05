@@ -20,7 +20,6 @@ protected:
     std::vector<std::vector<int>> getVVICoords();               // returns the coords in vvi form
     void decay();                                     // decays the block
 
-    std::vector<std::vector<int>> spawnTransformation(std::vector<std::vector<int>> coords, std::map<int, std::vector<std::vector<int>>> spawnState, int currState);
     std::vector<std::vector<int>> vviAddition(std::vector<std::vector<int>> a, std::vector<std::vector<int>> b);    // a + b
     std::vector<std::vector<int>> vviSubtraction(std::vector<std::vector<int>> a, std::vector<std::vector<int>> b); // a - b
 

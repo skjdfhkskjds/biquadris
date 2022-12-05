@@ -11,11 +11,6 @@
 using namespace std;
 
 // maps clockwise, counterclockwise states
-/* vector<map<int, vector<vector<int>>>> IBlock::rotationStates = {
-    {{0, {{0, 0}, {right, up}, {right * 2, up * 2}, {right * 3, up * 3}}},      // 0 -> 1
-     {1, {{0, 0}, {left, down}, {left * 2, down * 2}, {left * 3, down * 3}}}},  // 1 -> 0
-    {{0, {{0, 0}, {right, up}, {right * 2, up * 2}, {right * 3, up * 3}}},      // 0 -> 1
-     {1, {{0, 0}, {left, down}, {left * 2, down * 2}, {left * 3, down * 3}}}}}; // 1 -> 0 */
 
 map<int, vector<vector<int>>> IBlock::spawnStates = {
     {0, {{0,3},{1,3},{2,3},{3,3}}},
@@ -53,7 +48,7 @@ vector<vector<int>> IBlock::clockwise()
     int r = getState() % 2; // since IBLocks can only have two states
     setState(getState() + 1);
     int dr = getState() % 2;
-    vector<vector<int>> retVal = vviSubtraction(getVVICoords(), vviAddition(spawnStates[dr], vviSubtraction(getVVICoords(), spawnStates[r])));
+    vector<vector<int>> retVal = vviSubtraction(spawnStates[dr], spawnStates[r]);
     return retVal;
     /* return rotationStates[0][r]; */
 }
@@ -63,7 +58,7 @@ vector<vector<int>> IBlock::counterClockwise()
     int r = getState() % 2; // since IBLocks can only have two states
     setState(getState() + 3);
     int dr = getState() % 2;
-    vector<vector<int>> retVal = vviSubtraction(getVVICoords(), vviAddition(spawnStates[dr], vviSubtraction(getVVICoords(), spawnStates[r])));
+    vector<vector<int>> retVal = vviSubtraction(spawnStates[dr], spawnStates[r]);
     return retVal;
 }
 

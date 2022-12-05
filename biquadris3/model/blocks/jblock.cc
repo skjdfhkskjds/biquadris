@@ -11,21 +11,12 @@
 using namespace std;
 
 // maps clockwise, counterclockwise states
-vector<map<int, vector<vector<int>>>> JBlock::rotationStates = {
-    {{0, {{right, up}, {0, up * 2}, {left, up}, {left * 2, 0}}},   // 0 -> 1
-     {1, {{right, down}, {right * 2, down}, {right, 0}, {0, up}}}, // 1 -> 2
-     {2, {{left * 2, 0}, {left, down}, {0, 0}, {right, up}}},      // 2 -> 3
-     {3, {{0, up}, {left, 0}, {0, down}, {right, down * 2}}}},     // 3 -> 0
-    {{0, {{0, 0}, {right, 0}, {0, up}, {0, up * 2}}},   // 0 -> 3
-     {1, {{right, down}, {right * 2, down}, {right, 0}, {0, up}}}, // 1 -> 0
-     {2, {{left * 2, 0}, {left, down}, {0, 0}, {right, up}}},      // 2 -> 1
-     {3, {{0, up}, {left, 0}, {0, down}, {right, down * 2}}}}};    // 3 -> 2
 
 map<int, vector<vector<int>>> JBlock::spawnStates = {
     {0, {{0,2},{0,3},{1,3},{2,3}}},
     {1, {{1,1},{0,1},{0,2},{0,3}}},
     {2, {{2,3},{2,2},{1,2},{0,2}}},
-    {3, {{1,3},{1,2},{1,1},{0,1}}}
+    {3, {{1,3},{1,2},{1,1},{0,3}}}
 };
 
 JBlock::JBlock(int lvl) noexcept : Block{'J', lvl}
@@ -47,7 +38,7 @@ vector<vector<int>> JBlock::clockwise()
     int r = getState() % 4;
     setState(getState() + 1);
     int dr = getState() % 4;
-    vector<vector<int>> retVal = vviSubtraction(getVVICoords(), vviAddition(spawnStates[dr], vviSubtraction(getVVICoords(), spawnStates[r])));
+    vector<vector<int>> retVal = vviSubtraction(spawnStates[dr], spawnStates[r]);
     return retVal;
 }
 
@@ -56,6 +47,6 @@ vector<vector<int>> JBlock::counterClockwise()
     int r = getState() % 4;
     setState(getState() + 3);
     int dr = getState() % 4;
-    vector<vector<int>> retVal = vviSubtraction(getVVICoords(), vviAddition(spawnStates[dr], vviSubtraction(getVVICoords(), spawnStates[r])));
+    vector<vector<int>> retVal = vviSubtraction(spawnStates[dr], spawnStates[r]);
     return retVal;
 }

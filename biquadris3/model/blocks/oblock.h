@@ -8,7 +8,6 @@
 
 class OBlock : public Block
 {
-    static std::vector<std::map<int, std::vector<std::vector<int>>>> rotationStates;
     static std::map<int, std::vector<std::vector<int>>> spawnStates;
 public:
     OBlock(int lvl) noexcept;

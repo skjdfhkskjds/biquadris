@@ -1,5 +1,6 @@
-#include "block.h"
 #include <map>
+#include "block.h"
+
 using namespace std;
 
 struct Block::BlockImpl
@@ -15,15 +16,7 @@ struct Block::BlockImpl
     Coordinates &getCoords();
 };
 
-Block::BlockImpl::BlockImpl(char c, int lvl) noexcept //: lvl{lvl}, age{0}, maxAge{-1}, rotationState{0}, c{c}, isHeavy{(lvl >= 3) ? true : false}
-{
-    lvl = lvl;
-    age = 0;
-    maxAge = -1;
-    rotationState = 0;
-    c = c;
-    isHeavy = ((lvl >= 3) ? true : false);
-}
+Block::BlockImpl::BlockImpl(char c, int lvl) noexcept : c{c}, lvl{lvl}, age{0}, maxAge{-1}, rotationState{0}, isHeavy{(lvl >= 3) ? true : false} {}
 
 Block::Block(char c, int lvl) noexcept : impl{make_unique<Block::BlockImpl>(c, lvl)} {}
 
