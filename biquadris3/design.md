@@ -34,6 +34,8 @@
 
 main/command interpreter
 - if player level change is invalid, must catch
+- send effect commands to other player
+- write out all implementations for the commands
 
 force.cc
 - doesnt seem to call apply() anywhere

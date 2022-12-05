@@ -4,12 +4,14 @@
 #include <memory>
 #include <vector>
 #include <string>
+#include "commands.h"
 #include "../model/player.h"
 #include "../model/subject.h"
 
 class Game : public Subject
 {
-    std::unique_ptr<Player> p1, p2;
+    std::vector<std::unique_ptr<Player>> players;
+    Commands interpreter;
 
     std::vector<char> read(std::string sequence); // reads in the file sequence and produces it as a char array
 

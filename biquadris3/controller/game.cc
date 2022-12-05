@@ -5,7 +5,7 @@
 
 using namespace std;
 
-Game::Game(int seed, int startLvl, vector<string> sequences)
+Game::Game(int seed, int startLvl, vector<string> sequences) : interpreter{}
 {
     vector<vector<char>> seqs;
     int len = sequences.size();
@@ -23,8 +23,8 @@ Game::Game(int seed, int startLvl, vector<string> sequences)
         }
         seqs.emplace_back(seq);
     }
-    p1 = make_unique<Player>(seqs[0], seed, startLvl);
-    p2 = make_unique<Player>(seqs[1], seed, startLvl);
+    players.emplace_back(make_unique<Player>(seqs[0], seed, startLvl));
+    players.emplace_back(make_unique<Player>(seqs[1], seed, startLvl));
 }
 
 vector<char> Game::read(string s)
@@ -55,8 +55,8 @@ vector<char> Game::read(string s)
 vector<vector<char>> Game::getState()
 {
     vector<vector<char>> out;
-    out.emplace_back(p1->getState());
-    out.emplace_back(p2->getState());
+    out.emplace_back(players[0]->getState());
+    out.emplace_back(players[1]->getState());
     return out;
 }
 
@@ -64,6 +64,16 @@ int Game::run()
 {
     // gamestate vars
     int turns = 0;
-    
-    // 
+
+    string input;
+    while (cin >> input)
+    {
+        if (cin.fail())
+        {
+            cin.ignore();
+            cin.clear();
+            continue;
+        }
+        interpreter.interpret(input);
+    }
 }
