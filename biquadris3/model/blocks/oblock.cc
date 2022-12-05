@@ -26,7 +26,7 @@ map<int, vector<vector<int>>> OBlock::spawnStates = {
 
 OBlock::OBlock(int lvl) : Block{'O', lvl}
 {
-    vector<Coordinates &> coords;
+    vector<Coordinates> coords;
     Coordinates a(0, 2);
     Coordinates b(1, 2);
     Coordinates c(0, 3);

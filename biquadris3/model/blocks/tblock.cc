@@ -27,7 +27,7 @@ map<int, vector<vector<int>>> TBlock::spawnStates = {
 
 TBlock::TBlock(int lvl) : Block{'T', lvl}
 {
-    vector<Coordinates &> coords;
+    vector<Coordinates> coords;
     Coordinates a(1, 3);
     Coordinates b(0, 2);
     Coordinates c(1, 2);

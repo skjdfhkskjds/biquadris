@@ -27,7 +27,7 @@ map<int, vector<vector<int>>> ZBlock::spawnStates = {
 
 ZBlock::ZBlock(int lvl) : Block{'Z', lvl}
 {
-    vector<Coordinates &> coords;
+    vector<Coordinates> coords;
     Coordinates a(0, 2);
     Coordinates b(1, 2);
     Coordinates c(1, 3);
