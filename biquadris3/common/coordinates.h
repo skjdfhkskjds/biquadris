@@ -16,8 +16,6 @@ public:
     int getX();                          // returns x
     int getY();                          // returns y
     bool removed();                      // returns whether the coordinate has been removed
-
-    void print(); // prints the coordinates in a formatted way (for testing)
 };
 
 #endif

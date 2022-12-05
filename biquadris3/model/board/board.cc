@@ -22,9 +22,10 @@ using namespace std;
 struct Board::BoardImpl
 {
     int seed;
+    char nextBlock;
     unique_ptr<Level> lvl;
     unique_ptr<BoardState> state;
-    shared_ptr<Block> currBlock, nextBlock;
+    shared_ptr<Block> currBlock;
 
     shared_ptr<Block> makeBlock(char c);       // makes block of type c
     unique_ptr<Level> makeLevel(int startLvl); // makes a lvl level
@@ -74,7 +75,7 @@ Board::BoardImpl::BoardImpl(int startLvl, int seed) : seed{seed}
     lvl = makeLevel(startLvl);
 
     currBlock = move(makeBlock(lvl->generateBlock()));
-    nextBlock = move(makeBlock(lvl->generateBlock()));
+    nextBlock = lvl->generateBlock();
 }
 
 shared_ptr<Block> Board::BoardImpl::makeBlock(char c)
@@ -145,7 +146,7 @@ void Board::setLevel(int level) { impl->setLevel(level); }
 
 vector<char> Board::getState() { return impl->state->getState(); }
 
-char Board::getNext() { return impl->nextBlock->getChar(); }
+char Board::getNext() { return impl->nextBlock; }
 
 void Board::counterClockwise()
 {

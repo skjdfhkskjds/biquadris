@@ -20,8 +20,3 @@ int Coordinates::getX() { return x; }
 int Coordinates::getY() { return y; }
 
 bool Coordinates::removed() { return (x == -1 && y == -1); }
-
-void Coordinates::print()
-{
-    std::cout << "(" << x << ", " << y << ")" << std::endl;
-}

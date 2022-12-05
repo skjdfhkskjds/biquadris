@@ -24,11 +24,8 @@
       - calls resetEffects() 
       - if generateBlock() == invalid_move, return loss
 
-
-<!-- michelle is making random numbers work for levels -->
-- level.o:
-    - implement generateBlock() for all levels.
-
+- levelfour.cc
+  - implement singleton behavior
 
 <!-- dom working on making clockwise and counterclockwise work -->
 - block.cc:

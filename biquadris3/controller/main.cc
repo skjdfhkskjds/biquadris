@@ -6,19 +6,24 @@
 
 using namespace std;
 
-void print(vector<Coordinates> coords)
+void print(Coordinates &c)
 {
-    for (auto &c : coords)
+    cout << "(" << c.getX() << ", " << c.getY() << ")" << endl;
+}
+
+void print(vector<Coordinates &> coords)
+{
+    for (Coordinates &c : coords)
     {
-        c.print();
+        print(c);
     }
 }
 
-vector<Coordinates> foo(vector<Coordinates> coords)
+vector<Coordinates &> foo(vector<Coordinates &> coords)
 {
-    for (auto &c : coords)
+    for (Coordinates &c : coords)
     {
-        c.update(c.getX() + 1, c.getY() + 1);
+        c.update(1, 1);
     }
     return coords;
 }
@@ -30,15 +35,24 @@ int main(int argc, char ** argv)
     Coordinates b{1, 0};
     Coordinates c{1, 1};
     Coordinates d{2, 1};
+    Coordinates e{2, 1};
     
     coords.emplace_back(a);
     coords.emplace_back(b);
     coords.emplace_back(c);
     coords.emplace_back(d);
 
+    cout << (d == e) << endl;
+    cout << (c == e) << endl;
+
+    cout << (e.index()) << endl;
+
     print(coords);
     coords = foo(coords);
     print(coords);
+
+    e.update(-3, -2);
+    cout << e.removed() << endl;
 
     // for (int i = 1; i < argc; i++)
     // {
