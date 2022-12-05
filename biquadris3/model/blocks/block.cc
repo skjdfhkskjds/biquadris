@@ -10,24 +10,11 @@ struct Block::BlockImpl
 
     BlockImpl(char c, int lvl);
     ~BlockImpl() = default;
-    
-    unique_ptr<Block> makeBlock(); // returns a block of type c
 
-    void update(vector<vector<int>> transform);
     Coordinates &getCoords();
 };
 
 Block::BlockImpl::BlockImpl(char c, int lvl): lvl{lvl}, age{0}, maxAge{-1}, rotationState{0}, c{c} {};
-
-void Block::BlockImpl::update(vector<vector<int>> transform)
-{
-    int i = 0;
-    for (Coordinates & coord : coords)
-    {
-        coord.update(transform[i][0], transform[i][1]);
-        i++;
-    }
-}
 
 Block::Block(char c, int lvl) : impl{make_unique<Block::BlockImpl>(c, lvl)} {}
 
@@ -35,36 +22,37 @@ int Block::getState() { return impl->rotationState; }
 
 char Block::getChar() { return impl->c; }
 
+int Block::getLvl() { return impl->lvl; }
+
+bool Block::fullCleared()
+{
+    for (Coordinates & coord : impl->coords)
+    {
+        if (coord.getX() != -1 || coord.getY() != -1) return false;
+    }
+    return true;
+}
+
 vector<Coordinates &> Block::getCoords() { return impl->coords; }
 
 void Block::setCoords(std::vector<Coordinates> &coords) { }
 
-void Block::update(vector<vector<int>> transform) { impl->update(transform); }
-
-void Block::right() 
+vector<vector<int>> Block::right() 
 {
-    vector<vector<int>> changes = {{1, 0}, {1, 0}, {1, 0}, {1, 0}};
-    update(changes);
+    vector<vector<int>> transform = {{1, 0}, {1, 0}, {1, 0}, {1, 0}};
+    return transform;
 }
 
-void Block::left() 
+vector<vector<int>> Block::left() 
 {
-    vector<vector<int>> changes = {{-1, 0}, {-1, 0}, {-1, 0}, {-1, 0}};
-    update(changes);
+    vector<vector<int>> transform = {{-1, 0}, {-1, 0}, {-1, 0}, {-1, 0}};
+    return transform;
 }
 
-void Block::down() 
+vector<vector<int>> Block::down() 
 {
-    vector<vector<int>> changes = {{0, 1}, {0, 1}, {0, 1}, {0, 1}};
-    update(changes);
-}
-
-void Block::counterClockwise()
-{
-    for (int i = 0; i < 3; i++)
-    {
-        clockwise();
-    }
+    vector<vector<int>> transform = {{0, 1}, {0, 1}, {0, 1}, {0, 1}};
+    return transform;
 }
 
 void Block::decay()

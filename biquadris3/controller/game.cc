@@ -1,19 +1,32 @@
+#include <iostream>
 #include <fstream>
 #include "game.h"
-#include "../misc/exceptions.h"
+#include "../common/exceptions.h"
 
 using namespace std;
 
-Game::Game(int seed, int startLvl, std::vector<std::string> sequences)
+Game::Game(int seed, int startLvl, vector<string> sequences) : interpreter{}
 {
-    Game::sequences.emplace_back(read(sequences[0]));
-    Game::sequences.emplace_back(read(sequences[1]));
-
-    // make players
-    // uses seed and startLvl to make Level in Player
+    vector<vector<char>> seqs;
+    int len = sequences.size();
+    for (int i = 0; i < len; i++)
+    {
+        vector<char> seq;
+        try
+        {
+            seq = read(sequences[i]);
+        }
+        catch(file_not_found& e)
+        {
+            seq = read(e.getDefault(i));
+            cerr << e.what() << endl;
+        }
+        seqs.emplace_back(seq);
+    }
+    players.emplace_back(make_unique<Player>(seqs[0], seed, startLvl));
+    players.emplace_back(make_unique<Player>(seqs[1], seed, startLvl));
 }
 
-// reads in the file "s" and outputs a vector containing its contents
 vector<char> Game::read(string s)
 {
     vector<char> sequence;
@@ -39,10 +52,28 @@ vector<char> Game::read(string s)
     return sequence;
 }
 
+vector<vector<char>> Game::getState()
+{
+    vector<vector<char>> out;
+    out.emplace_back(players[0]->getState());
+    out.emplace_back(players[1]->getState());
+    return out;
+}
+
 int Game::run()
 {
     // gamestate vars
     int turns = 0;
 
-    // 
+    string input;
+    while (cin >> input)
+    {
+        if (cin.fail())
+        {
+            cin.ignore();
+            cin.clear();
+            continue;
+        }
+        interpreter.interpret(input);
+    }
 }

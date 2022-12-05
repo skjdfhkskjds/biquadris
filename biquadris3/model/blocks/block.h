@@ -3,7 +3,7 @@
 
 #include <vector>
 #include <memory>
-#include "../../misc/coordinates.h"
+#include "../../common/coordinates.h"
 
 class Block
 {
@@ -17,25 +17,24 @@ protected:
     void setCoords(std::vector<Coordinates> &coords); // sets the coordinates of block
     void setState(int newState);                      // sets the rotation state
 
-    void update(vector<vector<int>> transform); // updates coordinates by transform units
+    void decay(); // decays the block
 
 public:
     Block(char c, int lvl) noexcept;
-    ~Block() noexcept;
 
     // getter methods
     char getChar();                         // returns the block's char
     std::vector<Coordinates &> getCoords(); // returns the block's coordinates
+    int getLvl();                           // returns the level that the block was made
+    bool fullCleared();                     // returns whether a block has been fully cleared
 
     // block transformations
-    void right();                // shifts the block right
-    void left();                 // shifts the block left
-    void down();                 // shifts the block down
-    void counterClockwise(); // rotates the block counter clockwise
+    std::vector<std::vector<int>> right(); // shifts the block right
+    std::vector<std::vector<int>> left();  // shifts the block left
+    std::vector<std::vector<int>> down();  // shifts the block down
 
-    virtual void clockwise() = 0; // rotates the block clockwise
-
-    void decay(); // decays the block
+    virtual std::vector<std::vector<int>> clockwise() = 0;        // rotates the block clockwise
+    virtual std::vector<std::vector<int>> counterClockwise() = 0; // rotates the block counters clockwise
 };
 
 #endif

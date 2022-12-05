@@ -4,7 +4,7 @@
 
 using namespace std;
 
-// Heavy::Heavy(unique_ptr<AbstractBoard> component, int weight = 0) : weight{weight}, EffectDecorator{move(component)} {}
+Heavy::Heavy(unique_ptr<AbstractBoard> component, int weight = 0) : weight{weight}, EffectDecorator{move(component)} {}
 
 void Heavy::apply()
 {
@@ -21,14 +21,14 @@ vector<char> Heavy::getState()
     return component->getState();
 }
 
-unique_ptr<Block> Heavy::makeBlock(char c)
+shared_ptr<Block> Heavy::makeBlock(char c)
 {
     return component->makeBlock(c);
 }
 
-void Heavy::setBlock(unique_ptr<Block> block)
+void Heavy::setBlock(shared_ptr<Block> &block)
 {
-    component->setBlock(move(block));
+    component->setBlock(block);
 }
 
 void Heavy::clockwise()

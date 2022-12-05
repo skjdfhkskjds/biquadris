@@ -5,7 +5,7 @@
 #include <map>
 #include <memory>
 #include "commands.h"
-#include "../misc/exceptions.h"
+#include "../common/exceptions.h"
 #include <sstream>
 
 using namespace std;

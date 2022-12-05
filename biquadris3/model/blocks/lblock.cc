@@ -1,7 +1,7 @@
 #include <vector>
 #include "block.h"
 #include "lblock.h"
-#include "../../misc/coordinates.h"
+#include "../../common/coordinates.h"
 
 #define up -1
 #define down 1
@@ -15,7 +15,16 @@ map<int, vector<vector<int>>> LBlock::rotationStates = {
     {0, {{0, up * 2}, {left, up}, {left * 2, 0}, {left, down}}},
     {1, {{right * 2, down}, {right, 0}, {0, up}, {left, 0}}},
     {2, {{left, down}, {0, 0}, {right, up}, {0, up * 2}}},
-    {3, {{left, 0}, {0, down}, {right, down * 2}, {right * 2, down}}}};
+    {3, {{left, 0}, {0, down}, {right, down * 2}, {right * 2, down}}}
+};
+
+map<int, vector<vector<int>>> LBlock::spawnStates = {
+    {0, {{0,3},{1,3},{2,3},{2,2}}},
+    {1, {{0,1},{0,2},{0,3},{1,3}}},
+    {2, {{2,2},{1,2},{0,2},{0,3}}},
+    {3, {{1,3},{1,2},{1,1},{0,1}}}
+};
+
 
 LBlock::LBlock(int lvl) : Block{'L', lvl}
 {

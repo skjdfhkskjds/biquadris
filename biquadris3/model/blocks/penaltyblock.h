@@ -8,7 +8,9 @@ class PenaltyBlock : public Block
     
 public:
     PenaltyBlock();
-    void clockwise() override;
+    
+    std::vector<std::vector<int>> clockwise() override;
+    std::vector<std::vector<int>> counterClockwise() override;
 };
 
 #endif

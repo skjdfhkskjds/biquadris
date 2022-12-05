@@ -10,7 +10,7 @@ class AbstractBoard
 public:
     std::unique_ptr<AbstractBoard> component;
 
-    AbstractBoard(std::unique_ptr<AbstractBoard> component) noexcept;
+    AbstractBoard(std::unique_ptr<AbstractBoard> component=nullptr) noexcept;
     ~AbstractBoard() noexcept;
 
     // pure virtual getter methods
@@ -18,8 +18,9 @@ public:
     virtual std::vector<char> getState();
 
     // pure virtual block manipulation methods
-    virtual std::unique_ptr<Block> makeBlock(char c) = 0;
-    virtual void setBlock(std::unique_ptr<Block> block) = 0;
+    virtual std::shared_ptr<Block> makeBlock(char c) = 0;
+    virtual void setBlock(std::shared_ptr<Block> &block) = 0;
+    virtual void setLevel(int level) = 0;
 
     // pure virtual transform methods
     virtual void counterClockwise() = 0;

@@ -8,38 +8,23 @@ Force::Force(unique_ptr<AbstractBoard> component, char forcedBlock) : forcedBloc
 
 void Force::apply()
 {
-    unique_ptr<Block> block = move(component->makeBlock(forcedBlock));
-    component->setBlock(move(block));
+    shared_ptr<Block> block = component->makeBlock(forcedBlock);
+    component->setBlock(block);
 }
 
 char Force::getNext() { return component->getNext(); }
 
-vector<char> Force::getState()
-{
-    return component->getState();
-}
+vector<char> Force::getState() { return component->getState(); }
 
-unique_ptr<Block> Force::makeBlock(char c)
-{
-    return component->makeBlock(c);
-}
+shared_ptr<Block> Force::makeBlock(char c) { return component->makeBlock(c); }
 
-void Force::setBlock(unique_ptr<Block> block)
-{
-    component->setBlock(move(block));
-}
+void Force::setBlock(shared_ptr<Block> &block) { component->setBlock(block); }
 
-void Force::left()
-{
-    component->left();
-}
+void Force::setLevel(int level) { component->setLevel(level); }
 
-void Force::right()
-{
-    component->right();
-}
 
-void Force::down()
-{
-    component->down();
-}
+void Force::left() { component->left(); }
+
+void Force::right() { component->right(); }
+
+void Force::down() { component->down(); }
