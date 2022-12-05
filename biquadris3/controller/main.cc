@@ -25,7 +25,7 @@ vector<Coordinates> foo(vector<Coordinates> coords)
 
 int main(int argc, char ** argv)
 {
-    vector<Coordinates> coords;
+    vector<Coordinates &> coords;
     Coordinates a{0, 0};
     Coordinates b{1, 0};
     Coordinates c{1, 1};

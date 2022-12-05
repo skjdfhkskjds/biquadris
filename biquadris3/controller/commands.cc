@@ -10,8 +10,8 @@
 
 using namespace std;
 
-vector<string> minUnique{"lef", "ri", "do", "cl", "co", "dr", "levelu", "leveld", "nor", "ra", "se", "I", "J", "L", "O", "S", "Z", "T", "re"};
-vector<string> fullCommand{"left", "right", "down", "clockwise", "counterclockwise", "drop", "levelup", "leveldown", "norandom", "random", "sequence", "I", "J", "L", "O", "S", "Z", "T", "restart"};
+static vector<string> minUnique{"lef", "ri", "do", "cl", "co", "dr", "levelu", "leveld", "nor", "ra", "se", "I", "J", "L", "O", "S", "Z", "T", "re"};
+static vector<string> fullCommand{"left", "right", "down", "clockwise", "counterclockwise", "drop", "levelup", "leveldown", "norandom", "random", "sequence", "I", "J", "L", "O", "S", "Z", "T", "restart"};
 
 struct Commands::CommandsImpl
 {
@@ -66,17 +66,17 @@ Commands::CommandsImpl::CommandsImpl()
     vector<int> norandom = {NORANDOM};
     vector<int> random = {RANDOM};
     vector<int> sequence = {SEQUENCE};
-    vector<int> I = {I};
-    vector<int> J = {J};
-    vector<int> L = {L};
-    vector<int> O = {O};
-    vector<int> S = {S};
-    vector<int> Z = {Z};
-    vector<int> T = {T};
+    vector<int> Iblock = {I};
+    vector<int> Jblock = {J};
+    vector<int> Lblock = {L};
+    vector<int> Oblock = {O};
+    vector<int> Sblock = {S};
+    vector<int> Zblock = {Z};
+    vector<int> Tblock = {T};
     vector<int> restart = {RESTART};
 
     // adding the vectors to the map
-    commands = {{"left", left}, {"right", right}, {"down", down}, {"clockwise", clockwise}, {"counterclockwise", counterclockwise}, {"drop", drop}, {"levelup", levelup}, {"leveldown", leveldown}, {"norandom", norandom}, {"random", random}, {"sequence", sequence}, {"I", I}, {"J", J}, {"L", L}, {"O", O}, {"S", S}, {"Z", Z}, {"T", T}, {"restart", restart}};
+    commands = {{fullCommand[LEFT], left}, {fullCommand[RIGHT], right}, {fullCommand[DOWN], down}, {fullCommand[CLOCKWISE], clockwise}, {fullCommand[COUNTERCLOCKWISE], counterclockwise}, {fullCommand[DROP], drop}, {fullCommand[LEVELUP], levelup}, {fullCommand[LEVELDOWN], leveldown}, {fullCommand[NORANDOM], norandom}, {fullCommand[RANDOM], random}, {fullCommand[SEQUENCE], sequence}, {fullCommand[I], Iblock}, {fullCommand[J], Jblock}, {fullCommand[L], L}, {fullCommand[O], O}, {fullCommand[S], S}, {fullCommand[Z], Z}, {fullCommand[T], T}, {fullCommand[RESTART], restart}};
 
     // non multiplicative commands
     nonMultCommands = {"restart", "hint", "norandom", "random"};
@@ -99,31 +99,31 @@ void Commands::CommandsImpl::apply(string &command)
     {
         switch (c)
         {
-        case 0:
+        case LEFT:
             // left();
             break;
-        case 1:
+        case RIGHT:
             // right();
             break;
-        case 2:
+        case DOWN:
             // down();
             break;
-        case 3:
+        case CLOCKWISE:
             // clockwise();
             break;
-        case 4:
+        case COUNTERCLOCKWISE:
             // counterclockwise();
             break;
-        case 5:
+        case DROP:
             // drop();
             break;
-        case 6:
+        case LEVELUP:
             // levelup();
             break;
-        case 7:
+        case LEVELDOWN:
             // leveldown();
             break;
-        case 8:
+        case NORANDOM:
         {
             cin >> file;
             ifstream ifs{file};
@@ -134,35 +134,35 @@ void Commands::CommandsImpl::apply(string &command)
             // norandom(file);
             break;
         }
-        case 9:
+        case RANDOM:
             // random();
             break;
-        case 10:
+        case SEQUENCE:
             cin >> file;
             // sequence(file);
             break;
-        case 11:
+        case I:
             // I();
             break;
-        case 12:
+        case J:
             // J();
             break;
-        case 13:
+        case L:
             // L();
             break;
-        case 14:
+        case O:
             // O();
             break;
-        case 15:
+        case S:
             // S();
             break;
-        case 16:
+        case Z:
             // Z();
             break;
-        case 17:
+        case T:
             // T();
             break;
-        case 18:
+        case RESTART:
             // restart();
             break;
         default:
