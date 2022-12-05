@@ -15,28 +15,6 @@ using namespace std;
 const int width = 11;
 const int height = 18;
 
-void print(Coordinates &c)
-{
-    cout << "(" << c.getX() << ", " << c.getY() << ")" << endl;
-}
-
-void print(vector<Coordinates &> coords)
-{
-    for (Coordinates &c : coords)
-    {
-        print(c);
-    }
-}
-
-vector<Coordinates &> foo(vector<Coordinates &> coords)
-{
-    for (Coordinates &c : coords)
-    {
-        c.update(1, 1);
-    }
-    return coords;
-}
-
 void psuedoPrint(vector<Coordinates> coords, char c) {
     for (int x = 0; x < width; x++) {
         cout << "-";
@@ -66,38 +44,48 @@ void psuedoPrint(vector<Coordinates> coords, char c) {
     cout << endl;
 }
 
+void updateMachine(vector<Coordinates &> coords, vector<vector<int>> trans) {
+    for (int i = 0; i < 4; i++) {
+        coords[i].update(trans[i][0], trans[i][1]);
+    };
+}
+
 int main(int argc, char ** argv)
 {
     IBlock myBlock(0); 
-    cout << myBlock.getLvl();
-    cout << myBlock.fullCleared();
-    //cout <<
+    vector<Coordinates &> fakeBlock;
+    for (int i = 0; i < 4; i++) {
+        Coordinates temp(myBlock.getCoords()[i].getX(), myBlock.getCoords()[i].getY());
+        fakeBlock.emplace_back(temp);
+    }
+    //cout << myBlock.getLvl();
+    cout << myBlock.getChar();
+    
     psuedoPrint(myBlock.getCoords(), myBlock.getChar());
-    myBlock.right();
+    updateMachine(fakeBlock, myBlock.right());
     psuedoPrint(myBlock.getCoords(), myBlock.getChar());
-    myBlock.left();
+    updateMachine(fakeBlock, myBlock.left());
     psuedoPrint(myBlock.getCoords(), myBlock.getChar());
-    myBlock.down();
-    myBlock.right();
+    updateMachine(fakeBlock, myBlock.down());
+    updateMachine(fakeBlock, myBlock.right());
     psuedoPrint(myBlock.getCoords(), myBlock.getChar());
-    myBlock.down();
-    myBlock.right();
+     updateMachine(fakeBlock, myBlock.down());
+    updateMachine(fakeBlock, myBlock.right());
     psuedoPrint(myBlock.getCoords(), myBlock.getChar());
-    myBlock.clockwise();
+    updateMachine(fakeBlock, myBlock.clockwise());
     psuedoPrint(myBlock.getCoords(), myBlock.getChar());
-    myBlock.clockwise();
+    updateMachine(fakeBlock, myBlock.clockwise());
     psuedoPrint(myBlock.getCoords(), myBlock.getChar());
-    myBlock.clockwise();
+    updateMachine(fakeBlock, myBlock.clockwise());
     psuedoPrint(myBlock.getCoords(), myBlock.getChar());
-    myBlock.clockwise();
+    updateMachine(fakeBlock, myBlock.clockwise());
     psuedoPrint(myBlock.getCoords(), myBlock.getChar());
-    myBlock.counterClockwise();
+    updateMachine(fakeBlock, myBlock.clockwise());
     psuedoPrint(myBlock.getCoords(), myBlock.getChar());
-    myBlock.counterClockwise();
+    updateMachine(fakeBlock, myBlock.clockwise());
     psuedoPrint(myBlock.getCoords(), myBlock.getChar());
-    myBlock.counterClockwise();
+    updateMachine(fakeBlock, myBlock.clockwise());
     psuedoPrint(myBlock.getCoords(), myBlock.getChar());
-    myBlock.counterClockwise();
+    updateMachine(fakeBlock, myBlock.clockwise());
     psuedoPrint(myBlock.getCoords(), myBlock.getChar());
-
 }
