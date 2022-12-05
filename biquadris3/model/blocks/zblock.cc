@@ -12,11 +12,11 @@ using namespace std;
 
 // maps clockwise states
 // CAN BE CONFIGURED FOR 2 ROTATION STATES
-map<int, vector<vector<int>>> ZBlock::rotationStates = {
+/*map<int, vector<vector<int>>> ZBlock::rotationStates = {
     {0, {{right, up}, {0, 0}, {left, up}, {2 * left, 0}}},
     {1, {{left, down}, {0, 0}, {right, down}, {2 * right, 0}}},
     {2, {{right, up}, {0, 0}, {left, up}, {2 * left, 0}}},
-    {3, {{left, down}, {0, 0}, {right, down}, {2 * right, 0}}}};
+    {3, {{left, down}, {0, 0}, {right, down}, {2 * right, 0}}}}; */
 
 map<int, vector<vector<int>>> ZBlock::spawnStates = {
     {0, {{0,2},{1,2},{1,3},{2,3}}},
@@ -39,9 +39,21 @@ ZBlock::ZBlock(int lvl) : Block{'Z', lvl}
     setCoords(coords);
 }
 
-void ZBlock::clockwise()
+vector<vector<int>> ZBlock::clockwise()
 {
     int r = getState() % 4;
-    update(rotationStates[r]);
     setState(getState() + 1);
+    int dr = getState() % 4;
+    vector<vector<int>> retVal = vviSubtraction(getVVICoords(), vviAddition(spawnStates[dr], vviSubtraction(getVVICoords(), spawnStates[r])));
+    return retVal;
+}
+
+
+vector<vector<int>> ZBlock::counterClockwise()
+{
+    int r = getState() % 4;
+    setState(getState() + 3);
+    int dr = getState() % 4;
+    vector<vector<int>> retVal = vviSubtraction(getVVICoords(), vviAddition(spawnStates[dr], vviSubtraction(getVVICoords(), spawnStates[r])));
+    return retVal;
 }

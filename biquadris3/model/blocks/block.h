@@ -9,6 +9,7 @@ class Block
 {
     class BlockImpl;
     std::unique_ptr<BlockImpl> impl;
+    
 
 protected:
     int getState(); // returns the rotation state
@@ -16,7 +17,7 @@ protected:
     // setter methods
     void setCoords(std::vector<Coordinates> &coords); // sets the coordinates of block
     void setState(int newState);                      // sets the rotation state
-
+    vector<vector<int>> getVVICoords(); //returns the coords in vvi form
     void decay(); // decays the block
 
 public:
@@ -35,6 +36,9 @@ public:
 
     virtual std::vector<std::vector<int>> clockwise() = 0;        // rotates the block clockwise
     virtual std::vector<std::vector<int>> counterClockwise() = 0; // rotates the block counters clockwise
+    vector<vector<int>> spawnTransformation(vector<vector<int>> coords, map<int, vector<vector<int>>> spawnState, int currState);
+    vector<vector<int>> vviAddition(vector<vector<int>> a, vector<vector<int>>b); // a + b
+    vector<vector<int>> vviSubtraction(vector<vector<int>> a, vector<vector<int>>b); //a - b
 };
 
 #endif

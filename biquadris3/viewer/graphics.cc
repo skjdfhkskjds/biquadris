@@ -51,6 +51,7 @@ map<char,int> blockColour = {
 void Graphics::notify() {
     map<int,char> p1Deltas = getDeltas(0);
     map<int,char> p2Deltas = getDeltas(1);
+    //update text and next block each time
     //something render deltas
     int x;
     int y;

@@ -11,12 +11,12 @@
 using namespace std;
 
 // maps clockwise states
-map<int, vector<vector<int>>> TBlock::rotationStates = {
+/*map<int, vector<vector<int>>> TBlock::rotationStates = {
     {0, {{left, up}, {right, up}, {0, 0}, {left, down}}},
     {1, {{right, 0}, {right, down * 2}, {0, down}, {left, 0}}},
     {2, {{0, 0}, {left * 2, 0}, {left, up}, {0, up * 2}}},
     {3, {{0, down}, {0, up}, {right, 0}, {right * 2, down}}}
-};
+}; */
 
 map<int, vector<vector<int>>> TBlock::spawnStates = {
     {0, {{1,3},{0,2},{1,2},{2,2}}},
@@ -39,9 +39,20 @@ TBlock::TBlock(int lvl) : Block{'T', lvl}
     setCoords(coords);
 }
 
-void TBlock::clockwise()
+vector<vector<int>> TBlock::clockwise()
 {
     int r = getState() % 4;
-    update(rotationStates[r]);
     setState(getState() + 1);
+    int dr = getState() % 4;
+    vector<vector<int>> retVal = vviSubtraction(getVVICoords(), vviAddition(spawnStates[dr], vviSubtraction(getVVICoords(), spawnStates[r])));
+    return retVal;
+}
+
+vector<vector<int>> TBlock::counterClockwise()
+{
+    int r = getState() % 4;
+    setState(getState() + 3);
+    int dr = getState() % 4;
+    vector<vector<int>> retVal = vviSubtraction(getVVICoords(), vviAddition(spawnStates[dr], vviSubtraction(getVVICoords(), spawnStates[r])));
+    return retVal;
 }

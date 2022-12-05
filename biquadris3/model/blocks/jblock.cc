@@ -46,12 +46,16 @@ vector<vector<int>> JBlock::clockwise()
 {
     int r = getState() % 4;
     setState(getState() + 1);
-    return rotationStates[0][r];
+    int dr = getState() % 4;
+    vector<vector<int>> retVal = vviSubtraction(getVVICoords(), vviAddition(spawnStates[dr], vviSubtraction(getVVICoords(), spawnStates[r])));
+    return retVal;
 }
 
 vector<vector<int>> JBlock::counterClockwise()
 {
     int r = getState() % 4;
     setState(getState() + 3);
-    return rotationStates[1][r];
+    int dr = getState() % 4;
+    vector<vector<int>> retVal = vviSubtraction(getVVICoords(), vviAddition(spawnStates[dr], vviSubtraction(getVVICoords(), spawnStates[r])));
+    return retVal;
 }
