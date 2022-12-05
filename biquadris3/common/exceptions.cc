@@ -43,6 +43,8 @@ string invalid_level::what()
     return "invalid level change, you are already at level: " + level;
 }
 
+invalid_move::invalid_move() {}
+
 string invalid_move::what()
 {
     return "invalid move.";
