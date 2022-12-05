@@ -76,7 +76,7 @@ void Block::decay()
 
 }
 
-void Block::updateCoords(Coordinates oldCoords, Coordinates newCoords=Coordinates{-1, -1})
+void Block::updateCoords(Coordinates oldCoords, Coordinates newCoords)
 {
     int len = impl->coords.size();
     for (int i = 0; i < len; i++)
