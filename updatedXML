@@ -1,1 +1,25 @@
-<mxfile host="app.diagrams.net" modified="2022-12-05T22:47:11.145Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36" version="20.6.0" etag="pSYFEOlkIu9wR1eyJ91t" type="github"><diagram id="BQI7T-5nnbETxmhYlJsL">UzV2zq1wL0osyPDNT0nNUTV2VTV2LsrPL4GwciucU3NyVI0MMlNUjV1UjYwMgFjVyA2HrCFY1qAgsSg1rwSLBiADYTaQg2Y1AA==</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2022-12-05T23:21:17.568Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36" version="20.6.0" etag="o85I-F81RhwiZdEr93g5" type="github">
+  <diagram id="VLrbAFW0HDBrK5zYvRRU" name="Page-1">
+    <mxGraphModel dx="1310" dy="646" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="8yNu10K_B24nvX5uA-8X-11" value="Block" style="swimlane;fontStyle=3;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
+          <mxGeometry x="-420" y="287" width="390" height="270" as="geometry" />
+        </mxCell>
+        <mxCell id="8yNu10K_B24nvX5uA-8X-13" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="8yNu10K_B24nvX5uA-8X-11">
+          <mxGeometry y="26" width="390" height="8" as="geometry" />
+        </mxCell>
+        <mxCell id="8yNu10K_B24nvX5uA-8X-14" value="#setCoords(vector&lt;Coordinates &amp;) : void &#xa;#setStates(int newState) : void&#xa;#getVVI(coords): vector&lt;vector&lt;int&gt;&gt;&#xa;#vviAddition(vector&lt;vector&lt;int&gt;&gt;) : vector&lt;vector&lt;int&gt;&gt;&#xa;#vviSubtraction(vector&lt;vector&lt;int&gt;&gt;) : vector&lt;vector&lt;int&gt;&gt;&#xa;+getChar(): char&#xa;+getCoords(): vector&lt;Coordinates&gt;&#xa;+getLevel(): int&#xa;+updateCoords(Coordinates oldCoords, Coordinates newCoords): void&#xa;+right(): vector&lt;vector&lt;int&gt;&gt;&#xa;+left(): vector&lt;vector&lt;int&gt;&gt;&#xa;+down(): vector&lt;vector&lt;int&gt;&gt;&#xa;+clockwise(): vector&lt;vector&lt;int&gt;&gt;&#xa;+counterClockwise(): vector&lt;vector&lt;int&gt;&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0" vertex="1" parent="8yNu10K_B24nvX5uA-8X-11">
+          <mxGeometry y="34" width="390" height="236" as="geometry" />
+        </mxCell>
+        <mxCell id="8yNu10K_B24nvX5uA-8X-15" value="IBlock" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
+          <mxGeometry x="-514" y="620" width="160" height="116" as="geometry" />
+        </mxCell>
+        <mxCell id="8yNu10K_B24nvX5uA-8X-16" value="+" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0" vertex="1" parent="8yNu10K_B24nvX5uA-8X-15">
+          <mxGeometry y="26" width="160" height="90" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
