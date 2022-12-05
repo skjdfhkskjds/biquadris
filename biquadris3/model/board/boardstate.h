@@ -10,7 +10,7 @@
 class BoardState
 {
     int lvl;
-    std::vector<Square &> state;
+    std::vector<Square> state;
 
     void clearSquare(Coordinates &c);        // clears the square at c
     void swap(Square &target, Square &dest); // swaps target and dest squares
@@ -19,7 +19,7 @@ class BoardState
     void apply(std::shared_ptr<Block> &block, std::vector<std::vector<int>> transform); // applies transform to block
 
     bool isSafe(std::shared_ptr<Block> &block, std::vector<std::vector<int>> transform); // checks if a transformation is safe
-    int rowScore(std::vector<std::shared_ptr<Block> &> cleared);                         // returns the score of clearing the caller
+    int rowScore(std::vector<std::shared_ptr<Block>> cleared);                         // returns the score of clearing the caller
 
 public:
     BoardState(int lvl);

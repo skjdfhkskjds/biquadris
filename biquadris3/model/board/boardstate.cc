@@ -87,7 +87,7 @@ bool BoardState::checkRow(int row)
     return true;
 }
 
-int BoardState::rowScore(vector<shared_ptr<Block> &> cleared)
+int BoardState::rowScore(vector<shared_ptr<Block>> cleared)
 {
     // points for clearing a line
     int score = squared(lvl + 1);
@@ -99,12 +99,13 @@ int BoardState::rowScore(vector<shared_ptr<Block> &> cleared)
             score += squared(block->getLvl() + 1);
         }
     }
+    return score;
 }
 
 int BoardState::clearRow(int row)
 {
-    if (!checkRow(row)) return;
-    vector<shared_ptr<Block> &> cleared;
+    if (!checkRow(row)) return 0;
+    vector<shared_ptr<Block>> cleared;
     // clearing row
     for (int x = 0; x < width; x++)
     {
@@ -112,7 +113,7 @@ int BoardState::clearRow(int row)
         cleared.emplace_back(state[target.index()].getBlock());
         clearSquare(target);
     }
-    rowScore(cleared);
+    int score = rowScore(cleared);
     // shift rows above down
     for (int y = row; y >= 3; y--)
     {
@@ -123,6 +124,7 @@ int BoardState::clearRow(int row)
             swap(state[i], state[i - width]);
         }
     }
+    return score;
 }
 
 void BoardState::apply(shared_ptr<Block> &block, vector<vector<int>> transform)
