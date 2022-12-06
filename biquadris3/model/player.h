@@ -20,6 +20,7 @@ public:
     int getLevel();               // returns the player's level
     int getScore();               // returns the player's score
     char getNext();               // returns the player's next block
+    int getCleared();             // return player's total cleared rows
 
     // effect modifiers
     void apply(); // returns a board with the effects applied
@@ -30,7 +31,7 @@ public:
     // player modifiers
     void levelUp();   // increases the level
     void levelDown(); // decreases the level
-    void playTurn(int command);
+    void playTurn(int cmd);
     void setRandom(bool isRandom);
     void setSequence(std::vector<char> newSeq); 
     void setup();

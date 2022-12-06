@@ -1,6 +1,11 @@
 #include <iostream>
 #include <fstream>
+#include <memory>
+#include <vector>
+#include <string>
 #include "game.h"
+#include "commands.h"
+#include "../model/player.h"
 #include "../common/exceptions.h"
 
 using namespace std;
@@ -93,6 +98,7 @@ void Game::playTurn()
     };
 
     int p = turn % 2;
+    int numRows = players[p]->getCleared();
     players[p]->apply();
     cout << "Player " << p + 1 << "'s turn." << endl;
     string input;
@@ -165,10 +171,10 @@ void Game::playTurn()
             }
         }
     }
-    // check rowscleared to use effect
-    // placeholder bool
-    bool effectAvailable;
-    if (effectAvailable)
+    int totalCleared = players[p]->getCleared() - numRows;
+    int numEffects = totalCleared / 2;
+
+    while (numEffects)
     {
         cout << "Effect available" << endl;
         cout << "Select an effect : blind / heavy / force" << endl;
@@ -186,6 +192,7 @@ void Game::playTurn()
             players[next]->setForcedChar(c);
             players[next]->setEffect(input);
         }
+        numEffects--;
     }
     int currScore = players[p]->getScore();
     cout << "Current Score: " << currScore << endl;
