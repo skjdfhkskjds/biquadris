@@ -5,12 +5,14 @@
 #include <vector>
 #include "observer.h"
 #include "../model/player.h"
+#include "../controller/game.h"
 
 class Text : public Observer
 {
+    std::shared_ptr<Game> game;
     std::vector<std::shared_ptr<Player>> players;
 public:
-    Text(std::vector<std::shared_ptr<Player>> players);
+    Text(std::shared_ptr<Game> game);
     ~Text();
     void notify() override;
 };

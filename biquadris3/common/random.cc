@@ -1,6 +1,6 @@
 #include "random.h"
 
-Random::Random(int seed=1)
+Random::Random(int seed)
 {
     srand(seed);
 }

@@ -10,7 +10,7 @@ class LevelZero : public Level
     std::vector<char> sequence;
 public:
     LevelZero(int seed, std::vector<char> sequence);
-
+    void setRandom(bool newValue) override;
     char generateBlock() override;
 };
 

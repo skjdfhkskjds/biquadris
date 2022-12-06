@@ -8,7 +8,6 @@
 
 class LBlock : public Block
 {
-    static std::vector<std::map<int, std::vector<std::vector<int>>>> rotationStates;
     static std::map<int, std::vector<std::vector<int>>> spawnStates;
 public:
     LBlock(int lvl) noexcept;

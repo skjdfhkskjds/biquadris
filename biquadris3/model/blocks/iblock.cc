@@ -11,11 +11,6 @@
 using namespace std;
 
 // maps clockwise, counterclockwise states
-/* vector<map<int, vector<vector<int>>>> IBlock::rotationStates = {
-    {{0, {{0, 0}, {right, up}, {right * 2, up * 2}, {right * 3, up * 3}}},      // 0 -> 1
-     {1, {{0, 0}, {left, down}, {left * 2, down * 2}, {left * 3, down * 3}}}},  // 1 -> 0
-    {{0, {{0, 0}, {right, up}, {right * 2, up * 2}, {right * 3, up * 3}}},      // 0 -> 1
-     {1, {{0, 0}, {left, down}, {left * 2, down * 2}, {left * 3, down * 3}}}}}; // 1 -> 0 */
 
 map<int, vector<vector<int>>> IBlock::spawnStates = {
     {0, {{0,3},{1,3},{2,3},{3,3}}},

@@ -15,7 +15,7 @@ class LevelFour : public Level
 public:
     LevelFour(int seed, std::vector<char> sequence);
 
-    void setRandom(bool newValue); // modifies isRandom
+    void setRandom(bool newValue) override; // modifies isRandom
 
     char generateBlock() override;
 };

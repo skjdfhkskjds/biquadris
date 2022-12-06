@@ -1,8 +1,11 @@
 #include "leveltwo.h"
+#include "../../common/random.h"
 
 #define toUpper(c) (char)(('a' <= c && c <= 'z') ? (c - 'a' + 'A') : c)
 
 LevelTwo::LevelTwo(int seed) : Level{seed, seed}, randNum{Random{seed}} {}
+
+void LevelTwo::setRandom(bool newValue) {}
 
 char LevelTwo::generateBlock()
 {

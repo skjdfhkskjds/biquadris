@@ -18,6 +18,8 @@ class Game : public Subject
 public:
     Game(int seed, int startLvl, std::vector<std::string> sequences);
 
+    vector<std::unique_ptr<Player>> getPlayers();
+    
     int run(); // runs the game, returns 0 if p1 wins, if p2 wins
 
     std::vector<std::vector<char>> getState() override; // returns a vector of both player's states
