@@ -31,8 +31,8 @@ public:
     virtual void clockwise() = 0;
     virtual void right() = 0;
     virtual void left() = 0;
-    virtual void down() = 0;
-    virtual void drop() = 0;
+    virtual int down() = 0;
+    virtual int drop() = 0;
 };
 
 #endif

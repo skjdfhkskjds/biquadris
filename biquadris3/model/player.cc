@@ -18,11 +18,13 @@ using namespace std;
 
 struct Player::PlayerImpl
 {
+    vector<char> seq;
     static map<string, int> playerCommands;
     unique_ptr<AbstractBoard> board;
-    int turns, lvl, score;
+    int lvl, turns, score;
     map<string, bool> effects;
-    vector<char> seq;
+    char forcedBlock;
+    vector<char> getState();
 
     PlayerImpl(vector<char> seq, int startLvl, int seed);
     ~PlayerImpl() = default;
@@ -32,8 +34,17 @@ struct Player::PlayerImpl
 
 Player::PlayerImpl::PlayerImpl(vector<char> seq, int startLvl, int seed) : seq{seq}, lvl{startLvl}, turns{0}, score{0}, effects{{"heavy", false}, {"blind", false}, {"force", false}}
 {
-    board = make_unique<Board>(startLvl, seed);
+    board = make_unique<Board>(startLvl, seed, seq);
 }
+
+vector<char> Player::PlayerImpl::getState() {
+    return board->getState();
+}
+
+vector<char> Player::getState()  {
+    return impl->getState();
+}
+
 
 void Player::PlayerImpl::apply()
 {
@@ -53,9 +64,8 @@ void Player::PlayerImpl::apply()
         }
         else if (e.first == "force")
         {
-            char c;
             // MAKE ERROR CHECKING AND GET USER INPUT FOR c
-            board = make_unique<Force>(move(board), toUpper(c));
+            board = make_unique<Force>(move(board), forcedBlock);
         }
     }
 }
@@ -72,7 +82,7 @@ int Player::getScore() { return impl->score; }
 
 char Player::getNext() { return impl->board->getNext(); }
 
-unique_ptr<AbstractBoard> Player::apply() { impl->apply(); }
+void Player::apply() { impl->apply(); }
 
 void Player::resetEffects()
 {
@@ -89,13 +99,15 @@ void Player::resetEffects()
     }
 }
 
-void Player::setEffect(std::string effect)
+void Player::setEffect(string effect)
 {
     if (impl->effects.count(effect) != 0)
     {
         impl->effects[effect] = true;
     }
 }
+
+void Player::setForcedChar(char c) { impl->forcedBlock = c; }
 
 void Player::levelUp()
 {
@@ -133,7 +145,7 @@ void Player::playTurn(int cmd)
         impl->board->counterClockwise();
         break;
     case 5:
-        impl->board->drop();
+        impl->score += impl->board->drop();
         break;
     case 6:
         levelUp();
@@ -147,12 +159,16 @@ void Player::playTurn(int cmd)
     }
 }
 
-void Player::setSequence(vector<char> newSeq)
-{
+void Player::setSequence(vector<char> newSeq) 
+{ 
     impl->seq = newSeq;
+    impl->board->setSequence(newSeq);
 }
 
-void Player::setup()
+void Player::setRandom(bool isRandom) 
 {
-    impl->board->setup();
+    impl->board->setRandom(isRandom);
 }
+void Player::setup() { impl->board->setup(); }
+
+

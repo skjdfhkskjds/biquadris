@@ -57,6 +57,6 @@ void Heavy::right()
     apply();
 }
 
-void Heavy::down() { component->down(); }
+int Heavy::down() { return component->down(); }
 
-void Heavy::drop() { component->drop(); }
+int Heavy::drop() { return component->drop(); }

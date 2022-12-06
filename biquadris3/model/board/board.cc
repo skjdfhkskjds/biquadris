@@ -173,6 +173,8 @@ void Board::left() { impl->state->left(); }
 
 void Board::right() { impl->state->right(); }
 
-void Board::down() { impl->state->down(); }
+int Board::down() { return impl->state->down(); }
 
-void Board::drop() { impl->state->drop(); }
+int Board::drop() { return impl->state->drop(); }
+
+

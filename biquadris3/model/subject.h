@@ -14,8 +14,8 @@ class Subject
 public:
     virtual ~Subject() = default;
 
-    void attach(unique_ptr<Observer> o);
-    void detach(unique_ptr<Observer> o);
+    void attach(std::unique_ptr<Observer> o);
+    void detach(std::unique_ptr<Observer> o);
     void notifyObservers();
     
     virtual std::vector<std::vector<char>> getState() = 0;
