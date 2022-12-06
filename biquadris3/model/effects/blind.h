@@ -32,8 +32,8 @@ public:
     void counterClockwise() override;
     void right() override;
     void left() override;
-    void down() override;
-    void drop() override;
+    int down() override;
+    int drop() override;
 
 };
 
