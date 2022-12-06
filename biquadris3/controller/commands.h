@@ -10,14 +10,15 @@ class Commands final
 {
     class CommandsImpl;
     std::unique_ptr<CommandsImpl> impl;
-    std::unique_ptr<Game> game; 
+    std::unique_ptr<Game> game;
 
 public:
     Commands() noexcept;
     ~Commands() noexcept;
-    
+
     std::vector<std::string> interpret(std::string &command); // interprets a string input and applies commands appropriately
-    void apply(std::string &command);     // applies the interpreted input
+    int getPlayerCommand(std::string &command);               // returns the player command
+    void apply(std::string &command);                         // applies the interpreted input
 
     bool rename(std::string &existing, std::string &newName); // renames a command
     bool addMacro(std::string &command);                      // adds a macro

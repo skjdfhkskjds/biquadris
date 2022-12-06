@@ -49,3 +49,10 @@ string invalid_move::what()
 {
     return "invalid move.";
 }
+
+game_over::game_over() {}
+
+string game_over::what()
+{
+    return "you've lost.";
+}

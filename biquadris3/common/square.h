@@ -3,7 +3,7 @@
 
 #include <memory>
 #include "coordinates.h"
-#include "../blocks/block.h"
+#include "../model/blocks/block.h"
 
 class Square
 {

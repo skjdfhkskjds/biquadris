@@ -76,16 +76,18 @@ Commands::CommandsImpl::CommandsImpl()
     vector<int> restart = {RESTART};
 
     // adding the vectors to the map
-    //commands = {{fullCommand[LEFT], left}, {fullCommand[RIGHT], right}, {fullCommand[DOWN], down}, {fullCommand[CLOCKWISE], clockwise}, {fullCommand[COUNTERCLOCKWISE], counterclockwise}, {fullCommand[DROP], drop}, {fullCommand[LEVELUP], levelup}, {fullCommand[LEVELDOWN], leveldown}, {fullCommand[NORANDOM], norandom}, {fullCommand[RANDOM], random}, {fullCommand[SEQUENCE], sequence}, {fullCommand[I], Iblock}, {fullCommand[J], Jblock}, {fullCommand[L], L}, {fullCommand[O], O}, {fullCommand[S], S}, {fullCommand[Z], Z}, {fullCommand[T], T}, {fullCommand[RESTART], restart}};
+    // commands = {{fullCommand[LEFT], left}, {fullCommand[RIGHT], right}, {fullCommand[DOWN], down}, {fullCommand[CLOCKWISE], clockwise}, {fullCommand[COUNTERCLOCKWISE], counterclockwise}, {fullCommand[DROP], drop}, {fullCommand[LEVELUP], levelup}, {fullCommand[LEVELDOWN], leveldown}, {fullCommand[NORANDOM], norandom}, {fullCommand[RANDOM], random}, {fullCommand[SEQUENCE], sequence}, {fullCommand[I], Iblock}, {fullCommand[J], Jblock}, {fullCommand[L], L}, {fullCommand[O], O}, {fullCommand[S], S}, {fullCommand[Z], Z}, {fullCommand[T], T}, {fullCommand[RESTART], restart}};
     int len = fullCommand.size();
-    for (int i = 0; i < len; i++) {
+    for (int i = 0; i < len; i++)
+    {
         commands[fullCommand[i]] = {i};
     }
     // non multiplicative commands
     nonMultCommands = {"restart", "hint", "norandom", "random"};
 }
 
-string Commands::stringInterpret(string &command) {
+string Commands::stringInterpret(string &command)
+{
     return impl->stringConvert(command);
 }
 // interprets the command they pass in
@@ -279,6 +281,8 @@ Commands::Commands() : impl{make_unique<Commands::CommandsImpl>()} {}
 Commands::~Commands() = default;
 
 vector<string> Commands::interpret(string &command) { impl->interpret(command); }
+
+int Commands::getPlayerCommand(string &command) { return }
 
 void Commands::apply(string &command) { impl->apply(command); }
 

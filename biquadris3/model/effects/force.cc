@@ -24,9 +24,9 @@ void Force::setBlock(shared_ptr<Block> &block) { component->setBlock(block); }
 
 void Force::setLevel(int level) { component->setLevel(level); }
 
-void Force::setSequence(vector<char> sequence) { component->setSequence(sequence); }
+void Force::setRandom(bool isRandom) { component->setRandom(isRandom); }
 
-vector<char> Force::getState() { return component->getState(); }
+void Force::setSequence(vector<char> sequence) { component->setSequence(sequence); }
 
 void Force::setup() 
 {

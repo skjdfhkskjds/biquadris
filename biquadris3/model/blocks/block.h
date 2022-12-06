@@ -23,7 +23,7 @@ protected:
     std::vector<std::vector<int>> vviSubtraction(std::vector<std::vector<int>> a, std::vector<std::vector<int>> b); // a - b
 
 public:
-    Block(char c, int lvl) noexcept;
+    Block(char c, int lvl, bool decays=false) noexcept;
     ~Block() noexcept;
 
     // getter methods
@@ -45,7 +45,7 @@ public:
     virtual std::vector<std::vector<int>> clockwise() = 0;        // rotates the block clockwise
     virtual std::vector<std::vector<int>> counterClockwise() = 0; // rotates the block counters clockwise
 
-    void decay(); // decays the block
+    bool decay(); // decays the block
 };
 
 #endif

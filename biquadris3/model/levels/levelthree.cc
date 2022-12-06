@@ -44,7 +44,8 @@ char LevelThree::generateBlock()
     }
     else
     {
-        if (i == sequence.size())
+        int len = sequence.size();
+        if (i == len)
             i = 0;
         char out = sequence[i];
         i++;
