@@ -22,6 +22,8 @@ public:
     void setBlock(std::shared_ptr<Block> &block) override;
     void setLevel(int level) override;
 
+    void setup() override;
+
     void clockwise() override;
     void counterClockwise() override;
     void right() override;

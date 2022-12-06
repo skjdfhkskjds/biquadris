@@ -38,6 +38,8 @@ void Blind::setBlock(shared_ptr<Block> &block) { component->setBlock(block); }
 
 void Blind::setLevel(int level) { component->setLevel(level); }
 
+void Blind::setup() { component->setup(); }
+
 void Blind::left() { component->left(); }
 
 void Blind::right() { component->right(); }

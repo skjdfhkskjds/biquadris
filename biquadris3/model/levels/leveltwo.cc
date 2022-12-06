@@ -3,7 +3,9 @@
 
 #define toUpper(c) (char)(('a' <= c && c <= 'z') ? (c - 'a' + 'A') : c)
 
-LevelTwo::LevelTwo(int seed) : Level{seed, seed}, randNum{Random{seed}} {}
+using namespace std;
+
+LevelTwo::LevelTwo(int seed, vector<char> sequence) : Level{seed, 2}, randNum{Random{seed}}, sequence{sequence} {}
 
 void LevelTwo::setRandom(bool newValue) {}
 

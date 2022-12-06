@@ -14,7 +14,6 @@
 #include "../blocks/sblock.h"
 #include "../blocks/tblock.h"
 #include "../blocks/zblock.h"
-
 #include "boardstate.h"
 
 using namespace std;
@@ -28,62 +27,64 @@ struct Board::BoardImpl
     shared_ptr<Block> currBlock;
 
     shared_ptr<Block> makeBlock(char c);       // makes block of type c
-    unique_ptr<Level> makeLevel(int startLvl); // makes a lvl level
+    void makeLevel(int startLvl, vector<char> seq); // makes a lvl level
 
     void setBlock(shared_ptr<Block> &block); // sets currBlock to block
     void setLevel(int level);                // sets lvl to level
 
-    BoardImpl(int startLvl, int seed);
+    void setup(); // sets currBlock to value of nextBlock and generates new nextBlock
+
+    BoardImpl(int startLvl, int seed, vector<char> seq) noexcept;
+    ~BoardImpl() noexcept = default;
 };
 
-unique_ptr<Level> Board::BoardImpl::makeLevel(int startLvl)
+void Board::BoardImpl::makeLevel(int startLvl, vector<char> seq)
 {
-    unique_ptr<Level> level;
     switch (startLvl)
     {
     case 0:
     {
-        level = make_unique<LevelZero>(seed);
+        lvl = make_unique<LevelZero>(seed, seq);
         break;
     }
     case 1:
     {
-        level = make_unique<LevelOne>(seed);
+        lvl = make_unique<LevelOne>(seed, seq);
         break;
     }
     case 2:
     {
-        level = make_unique<LevelTwo>(seed);
+        lvl = make_unique<LevelTwo>(seed, seq);
         break;
     }
     case 3:
     {
-        level = make_unique<LevelThree>(seed);
+        lvl = make_unique<LevelThree>(seed, seq);
         break;
     }
     case 4:
     {
-        level = make_unique<LevelFour>(seed);
+        lvl = make_unique<LevelFour>(seed, seq);
         break;
     }
     }
-    return move(level);
 }
 
-Board::BoardImpl::BoardImpl(int startLvl, int seed) : seed{seed}
+Board::BoardImpl::BoardImpl(int startLvl, int seed, vector<char> seq) noexcept : seed{seed}, state{make_unique<BoardState>(startLvl)}
 {
-    lvl = makeLevel(startLvl);
+    makeLevel(startLvl, seq);
 
-    currBlock = move(makeBlock(lvl->generateBlock()));
+    currBlock = makeBlock(lvl->generateBlock());
     nextBlock = lvl->generateBlock();
+    state->initBlock(currBlock);
 }
 
 shared_ptr<Block> Board::BoardImpl::makeBlock(char c)
 {
     shared_ptr<Block> newBlock;
+    int level = lvl->getLvl();
     switch (c)
     {
-        int level = lvl->getLvl();
     case 'I':
     {
         newBlock = make_shared<IBlock>(level);
@@ -129,48 +130,45 @@ shared_ptr<Block> Board::BoardImpl::makeBlock(char c)
 void Board::BoardImpl::setBlock(shared_ptr<Block> &block)
 {
     currBlock = block;
+    state->initBlock(block);
 }
 
 void Board::BoardImpl::setLevel(int level)
 {
-    lvl = makeLevel(level);
+    makeLevel(level, {'L', 'S'});
 }
 
-Board::Board(int startLvl, int seed) : AbstractBoard{nullptr}, impl{make_unique<BoardImpl>(startLvl, seed)} {}
+void Board::BoardImpl::setup()
+{
+    currBlock = makeBlock(nextBlock);
+    nextBlock = lvl->generateBlock();
+    setBlock(currBlock);
+}
 
-Board::~Board() = default;
+Board::Board(int startLvl, int seed, vector<char> seq) noexcept : AbstractBoard{nullptr}, impl{make_unique<BoardImpl>(startLvl, seed, seq)} {}
 
-shared_ptr<Block> Board::makeBlock(char c) { impl->makeBlock(c); }
+Board::~Board() noexcept = default;
+
+shared_ptr<Block> Board::makeBlock(char c) { return impl->makeBlock(c); }
 
 void Board::setBlock(shared_ptr<Block> &block) { impl->setBlock(block); }
 
 void Board::setLevel(int level) { impl->setLevel(level); }
 
+void Board::setup() { impl->setup(); }
+
 vector<char> Board::getState() { return impl->state->getState(); }
 
 char Board::getNext() { return impl->nextBlock; }
 
-void Board::counterClockwise()
-{
-    impl->state->counterClockwise(impl->currBlock);
-}
+void Board::counterClockwise() { impl->state->counterClockwise(); }
 
-void Board::clockwise()
-{
-    impl->state->clockwise(impl->currBlock);
-}
+void Board::clockwise() { impl->state->clockwise(); }
 
-void Board::left()
-{
-    impl->state->left(impl->currBlock);
-}
+void Board::left() { impl->state->left(); }
 
-void Board::right()
-{
-    impl->state->right(impl->currBlock);
-}
+void Board::right() { impl->state->right(); }
 
-void Board::down()
-{
-    impl->state->down(impl->currBlock);
-}
+void Board::down() { impl->state->down(); }
+
+void Board::drop() { impl->state->drop(); }
