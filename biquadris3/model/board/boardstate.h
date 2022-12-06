@@ -13,6 +13,7 @@ class BoardState
     std::vector<Square> state;
     std::vector<int> floor;
     std::shared_ptr<Block> block;
+    std::vector<std::shared_ptr<Block>> placed;
 
     void clearSquare(Coordinates &c);        // clears the square at c
     void swap(Square &target, Square &dest); // swaps target and dest squares

@@ -22,6 +22,8 @@ shared_ptr<Block> Heavy::makeBlock(char c) { return component->makeBlock(c); }
 
 void Heavy::setBlock(shared_ptr<Block> &block) { component->setBlock(block); }
 
+void Heavy::setup() { component->setup(); }
+
 void Heavy::clockwise() { component->clockwise(); }
 
 void Heavy::counterClockwise() { component->counterClockwise(); }

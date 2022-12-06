@@ -1,5 +1,5 @@
 #include "abstractboard.h"
 
-AbstractBoard::AbstractBoard(std::unique_ptr<AbstractBoard> component) : component{move(component)} {}
+AbstractBoard::AbstractBoard(std::unique_ptr<AbstractBoard> component) noexcept : component{move(component)} {}
 
-AbstractBoard::~AbstractBoard() {}
+AbstractBoard::~AbstractBoard() noexcept {}

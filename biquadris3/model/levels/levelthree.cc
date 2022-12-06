@@ -6,7 +6,7 @@ using namespace std;
 
 #define toUpper(c) (char)(('a' <= c && c <= 'z') ? (c - 'a' + 'A') : c)
 
-LevelThree::LevelThree(int seed, vector<char> sequence) : Level{seed, seed}, sequence{sequence}, isRandom{true}, i{0}, randNum{Random{seed}} {}
+LevelThree::LevelThree(int seed, vector<char> sequence) : Level{seed, 3}, sequence{sequence}, isRandom{true}, i{0}, randNum{Random{seed}} {}
 
 void LevelThree::setRandom(bool newValue)
 {

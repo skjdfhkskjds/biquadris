@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <string>
+#include <vector>
 #include "abstractboard.h"
 #include "../blocks/block.h"
 
@@ -12,7 +13,7 @@ class Board : public AbstractBoard
     std::unique_ptr<BoardImpl> impl;
 
 public:
-    Board(int startLvl, int seed) noexcept;
+    Board(int startLvl, int seed, std::vector<char> seq) noexcept;
     ~Board() noexcept;
 
     std::shared_ptr<Block> makeBlock(char c) override;     // makes a new block based on level or c
@@ -23,11 +24,14 @@ public:
     std::vector<char> getState() override; // returns the boardState
     char getNext() override;               // returns the next block's char
 
+    void setup() override; // sets up the following turn
+
     void counterClockwise() override; // rotates the block counter clockwise
     void clockwise() override;        // rotates the block clockwise
     void right() override;            // shifts the block right
     void left() override;             // shifts the block left
     void down() override;             // shifts the block down
+    void drop() override;             // drops block
 };
 
 #endif

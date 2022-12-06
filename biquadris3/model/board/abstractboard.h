@@ -22,6 +22,8 @@ public:
     virtual void setBlock(std::shared_ptr<Block> &block) = 0;
     virtual void setLevel(int level) = 0;
 
+    virtual void setup() = 0;
+
     // pure virtual transform methods
     virtual void counterClockwise() = 0;
     virtual void clockwise() = 0;
