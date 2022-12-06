@@ -222,34 +222,42 @@ void BoardState::apply(vector<vector<int>> transform, bool playerMove)
     if (block->isHeavy() && playerMove) apply(block->down(), false);
 }
 
+int BoardState::getCleared() { return totalCleared; }
+
 void BoardState::clockwise()
 {
+    if (block == nullptr) return;
     apply(block->clockwise());
 }
 
 void BoardState::counterClockwise()
 {
+    if (block == nullptr) return;
     apply(block->counterClockwise());
 }
 
 void BoardState::left()
 {
+    if (block == nullptr) return;
     apply(block->left());
 }
 
 void BoardState::right()
 {
+    if (block == nullptr) return;
     apply(block->right());
 }
 
 int BoardState::down()
 {   
+    if (block == nullptr) return 0;
     apply(block->down());
     return onFloor();
 }
 
 int BoardState::drop()
 {   
+    if (block == nullptr) return 0;
     int score = 0;
     for (int y = 3; y < height - 1; y++)
     {
