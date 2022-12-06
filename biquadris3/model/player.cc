@@ -45,6 +45,9 @@ vector<char> Player::getState()  {
     return impl->getState();
 }
 
+int Player::getCleared() { return impl->board->getCleared(); }
+
+
 
 void Player::PlayerImpl::apply()
 {
