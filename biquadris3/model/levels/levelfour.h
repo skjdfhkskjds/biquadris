@@ -7,7 +7,6 @@
 
 class LevelFour : public Level
 {
-    int i;
     Random randNum;
 
 public:

@@ -6,7 +6,7 @@ using namespace std;
 
 #define toUpper(c) (char)(('a' <= c && c <= 'z') ? (c - 'a' + 'A') : c)
 
-LevelFour::LevelFour(int seed, vector<char> sequence) : Level{seed, 4, true, sequence}, i{0}, randNum{Random{seed}} {}
+LevelFour::LevelFour(int seed, vector<char> sequence) : Level{seed, 4, true, sequence}, randNum{Random{seed}} {}
 
 char LevelFour::generateBlock()
 {

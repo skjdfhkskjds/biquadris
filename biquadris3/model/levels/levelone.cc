@@ -5,7 +5,7 @@
 
 using namespace std;
 
-LevelOne::LevelOne(int seed, vector<char> sequence) : Level{seed, 1, false, sequence}, randNum{Random{seed}}, sequence{sequence} {}
+LevelOne::LevelOne(int seed, vector<char> sequence) : Level{seed, 1, false, sequence}, randNum{Random{seed}} {}
 
 char LevelOne::generateBlock()
 {
