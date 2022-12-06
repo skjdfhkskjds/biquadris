@@ -32,7 +32,7 @@ bool Block::fullCleared()
 {
     for (Coordinates & coord : impl->coords)
     {
-        if (coord.getX() != -1 || coord.getY() != -1) return false;
+        if (!coord.removed()) return false;
     }
     return true;
 }
@@ -78,15 +78,14 @@ void Block::updateCoords(Coordinates oldCoords, Coordinates newCoords)
     }
 }
 
-/*vector<vector<int>> Block::spawnTransformation(vector<vector<int>> coords, map<int, vector<vector<int>>> spawnState, int currState) {
-    vector<vector<int>> retVal;
-    for (int i = 0; i < 4; i++) {
-        vector<int> temp = {-1 * (spawnState[currState][i][0] - coords[i][0]),
-            -1 * (spawnState[currState][i][1] - coords[i][1])};
-        retVal.emplace_back(temp);
-    };
-    return retVal;
-} */
+void Block::update(std::vector<std::vector<int>> transform)
+{
+    int len = transform.size();
+    for (int i = 0; i < len; i++)
+    {
+        impl->coords[i].update(transform[i][0], transform[i][1]);
+    }
+}
 
 vector<vector<int>> Block::vviAddition(const vector<vector<int>> a, const vector<vector<int>> b) {
     vector<vector<int>> retVal;

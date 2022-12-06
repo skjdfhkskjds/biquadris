@@ -1,3 +1,4 @@
+#include <algorithm>
 #include "boardstate.h"
 #include "../../common/exceptions.h"
 
@@ -9,8 +10,13 @@
 
 using namespace std;
 
-BoardState::BoardState(int lvl) : lvl{lvl}
+BoardState::BoardState(int lvl) : lvl{lvl}, block{nullptr}
 {
+    for (int x = 0; x < width; x++)
+    {
+        floor.emplace_back(height - 1);
+    }
+
     for (int y = 0; y < height; y++)
     {
         for (int x = 0; x < width; x++)
@@ -24,16 +30,6 @@ BoardState::BoardState(int lvl) : lvl{lvl}
 void BoardState::clearSquare(Coordinates &c) 
 {
     state[c.index()].getBlock()->updateCoords(c);
-    // vector<Coordinates &> coords = state[c.index()].getBlock()->getCoords();
-    // for (Coordinates & coord : coords)
-    // {
-    //     // sets the current coordinate of block to (-1, -1)
-    //     if (coord == c) 
-    //     {
-    //         coord.update(neg(c.getX()) - 1, neg(c.getY()) - 1);
-    //         break;
-    //     }
-    // }
     state[c.index()].removeBlock();
 }
 
@@ -48,7 +44,7 @@ void BoardState::swap(Square &target, Square &dest)
     dest.setCoords(tempCoords);
 }
 
-bool BoardState::isSafe(shared_ptr<Block> &block, vector<vector<int>> transform)
+bool BoardState::isSafe(vector<vector<int>> transform)
 {
     int len = transform.size();
     for (int i = 0; i < len; i++)
@@ -57,13 +53,13 @@ bool BoardState::isSafe(shared_ptr<Block> &block, vector<vector<int>> transform)
         temp.update(transform[i][0], transform[i][1]);
 
         // check if block is out of bounds
-        if (temp.getX() < 0 || temp.getX() > width || temp.getY() < 0 || temp.getY() > height)
+        if (temp.getX() < 0 || temp.getX() >= width || temp.getY() < 0 || temp.getY() >= height)
         {
             return false;
         }
 
         // if new spot is already filled
-        if (state[temp.index()].getChar() != ' ') 
+        if (state[temp.index()].getChar() != ' ')
         {
             bool safe = false;
             for (Coordinates coord : block->getCoords())
@@ -100,16 +96,61 @@ bool BoardState::checkRow(int row)
     return true;
 }
 
+int BoardState::onFloor()
+{
+    bool on = false;
+    // checks if the piece is on the floor
+    for (Coordinates coord : block->getCoords())
+    {
+        if (coord.removed()) continue;
+        if (coord.getY() == floor[coord.getX()])
+        {
+            on = true;
+            break;
+        }
+    }
+    if (!on) return 0;
+
+    // check if any rows need to cleared
+    int score = 0;
+    int rowsCleared = 0;
+    vector<int> yCoords;
+    for (Coordinates coord : block->getCoords())
+    {
+        yCoords.emplace_back(coord.getY());
+    }
+    int len = yCoords.size();
+    for (int i = len - 1; i >= 0; i--)
+    {
+        if (checkRow(yCoords[i]))
+        {
+            rowsCleared++;
+            score += clearRow(yCoords[i]);
+        }
+    }
+
+    // if the piece is on the floor, set new floor height
+    for (Coordinates coord : block->getCoords())
+    {
+        if (coord.removed()) continue;
+        floor[coord.getX()] = (floor[coord.getX()] > coord.getY()) ? coord.getY() : floor[coord.getX()];
+    }
+    score += squared(lvl + rowsCleared);
+    return score;
+}
+
 int BoardState::rowScore(vector<shared_ptr<Block>> cleared)
 {
     // points for clearing a line
-    int score = squared(lvl + 1);
+    int score = 0;
+    vector<shared_ptr<Block>> scored;
     for (shared_ptr<Block> block : cleared)
     {
-        // points for full clearing a block
-        if (block->fullCleared())
+        // points for full clearing a block that hasn't already been cleared
+        if (block->fullCleared() && (find(scored.begin(), scored.end(), block) == scored.end()))
         {
             score += squared(block->getLvl() + 1);
+            scored.emplace_back(block);
         }
     }
     return score;
@@ -117,7 +158,6 @@ int BoardState::rowScore(vector<shared_ptr<Block>> cleared)
 
 int BoardState::clearRow(int row)
 {
-    if (!checkRow(row)) return 0;
     vector<shared_ptr<Block>> cleared;
     // clearing row
     for (int x = 0; x < width; x++)
@@ -140,53 +180,71 @@ int BoardState::clearRow(int row)
     return score;
 }
 
-void BoardState::initBlock(std::shared_ptr<Block> block)
+void BoardState::initBlock(std::shared_ptr<Block> currBlock)
 {
+    block = currBlock;
     for (Coordinates coord : block->getCoords())
     {
         state[coord.index()].setBlock(block);
     }
 }
 
-void BoardState::apply(shared_ptr<Block> &block, vector<vector<int>> transform)
+void BoardState::apply(vector<vector<int>> transform, bool playerMove)
 {
-    if(!isSafe(block, transform)) throw invalid_move{};
-    int len = transform.size();
-    for (int i = 0; i < len; i++)
+    if(!isSafe(transform))
     {
-        Coordinates before = block->getCoords()[i];
-        // updates coords
-        block->getCoords()[i].update(transform[i][0], transform[i][1]);
-
-        // swaps squares
-        state[before.index()].removeBlock();
-        swap(state[before.index()], state[block->getCoords()[i].index()]);
+        if (!playerMove) return;
+        throw invalid_move{};
     }
+
+    for (Coordinates coord : block->getCoords())
+    {
+        state[coord.index()].removeBlock();
+    }
+    block->update(transform);
+    for (Coordinates coord : block->getCoords())
+    {
+        state[coord.index()].setBlock(block);
+    }
+
     // handles level heaviness
-    if (block->isHeavy()) block->down();
+    if (block->isHeavy() && playerMove) apply(block->down(), false);
 }
 
-void BoardState::clockwise(shared_ptr<Block> &block)
+void BoardState::clockwise()
 {
-    apply(block, block->clockwise());
+    apply(block->clockwise());
 }
 
-void BoardState::counterClockwise(shared_ptr<Block> &block)
+void BoardState::counterClockwise()
 {
-    apply(block, block->counterClockwise());
+    apply(block->counterClockwise());
 }
 
-void BoardState::left(shared_ptr<Block> &block)
+void BoardState::left()
 {
-    apply(block, block->left());
+    apply(block->left());
 }
 
-void BoardState::right(shared_ptr<Block> &block)
+void BoardState::right()
 {
-    apply(block, block->right());
+    apply(block->right());
 }
 
-void BoardState::down(shared_ptr<Block> &block)
+int BoardState::down()
 {   
-    apply(block, block->down());
+    apply(block->down());
+    return onFloor();
+}
+
+int BoardState::drop()
+{   
+    int score = 0;
+    for (int y = 3; y < height - 1; y++)
+    {
+        apply(block->down(), false);
+        score += onFloor();
+        if (score > 0) break;
+    }
+    return score;
 }

@@ -5,7 +5,7 @@
 
 Coordinates::Coordinates(int x, int y) : x{x}, y{y} {}
 
-bool Coordinates::operator==(Coordinates &other) { return ((x == other.x) && (y = other.y)); }
+bool Coordinates::operator==(Coordinates &other) { return ((x == other.x) && (y == other.y)); }
 
 int Coordinates::index() { return ((width * y) + x); }
 

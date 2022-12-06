@@ -33,9 +33,6 @@
     - penaltyblock.cc:
       - implement ctor as directed
 
-- add a function to render the block to the board
-  - need this since nextBlock doesn't "exist" yet while the turn is playing out but must be spawned as the current block (on the squares) by the beginning on the opponents turn
-
 main/command interpreter
 - if player level change is invalid, must catch
 - send effect commands to other player
@@ -44,12 +41,6 @@ main/command interpreter
 <!-- force.apply() needs to implemented in the player effect handler -->
 force.cc
 - doesnt seem to call apply() anywhere
-
-OVERALL CHANGE
-- changing transform format means we have to redo isSafe() as well
-
-- text.o + graphics.o:
-    - implement observers with access to game as subject
 
 
 ## Design Plan

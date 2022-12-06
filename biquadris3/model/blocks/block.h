@@ -37,6 +37,7 @@ public:
 
     // setter methods
     void updateCoords(Coordinates oldCoords, Coordinates newCoords=Coordinates{-1, -1});
+    void update(std::vector<std::vector<int>> transform);
 
     // block transformations
     std::vector<std::vector<int>> right(); // shifts the block right

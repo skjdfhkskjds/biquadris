@@ -5,7 +5,6 @@
 
 LevelOne::LevelOne(int seed) : Level{seed, seed} , i{1}, randNum{Random{seed}} {}
 
-
 char LevelOne::generateBlock()
 {
     int random = randNum.getRand(12);
