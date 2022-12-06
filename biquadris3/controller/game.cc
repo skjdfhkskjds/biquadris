@@ -101,6 +101,7 @@ void Game::playTurn()
         {"heavy", 5},
         {"force", 6}
     };
+
     int p = turn % 2;
     players[p]->apply();
     string input;
@@ -120,7 +121,7 @@ void Game::playTurn()
             int cmd = gameCommands[command];
             if (cmd == 0)
             { // norandom
-              // find a way to set lvl isRandom to false
+             
                 cin >> file;
                 ifstream ifs{file};
                 if (!ifs.good())
@@ -129,6 +130,7 @@ void Game::playTurn()
                 }
                 vector<char> blockSeq = read(file);
                 players[p]->setSequence(blockSeq); //
+                // find a way to set lvl isRandom to false
             }
             else if (cmd == 1)
             {
@@ -168,7 +170,7 @@ void Game::playTurn()
         }
     }
     players[p]->playTurn("drop");
-    // check rowscleared
+    // check rowscleared to use effect
     // placeholder bool
     bool effectAvailable;
     if (effectAvailable) 
