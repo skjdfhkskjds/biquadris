@@ -29,6 +29,8 @@ char Heavy::getNext() { return component->getNext(); }
 
 vector<char> Heavy::getState() { return component->getState(); }
 
+int Heavy::getCleared() { return component->getCleared(); }
+
 shared_ptr<Block> Heavy::makeBlock(char c) { return component->makeBlock(c); }
 
 void Heavy::setBlock(shared_ptr<Block> &block) { component->setBlock(block); }

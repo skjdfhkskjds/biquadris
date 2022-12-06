@@ -167,6 +167,8 @@ vector<char> Board::getState() { return impl->state->getState(); }
 
 char Board::getNext() { return impl->nextBlock; }
 
+int Board::getCleared() { return impl->state->getCleared(); }
+
 void Board::counterClockwise() { impl->state->counterClockwise(); }
 
 void Board::clockwise() { impl->state->clockwise(); }

@@ -18,6 +18,7 @@ public:
 
     char getNext() override;
     std::vector<char> getState() override;
+    int getCleared() override;
 
     std::shared_ptr<Block> makeBlock(char c) override;
     void setBlock(std::shared_ptr<Block> &block) override;

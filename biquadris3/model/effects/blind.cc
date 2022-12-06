@@ -34,6 +34,8 @@ vector<char> Blind::getState()
     return state;
 }
 
+int Blind::getCleared() { return component->getCleared(); }
+
 shared_ptr<Block> Blind::makeBlock(char c) { return component->makeBlock(c); }
 
 void Blind::setBlock(shared_ptr<Block> &block) { component->setBlock(block); }
