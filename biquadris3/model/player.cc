@@ -148,7 +148,7 @@ void Player::playTurn(std::string command)
         impl->board->right();
         break;
     case 2:
-        impl->board->down();
+        impl->score += impl->board->down();
         break;
     case 3:
         impl->board->clockwise();

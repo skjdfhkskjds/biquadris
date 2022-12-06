@@ -16,6 +16,7 @@ class Game : public Subject
     int seed;
     int startLvl;
     int highscore;
+    bool isFinished;
     std::vector<std::string> sequences;
     std::vector<std::vector<char>> seqs;
 
@@ -27,7 +28,7 @@ public:
 
     std::vector<std::unique_ptr<Player>> getPlayers();
     
-    int run(); // runs the game, returns 0 if p1 wins, if p2 wins
+    int run(); // runs the game, returns 1 if p1 wins, returns 2 if p2 wins
 
     void playTurn(); //plays one turn for one player
 

@@ -9,6 +9,7 @@ Game::Game(int seed, int startLvl, vector<string> sequences) : seed{seed}, start
 {
     turn = 0;
     highscore = 0;
+    isFinished = false;
     vector<vector<char>> seqs;
     int len = sequences.size();
     for (int i = 0; i < len; i++)
@@ -70,13 +71,13 @@ vector<vector<char>> Game::getState()
 int Game::run()
 {
     // gamestate vars
-    // placeholder bool
-    bool isFinished;
-    while (!isFinished)
-    {
-        playTurn();
-    }
-    //check for player loss
+    while (!isFinished) { playTurn(); }
+    int loser = turn % 2 + 1;
+    int winner = turn + 1 % 2 + 1;
+
+    cout << "Player " << loser << " lost!" << endl;
+    cout << "Player " <<  winner << " wins!" << endl;
+    return winner; // returns 1 or 2
 }
 
 void Game::playTurn()
@@ -90,7 +91,7 @@ void Game::playTurn()
 
     int p = turn % 2;
     players[p]->apply();
-    cout << "Player " << p << "'s turn." << endl;
+    cout << "Player " << p + 1 << "'s turn." << endl;
     string input;
     bool dropped = false;
     while (cin >> input && !dropped)
@@ -100,16 +101,17 @@ void Game::playTurn()
         commands = interpreter.interpret(input); // interpret "preprocesses" the command
         for (string command : commands)
         { // assume that commands in input file are all player commands
-            if (command == "drop") 
+            if (command == "drop")
             {
                 players[p]->playTurn("drop");
                 dropped = true;
                 break;
             }
+
             string file;
             int cmd = gameCommands[command];
-            if (cmd == 0) // norandom
-            {
+            if (cmd == 0)
+            { // norandom
                 cin >> file;
                 ifstream ifs{file};
                 if (!ifs.good())
@@ -148,17 +150,14 @@ void Game::playTurn()
                 }
             }
             else if (cmd == 3)
-            {
-                // restart
+            { // restart
                 turn = 0;
                 players[0] = make_unique<Player>(seqs[0], seed, startLvl);
                 players[1] = make_unique<Player>(seqs[1], seed, startLvl);
-                // does not change highscore
             }
-            else // player cmds
-            {
+            else
+            { // player cmds
                 players[p]->playTurn(command);
-
             }
         }
     }
@@ -170,34 +169,36 @@ void Game::playTurn()
         cout << "Effect available" << endl;
         cout << "Select an effect : blind / heavy / force" << endl;
         cin >> input;
-        if (input == "blind" || input == "heavy") {
-            players[p + 1 % 2]->setEffect(input);
-        } else if (input == "force") {
-            cout << "Enter a block" << endl; //check if real block?
-            char c;
-            cin >> c; 
-            players[p + 1 % 2]->setForcedChar(c);
+        if (input == "blind" || input == "heavy")
+        {
             players[p + 1 % 2]->setEffect(input);
         }
-        
+        else if (input == "force")
+        {
+            cout << "Enter a block" << endl; // check if real block?
+            char c;
+            cin >> c;
+            int next = turn + 1 % 2;
+            players[next]->setForcedChar(c);
+            players[next]->setEffect(input);
+        }
     }
     int currScore = players[p]->getScore();
-    cout << "Current Score: " <<  currScore << endl;
-    if (currScore > highscore) {
+    cout << "Current Score: " << currScore << endl;
+    if (currScore > highscore)
+    {
         highscore = currScore;
         cout << "New Highscore!" << endl;
     }
     players[p]->resetEffects();
-    players[p]->setup();
+    try
+    {
+        players[p]->setup();
+    }
+    catch (game_over)
+    {
+        isFinished = true;
+        return;
+    }
     turn++;
 }
-
-// call on players[p]
-// apply()
-// get currBlock
-// read in commands until drop
-// check rows cleared somehow with boardstate
-// if effect command, call other players setEffect(effect command)
-// resetEffects()
-// update score
-// call board->setup()
