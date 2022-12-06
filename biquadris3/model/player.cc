@@ -159,6 +159,14 @@ void Player::playTurn(std::string command)
     }
 }
 
-void Player::setSequence(vector<char> newSeq) { impl->seq = newSeq; }
+void Player::setSequence(vector<char> newSeq) 
+{ 
+    impl->seq = newSeq; 
+    impl->board->setSequence(newSeq);
+}
 
+void Player::setRandom(bool isRandom) 
+{
+    impl->board->setRandom(isRandom);
+}
 void Player::setup() { impl->board->setup(); }
