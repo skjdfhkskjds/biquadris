@@ -15,6 +15,7 @@
 #include "../blocks/tblock.h"
 #include "../blocks/zblock.h"
 #include "boardstate.h"
+#include "../../common/exceptions.h"
 
 using namespace std;
 
@@ -26,7 +27,7 @@ struct Board::BoardImpl
     unique_ptr<BoardState> state;
     shared_ptr<Block> currBlock;
 
-    shared_ptr<Block> makeBlock(char c);       // makes block of type c
+    shared_ptr<Block> makeBlock(char c);            // makes block of type c
     void makeLevel(int startLvl, vector<char> seq); // makes a lvl level
 
     void setBlock(shared_ptr<Block> &block); // sets currBlock to block
@@ -131,6 +132,7 @@ void Board::BoardImpl::setBlock(shared_ptr<Block> &block)
 {
     currBlock = block;
     state->initBlock(block);
+
 }
 
 void Board::BoardImpl::setLevel(int level)
@@ -178,5 +180,3 @@ void Board::right() { impl->state->right(); }
 int Board::down() { return impl->state->down(); }
 
 int Board::drop() { return impl->state->drop(); }
-
-
