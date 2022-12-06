@@ -82,6 +82,9 @@ Commands::CommandsImpl::CommandsImpl()
     nonMultCommands = {"restart", "hint", "norandom", "random"};
 }
 
+string Commands::stringInterpret(string &command) {
+    return impl->stringConvert(command);
+}
 // interprets the command they pass in
 void Commands::CommandsImpl::apply(string &command)
 {

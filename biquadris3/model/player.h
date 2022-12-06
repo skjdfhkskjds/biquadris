@@ -4,6 +4,7 @@
 #include <memory>
 #include <vector>
 #include "board/abstractboard.h"
+#include "board/board.h"
 
 class Player final
 {
@@ -13,8 +14,6 @@ class Player final
 public:
     Player(std::vector<char> seq, int startLvl, int seed);
     ~Player();
-
-    void playTurn(); // plays a turn
 
     // accessor methods
     std::vector<char> getState(); // returns the char represented boardstate
