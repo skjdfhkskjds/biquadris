@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
-// #include "game.h"
+#include "game.h"
 #include "../common/coordinates.h"
 #include "../model/blocks/iblock.h"
 #include "../model/blocks/jblock.h"
@@ -10,82 +10,49 @@
 #include "../model/blocks/sblock.h"
 #include "../model/blocks/tblock.h"
 #include "../model/blocks/zblock.h"
+#include "../model/player.h"
+#include "../model/board/board.h"
+#include "../model/board/board.h"
+#include "../model/levels/level.h"
+#include "../model/levels/levelone.h"
+#include "../model/levels/leveltwo.h"
+#include "../model/levels/levelthree.h"
+#include "../model/levels/levelfour.h"
 using namespace std;
 
 const int width = 11;
 const int height = 18;
 
-void psuedoPrint(vector<Coordinates> coords, char c) {
-    for (int x = 0; x < width; x++) {
-        cout << "-";
+void pPrint(vector<char> state) {
+    for (int i = 0; i < width; i ++) {
+        cout << '-';
     }
-    int len = coords.size();
-    int mybool = true;
     cout << endl;
     for (int y = 0; y < height; y++) {
         for (int x = 0; x < width; x++) {
-            for (int z = 0; z < len; z++) {
-                if ((y == coords[z].getY()) && (x == coords[z].getX())) {
-                    cout << c;
-                    mybool = false;
-                    break;
-                }
-            }
-            if (mybool) {
-                cout << ' ';
-            }
-            mybool = true;
+            cout << state[y*width + x];
         }
         cout << endl;
     }
-    for (int x = 0; x < width; x++) {
-        cout << "-";
+    for (int i = 0; i < width; i ++) {
+        cout << '-';
     }
     cout << endl;
-}
-
-void updateMachine(vector<Coordinates &> coords, vector<vector<int>> trans) {
-    for (int i = 0; i < 4; i++) {
-        coords[i].update(trans[i][0], trans[i][1]);
-    };
 }
 
 int main(int argc, char ** argv)
 {
-    IBlock myBlock(0); 
-    vector<Coordinates &> fakeBlock;
-    for (int i = 0; i < 4; i++) {
-        Coordinates temp(myBlock.getCoords()[i].getX(), myBlock.getCoords()[i].getY());
-        fakeBlock.emplace_back(temp);
-    }
-    //cout << myBlock.getLvl();
-    cout << myBlock.getChar();
-    
-    psuedoPrint(myBlock.getCoords(), myBlock.getChar());
-    updateMachine(fakeBlock, myBlock.right());
-    psuedoPrint(myBlock.getCoords(), myBlock.getChar());
-    updateMachine(fakeBlock, myBlock.left());
-    psuedoPrint(myBlock.getCoords(), myBlock.getChar());
-    updateMachine(fakeBlock, myBlock.down());
-    updateMachine(fakeBlock, myBlock.right());
-    psuedoPrint(myBlock.getCoords(), myBlock.getChar());
-     updateMachine(fakeBlock, myBlock.down());
-    updateMachine(fakeBlock, myBlock.right());
-    psuedoPrint(myBlock.getCoords(), myBlock.getChar());
-    updateMachine(fakeBlock, myBlock.clockwise());
-    psuedoPrint(myBlock.getCoords(), myBlock.getChar());
-    updateMachine(fakeBlock, myBlock.clockwise());
-    psuedoPrint(myBlock.getCoords(), myBlock.getChar());
-    updateMachine(fakeBlock, myBlock.clockwise());
-    psuedoPrint(myBlock.getCoords(), myBlock.getChar());
-    updateMachine(fakeBlock, myBlock.clockwise());
-    psuedoPrint(myBlock.getCoords(), myBlock.getChar());
-    updateMachine(fakeBlock, myBlock.clockwise());
-    psuedoPrint(myBlock.getCoords(), myBlock.getChar());
-    updateMachine(fakeBlock, myBlock.clockwise());
-    psuedoPrint(myBlock.getCoords(), myBlock.getChar());
-    updateMachine(fakeBlock, myBlock.clockwise());
-    psuedoPrint(myBlock.getCoords(), myBlock.getChar());
-    updateMachine(fakeBlock, myBlock.clockwise());
-    psuedoPrint(myBlock.getCoords(), myBlock.getChar());
+    vector<char> seq = {'I', 'J', 'L', 'O', 'S', 'Z', 'T'};
+    Player p1(seq, 0, 1);
+    cout << "Level:" << p1.getLevel() << endl;
+    cout << "Score:" << p1.getScore() << endl;
+    pPrint(p1.getState());
+    p1.playTurn("right");
+    pPrint(p1.getState());
+    p1.playTurn("down");
+    pPrint(p1.getState());
+    p1.playTurn("clockwise");
+    pPrint(p1.getState());
+    p1.playTurn("drop");
+    pPrint(p1.getState());
 }
