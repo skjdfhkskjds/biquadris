@@ -173,9 +173,10 @@ void Game::playTurn()
         if (input == "blind" || input == "heavy") {
             players[p + 1 % 2]->setEffect(input);
         } else if (input == "force") {
+            cout << "Enter a block" << endl; //check if real block?
             char c;
             cin >> c; 
-            players[p + 1 % 2]->setForcedBlock(c);
+            players[p + 1 % 2]->setForcedChar(c);
             players[p + 1 % 2]->setEffect(input);
         }
         
