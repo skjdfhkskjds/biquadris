@@ -15,8 +15,8 @@ class Commands final
 public:
     Commands() noexcept;
     ~Commands() noexcept;
-
-    void interpret(std::string &command); // interprets a string input and applies commands appropriately
+    
+    std::vector<std::string> interpret(std::string &command); // interprets a string input and applies commands appropriately
     void apply(std::string &command);     // applies the interpreted input
 
     bool rename(std::string &existing, std::string &newName); // renames a command

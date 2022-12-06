@@ -17,7 +17,7 @@ Game::Game(int seed, int startLvl, vector<string> sequences) : interpreter{}
         {
             seq = read(sequences[i]);
         }
-        catch(file_not_found& e)
+        catch (file_not_found &e)
         {
             seq = read(e.getDefault(i));
             cerr << e.what() << endl;
@@ -28,7 +28,8 @@ Game::Game(int seed, int startLvl, vector<string> sequences) : interpreter{}
     players.emplace_back(make_unique<Player>(seqs[1], seed, startLvl));
 }
 
-vector<std::unique_ptr<Player>> Game::getPlayers() {
+vector<std::unique_ptr<Player>> Game::getPlayers()
+{
     return players;
 };
 
@@ -90,28 +91,136 @@ int Game::run()
 
 void Game::playTurn()
 {
+    map<string, int> gameCommands{
+        {"norandom", 0},
+        {"random", 1},
+        {"sequence", 2},
+        {"restart", 3},
+    };
     int p = turn % 2;
-    //call on players[p]
-
-    //apply()
-    //get currBlock
-    //read in commands until drop
-    //check rows cleared somehow with boardstate
-    //if effect command, call other players setEffect(effect command)
-    //resetEffects()
-    //update score
-    //call board->setup()
     players[p]->apply();
     string input;
-    while (cin >> input)
+    while (cin >> input && input != "drop")
     {
-        if (input == "drop")   {
-            players[p]drop();
+        vector<string> commands;
+        // standard processing includes pushing the command itself to commands
+        commands = interpreter.interpret(input); // interpret "preprocesses" the command
+        for (string command : commands)
+        { // assume that commands in input file are all player commands
+            if (command == "drop")
+            {
+                // do some stuff to drop
+                break;
+            }
+            string file;
+            int cmd = gameCommands[command];
+            if (cmd == 0)
+            { // norandom
+              // find a way to set lvl isRandom to false
+                cin >> file;
+                ifstream ifs{file};
+                if (!ifs.good())
+                {
+                    throw file_not_found(file);
+                }
+                vector<char> blockSeq = read(file);
+                players[p]->setSequence(blockSeq); //
+            }
+            else if (cmd == 1)
+            {
+                //need setRandom
+                //players[p]->setRandom(true);
+            }
+            else if (cmd == 2)
+            {
+                // sequence
+                cin >> file;
+                ifstream ifs{file};
+                if (!ifs.good())
+                {
+                    throw file_not_found(file);
+                }
+                vector<char> seq = read(file);
+                int len = seq.size();
+                for (int i = 0; i < len; i++)
+                {
+                    commands.emplace_back(seq[i]);
+                }
+                // sequence(file);
+            }
+            else if (cmd == 3)
+            {
+                // restart
+            }
+            else
+            {
+                players[p]->playTurn(command);
+                // player cmds
+            }
         }
-        string command = interpreter.stringInterpret(input);
-        
-
     }
-    turn++;
-    
+}
+
+// call on players[p]
+
+// apply()
+// get currBlock
+// read in commands until drop
+// check rows cleared somehow with boardstate
+// if effect command, call other players setEffect(effect command)
+// resetEffects()
+// update score
+// call board->setup()
+players[p]->apply();
+string input;
+while (cin >> input)
+{
+
+    string command = interpreter.stringInterpret(input);
+
+    if (command == "drop")
+    {
+        // do some stuff to drop
+        break;
+    }
+    int cmd = gameCommands[command];
+    string file;
+    switch (cmd)
+    {
+    case 0:
+        cin >> file;
+        ifstream ifs{file};
+        if (!ifs.good())
+        {
+            throw file_not_found(file);
+        }
+        // norandom(file);
+        break;
+        break;
+    case 1: // random
+        /* code */
+        break;
+    case 2: // sequence
+        cin >> file;
+        ifstream ifs{file};
+        if (!ifs.good())
+        {
+            throw file_not_found(file);
+        }
+        vector<char> seq = read(file);
+        int len = seq.size();
+        for (int i = 0; i < len; i++)
+        {
+        }
+        // sequence(file);
+        break;
+    case 3: // restart
+        /* code */
+        break;
+    default:
+        players[p]->playTurn(command);
+        break;
+    }
+}
+turn++;
 }

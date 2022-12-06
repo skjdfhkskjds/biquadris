@@ -29,6 +29,8 @@ public:
     // level modifiers
     void levelUp();   // increases the level
     void levelDown(); // decreases the level
+    void playTurn(std::string command);
+    void setSequence(vector<char> newSeq); // sets 
 };
 
 #endif

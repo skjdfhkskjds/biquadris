@@ -109,3 +109,54 @@ void Player::levelDown()
     impl->board->setLevel(impl->lvl);
 }
 
+map<string, int> playerCommands{
+    {"left", 0},
+    {"right", 1},
+    {"down", 2},
+    {"clockwise", 3},
+    {"counterclocwise", 4},
+    {"drop", 5},
+    {"levelup", 6},
+    {"leveldown", 7},
+
+};
+
+void Player::playTurn(std::string command) 
+{
+    int cmd = playerCommands[command];
+    switch (cmd)
+    {
+    case 0:
+        impl->board->left();
+        break;
+    case 1:
+        impl->board->right();
+        break;
+    case 2:
+        impl->board->down();
+        break;
+    case 3:
+        impl->board->clockwise();
+        break;
+    case 4:
+        impl->board->counterClockwise();
+        break;
+    case 5:
+        impl->board->drop ();
+        break;
+    case 6:
+        levelUp();
+        break;
+    case 7:
+        levelDown();
+        break;
+    //add more cases later for replacing blocks
+    default:
+        break;
+    }
+}
+
+void Player::setSequence(vector<char> newSeq) {
+    impl->seq = newSeq;
+}
+
