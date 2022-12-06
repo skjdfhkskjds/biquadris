@@ -71,12 +71,15 @@ vector<vector<char>> Game::getState()
 int Game::run()
 {
     // gamestate vars
-    while (!isFinished) { playTurn(); }
+    while (!isFinished)
+    {
+        playTurn();
+    }
     int loser = turn % 2 + 1;
     int winner = turn + 1 % 2 + 1;
 
     cout << "Player " << loser << " lost!" << endl;
-    cout << "Player " <<  winner << " wins!" << endl;
+    cout << "Player " << winner << " wins!" << endl;
     return winner; // returns 1 or 2
 }
 
@@ -103,33 +106,35 @@ void Game::playTurn()
         { // assume that commands in input file are all player commands
             if (command == "drop")
             {
-                players[p]->playTurn("drop");
+                players[p]->playTurn(interpreter.playerCmd(command));
                 dropped = true;
                 break;
             }
-
+            int cmd = interpreter.gameCmd(command);
             string file;
-            int cmd = gameCommands[command];
-            if (cmd == 0)
-            { // norandom
+            ifstream ifs;
+            vector<char> blockSeq;
+            switch (cmd)
+            {
+            case 0: // norandom
                 cin >> file;
-                ifstream ifs{file};
+                ifs = ifstream{file};
                 if (!ifs.good())
                 {
                     throw file_not_found(file);
                 }
-                vector<char> blockSeq = read(file);
+                blockSeq = read(file);
                 players[p]->setSequence(blockSeq);
                 players[p]->setRandom(false);
-            }
-            else if (cmd == 1)
-            { // random
+                break;
+
+            case 1: // random
                 players[p]->setRandom(true);
-            }
-            else if (cmd == 2)
-            { // sequence
+                break;
+
+            case 2: // sequence
                 cin >> file;
-                ifstream ifs{file};
+                ifs = ifstream{file};
                 if (!ifs.good())
                 {
                     throw file_not_found(file);
@@ -148,16 +153,15 @@ void Game::playTurn()
                         commands.emplace_back(newCmd);
                     }
                 }
-            }
-            else if (cmd == 3)
-            { // restart
+                break;
+            case 3: // restart
                 turn = 0;
                 players[0] = make_unique<Player>(seqs[0], seed, startLvl);
                 players[1] = make_unique<Player>(seqs[1], seed, startLvl);
-            }
-            else
-            { // player cmds
-                players[p]->playTurn(command);
+                break;
+            default: // player cmds
+                players[p]->playTurn(interpreter.playerCmd(command));
+                break;
             }
         }
     }
@@ -195,7 +199,7 @@ void Game::playTurn()
     {
         players[p]->setup();
     }
-    catch (game_over)
+    catch (game_over &e)
     {
         isFinished = true;
         return;
