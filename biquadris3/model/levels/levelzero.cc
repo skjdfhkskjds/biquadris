@@ -6,7 +6,7 @@ LevelZero::LevelZero(int seed, std::vector<char> sequence) : Level{seed, 0, fals
 
 char LevelZero::generateBlock()
 {
-    if (i == sequence.size()) i = 0;
+    if (i == len) i = 0;
     char out = sequence[i];
     i++;
     return toUpper(out);

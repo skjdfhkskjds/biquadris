@@ -7,7 +7,7 @@
 class Level
 {
 protected:
-    int seed, lvl, i;
+    int seed, lvl, i, len;
     bool isRandom;
     std::vector<char> sequence;
     

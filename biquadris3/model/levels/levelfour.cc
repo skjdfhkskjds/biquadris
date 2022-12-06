@@ -44,9 +44,7 @@ char LevelFour::generateBlock()
     }
     else
     {
-        int len = sequence.size();
-        if (i == len)
-            i = 0;
+        if (i == len) i = 0;
         char out = sequence[i];
         i++;
         return toUpper(out);
