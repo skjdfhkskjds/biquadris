@@ -61,6 +61,7 @@ void Player::PlayerImpl::apply()
 // play turn must call apply then create a sequence to read and execute user commands
 unique_ptr<AbstractBoard> Player::PlayerImpl::playTurn()
 {
+    
     // update score
 }
 
