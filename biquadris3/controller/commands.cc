@@ -1,291 +1,339 @@
 #include <iostream>
 #include <fstream>
-#include <string>
+#include <sstream>
+#include <algorithm>
 #include <vector>
 #include <map>
-#include <memory>
 #include "commands.h"
 #include "../common/exceptions.h"
-#include <sstream>
 
 using namespace std;
 
-static vector<string> minUnique{"lef", "ri", "do", "cl", "co", "dr", "levelu", "leveld", "nor", "ra", "se", "I", "J", "L", "O", "S", "Z", "T", "re"};
-static vector<string> fullCommand{"left", "right", "down", "clockwise", "counterclockwise", "drop", "levelup", "leveldown", "norandom", "random", "sequence", "I", "J", "L", "O", "S", "Z", "T", "restart"};
-
 struct Commands::CommandsImpl
 {
-    // base commands
-    const enum { LEFT = 0,
-                 RIGHT,
-                 DOWN,
-                 CLOCKWISE,
-                 COUNTERCLOCKWISE,
-                 DROP,
-                 LEVELUP,
-                 LEVELDOWN,
-                 NORANDOM,
-                 RANDOM,
-                 SEQUENCE,
-                 I,
-                 J,
-                 L,
-                 O,
-                 S,
-                 Z,
-                 T,
-                 RESTART };
+    // needs to contain 3 maps, game, player, interpreter commands
+    static map<string, int> gameCommands;
+    static map<string, int> playerCommands;
+    static map<string, int> interpreterCommands;
 
-    // vector containing all the commands
-    map<string, vector<int>> commands;
-    vector<string> nonMultCommands;
+    static map<string, string> prefixMap; // maps prefixes to fullnames
 
-    CommandsImpl();
-    ~CommandsImpl() = default;
+    static vector<string> singleCalls; // list of single call commands
 
-    vector<string> interpret(string &command);
-    void apply(string &command);
-    void interpretEffect(string &Effect);
-    string stringConvert(string &abbrv);
+    bool useMacros;
+    map<string, vector<string>> macros;
+
+    CommandsImpl(bool useMacros) noexcept;
+    ~CommandsImpl() noexcept = default;
+
+    // internal tools
+    void makePrefixes(string &command, bool remake=false); // remaps the commands to their newest shortest prefixes after adding command
+    string stringInterpret(string &command);
+
+    // interface implementations
+    vector<string> interpret(string &command, bool useMacros);
     bool rename(string &existing, string &newName);
     bool addMacro(string &command);
 };
 
-// constructs the impl and establishes the vector map
-Commands::CommandsImpl::CommandsImpl()
-{
-    // defining the built in vectors
-    vector<int> left = {LEFT};
-    vector<int> right = {RIGHT};
-    vector<int> down = {DOWN};
-    vector<int> clockwise = {CLOCKWISE};
-    vector<int> counterclockwise = {COUNTERCLOCKWISE};
-    vector<int> drop = {DROP};
-    vector<int> levelup = {LEVELUP};
-    vector<int> leveldown = {LEVELDOWN};
-    vector<int> norandom = {NORANDOM};
-    vector<int> random = {RANDOM};
-    vector<int> sequence = {SEQUENCE};
-    vector<int> Iblock = {I};
-    vector<int> Jblock = {J};
-    vector<int> Lblock = {L};
-    vector<int> Oblock = {O};
-    vector<int> Sblock = {S};
-    vector<int> Zblock = {Z};
-    vector<int> Tblock = {T};
-    vector<int> restart = {RESTART};
+// command maps
+map<string, int> Commands::CommandsImpl::gameCommands =
+    {{"norandom", 0},
+     {"random", 1},
+     {"sequence", 2},
+     {"restart", 3},
+     {"blind", 4},
+     {"heavy", 5},
+     {"force", 6}};
 
-    // adding the vectors to the map
-    // commands = {{fullCommand[LEFT], left}, {fullCommand[RIGHT], right}, {fullCommand[DOWN], down}, {fullCommand[CLOCKWISE], clockwise}, {fullCommand[COUNTERCLOCKWISE], counterclockwise}, {fullCommand[DROP], drop}, {fullCommand[LEVELUP], levelup}, {fullCommand[LEVELDOWN], leveldown}, {fullCommand[NORANDOM], norandom}, {fullCommand[RANDOM], random}, {fullCommand[SEQUENCE], sequence}, {fullCommand[I], Iblock}, {fullCommand[J], Jblock}, {fullCommand[L], L}, {fullCommand[O], O}, {fullCommand[S], S}, {fullCommand[Z], Z}, {fullCommand[T], T}, {fullCommand[RESTART], restart}};
-    int len = fullCommand.size();
-    for (int i = 0; i < len; i++)
+map<string, int> Commands::CommandsImpl::playerCommands =
+    {{"left", 0},
+     {"right", 1},
+     {"down", 2},
+     {"clockwise", 3},
+     {"counterclockwise", 4},
+     {"drop", 5},
+     {"levelup", 6},
+     {"leveldown", 7}};
+
+map<string, int> Commands::CommandsImpl::interpreterCommands =
+    {{"macro", 0},
+     {"rename", 1}};
+
+// prefix maps
+map<string, string> Commands::CommandsImpl::prefixMap =
+    {{"lef", "left"},
+     {"ri", "right"},
+     {"do", "down"},
+     {"cl", "clockwise"},
+     {"co", "counterclockwise"},
+     {"dr", "drop"},
+     {"levelu", "levelup"},
+     {"leveld", "leveldown"},
+     {"nor", "norandom"},
+     {"ra", "random"},
+     {"s", "sequence"},
+     {"I", "I"},
+     {"J", "J"},
+     {"L", "L"},
+     {"O", "O"},
+     {"S", "S"},
+     {"Z", "Z"},
+     {"T", "T"},
+     {"re", "restart"},
+     {"b", "blind"},
+     {"h", "heavy"},
+     {"f", "force"}};
+
+vector<string> Commands::CommandsImpl::singleCalls =  {"restart", "hint", "norandom", "random"};
+
+// flag is modified based on command-line arguments
+Commands::CommandsImpl::CommandsImpl(bool useMacros) noexcept : useMacros{useMacros}
+{
+    if (useMacros)
     {
-        commands[fullCommand[i]] = {i};
-    }
-    // non multiplicative commands
-    nonMultCommands = {"restart", "hint", "norandom", "random"};
-}
-
-string Commands::stringInterpret(string &command)
-{
-    return impl->stringConvert(command);
-}
-// interprets the command they pass in
-void Commands::CommandsImpl::apply(string &command)
-{
-    // throws command_not_found exception, handle later //dom: I think we can handle this in our stringConverter
-    if (commands.count(command) == 0)
-        throw;
-
-    // parse numbers in the command first, create loop to iterate n times, and handle exceptions
-    // search letter by letter to deal with incomplete phrases
-    // THIS COULD ALSO MEAN SHORTENING THE EXISTING KEYS TO FIT MINIMUM COMMAND LENGTH
-
-    vector<int> commandsToRun = commands[command];
-    string file;
-    for (int c : commandsToRun)
-    {
-        switch (c)
+        for (auto pair : interpreterCommands)
         {
-        case LEFT:
-            // left();
-            break;
-        case RIGHT:
-            // right();
-            break;
-        case DOWN:
-            // down();
-            break;
-        case CLOCKWISE:
-            // clockwise();
-            break;
-        case COUNTERCLOCKWISE:
-            // counterclockwise();
-            break;
-        case DROP:
-            // drop();
-            break;
-        case LEVELUP:
-            // levelup();
-            break;
-        case LEVELDOWN:
-            // leveldown();
-            break;
-        case NORANDOM:
-        {
-            cin >> file;
-            ifstream ifs{file};
-            if (!ifs.good())
-            {
-                throw file_not_found(file);
-            }
-            // norandom(file);
-            break;
-        }
-        case RANDOM:
-            // random();
-            break;
-        case SEQUENCE:
-            cin >> file;
-            // sequence(file);
-            break;
-        case I:
-            // I();
-            break;
-        case J:
-            // J();
-            break;
-        case L:
-            // L();
-            break;
-        case O:
-            // O();
-            break;
-        case S:
-            // S();
-            break;
-        case Z:
-            // Z();
-            break;
-        case T:
-            // T();
-            break;
-        case RESTART:
-            // restart();
-            break;
-        default:
-            break;
-        }
-        // case switch through the command options
-
-        // if command is any of the run once only functions, change runOnce to true
-    }
-}
-
-void Commands::CommandsImpl::interpretEffect(string &effect)
-{
-}
-
-vector<string> Commands::CommandsImpl::interpret(string &command) // doesn't handle macros including any of the nonMultiplier viable commands
-{
-    // rawInterpret is called by main on the first word
-    vector<string> cmdStream;
-    int multiplier = 0;
-    string commandName;
-    std::istringstream iss{command};
-    iss >> multiplier;
-    iss >> commandName;
-    commandName = stringConvert(commandName);
-    for (string i : nonMultCommands)
-    {
-        if (commandName == i)
-        {
-            cmdStream.emplace_back(commandName);
-            return;
+            string command = pair.first;
+            makePrefixes(command);
         }
     }
-    // if (commandName == "sequence")
-    /*sequence works funny because it takes in a file name, but also can be called multiple times*/
-    if (multiplier == 1)
+}
+
+// returns the shortest unique prefix of s1 to s2
+string uniquePrefix(string &s1, string &s2)
+{
+    int i = 0;
+    int len = s1.size();
+    while (s1[i] == s2[i]) i++;
+    if (i == len) return s1;
+    return s1.substr(0, i + 1);
+}
+
+void Commands::CommandsImpl::makePrefixes(string &command, bool remake)
+{
+    vector<string> toCheck;
+    if (remake)
     {
-        cmdStream.emplace_back(commandName);
+        for (auto pair : prefixMap)
+        {
+            toCheck.emplace_back(pair.second);
+        }
     }
     else
     {
-        for (int i = 0; i < multiplier; i++)
-            cmdStream.emplace_back(commandName);
-    }
-    return cmdStream;
-}
-
-string Commands::CommandsImpl::stringConvert(string &abbrv)
-{
-    int len = minUnique.size();
-    string minStr;
-    string maxStr;
-    for (int i = 0; i < len; i++)
-    {
-        minStr = minUnique[i];
-        maxStr = fullCommand[i];
-        if ((abbrv.find(minStr) != string::npos) && (maxStr.find(abbrv) != string::npos))
+        // check command against current prefixes for first letter
+        for (auto it = prefixMap.cbegin(), next_it = it; it != prefixMap.cend(); it = next_it)
         {
-            return abbrv;
+            ++next_it;
+            // if first letters match, delete existing key and add to list
+            if (it->first[0] == command[0])
+            {
+                toCheck.emplace_back(it->second);
+                prefixMap.erase(it);
+            }
         }
     }
-    throw command_not_found{abbrv};
+
+    toCheck.emplace_back(command);
+
+    // if no characters are shared
+    if (toCheck.size() == 1)
+    {
+        prefixMap[command.substr(0, 1)] = command;
+        return;
+    }
+
+    // sort the list lexicographically
+    sort(toCheck.begin(), toCheck.end());
+
+    int len = toCheck.size();
+
+    prefixMap[uniquePrefix(toCheck[0], toCheck[1])] = toCheck[0]; // first element only needs to be forward checked
+    for (int i = 1; i < len - 1; i++)
+    {
+        // check for the longer minimum prefix
+        string forwardsDiff = uniquePrefix(toCheck[i], toCheck[i + 1]);
+        string backwardsDiff = uniquePrefix(toCheck[i], toCheck[i - 1]);
+        string prefix = (forwardsDiff.size() > backwardsDiff.size()) ? forwardsDiff : backwardsDiff;
+        prefixMap[prefix] = toCheck[i];
+    }
+    prefixMap[uniquePrefix(toCheck[len - 1], toCheck[len - 2])] = toCheck[len - 1]; // last element only needs to be backwards checked
+}
+
+// returns if s1 is a substring of s2
+bool isSubstring(string &s1, string &s2)
+{
+    return (s2.find(s1) != string::npos);
+}
+
+string Commands::CommandsImpl::stringInterpret(string &command)
+{
+    string cmd;
+    for (char c : command)
+    {
+        cmd += c;
+        auto it = prefixMap.find(cmd);
+        if (it != prefixMap.end())
+        {
+            if (isSubstring(command, it->second))
+            {
+                return it->second;
+            }
+        }
+    }
+    throw command_not_found{command};
+}
+
+vector<string> Commands::CommandsImpl::interpret(string &command, bool useMacros)
+{
+    vector<string> commands;
+    int repeats = 1;
+    string intParse;
+    string cmd;
+
+    for (char c : command)
+    {
+        if (!isdigit(c)) 
+        {
+            cmd += c;
+        }
+        intParse += c;
+    }
+    istringstream iss{intParse};
+    iss >> repeats;
+    try
+    {
+        cmd = stringInterpret(cmd);
+    }
+    catch(command_not_found& e)
+    {
+        cerr << e.what() << endl;
+        return vector<string>();
+    }
+    
+
+    if (useMacros)
+    {
+        auto it = macros.find(command);
+        if (it != macros.end())
+        {
+            return it->second;
+        }
+    }
+
+    // handles single call commands
+    for (string singleUse : singleCalls)
+    {
+        if (cmd == singleUse)
+        {
+            repeats = 1;
+            break;
+        }
+    }
+    for (int i = 0; i < repeats; i++)
+    {
+        commands.emplace_back(cmd);
+    }
+    return commands;
 }
 
 // returns true if successful, false otherwise
 bool Commands::CommandsImpl::rename(string &existing, string &newName)
 {
-    // throws command_not_found
-    if (commands.count(existing) == 0)
-        throw command_not_found{existing};
-
-    // adds command to the existing map and erases the old key
-    commands[newName] = commands[existing];
-    commands.erase(existing);
+    if (existing == "macro" || existing == "rename") return false;
+    string cmd;
+    try
+    {
+        cmd = stringInterpret(existing);
+    }
+    catch(command_not_found& e)
+    {
+        return false;
+    }
+    for (auto it = prefixMap.cbegin(), next_it = it; it != prefixMap.cend(); it = next_it)
+    {
+        ++next_it;
+        // remove the existing key
+        if (it->second == cmd) 
+        {
+            prefixMap.erase(it);
+        }
+    }
+    // check if the renamed function was a game command 
+    auto it = gameCommands.find(cmd);
+    if (it != gameCommands.end())
+    {
+        gameCommands[newName] = it->second;
+        gameCommands.erase(it);
+    }
+    // check if it was a player command
+    it = playerCommands.find(cmd);
+    if (it != playerCommands.end())
+    {
+        playerCommands[newName] = it->second;
+        playerCommands.erase(it);
+    }
+    // update prefix map
+    makePrefixes(newName, true);
+    return true;
 }
 
 // returns true if successful, false otherwise
 bool Commands::CommandsImpl::addMacro(string &command)
 {
-    // throws command_already_exists
-    if (commands.count(command) != 0)
-        throw command_already_exists{command};
+    // if the macro name already exists
+    if (interpret(command, useMacros).size() != 0) return false;
+    if (macros.count(command) != 0) return false;
 
-    // sets up variables for new commands
-    vector<int> newCommand;
+    // read in commands to be expanded by macro
     string input;
-
-    // gets input until user types done or types an invalid command
-    while (cin >> input)
+    vector<string> commands;
+    while (cin >> input && input != "done")
     {
-        // checks conditions
-        if (command == "done" || commands.count(command) == 0)
-            break;
-
-        // adds new command
-        newCommand.emplace_back(commands[command]);
+        if (cin.fail())
+        {
+            cin.ignore();
+            cin.clear();
+        }
+        vector<string> cmds = interpret(input, useMacros);
+        for (string cmd : cmds)
+        {
+            commands.emplace_back();
+        }
     }
-
-    // adds new command vector to map with key "command"
-    commands[command] = newCommand;
+    macros[command] = commands;
+    makePrefixes(command);
+    return true;
 }
 
-// Implementation for the Command class using impl
-
 // constructor declares the impl
-Commands::Commands() : impl{make_unique<Commands::CommandsImpl>()} {}
+Commands::Commands(bool useMacros) noexcept : impl{make_unique<Commands::CommandsImpl>(useMacros)} {}
 
-Commands::~Commands() = default;
+Commands::~Commands() noexcept = default;
 
-vector<string> Commands::interpret(string &command) { impl->interpret(command); }
+vector<string> Commands::interpret(string &command) { return impl->interpret(command, impl->useMacros); }
 
-int Commands::getPlayerCommand(string &command) { return }
+bool Commands::rename(string &existing, string &newName) { return impl->rename(existing, newName); }
 
-void Commands::apply(string &command) { impl->apply(command); }
+bool Commands::addMacro(string &command) { return impl->addMacro(command); }
 
-bool Commands::rename(string &existing, string &newName) { impl->rename(existing, newName); }
+int Commands::gameCmd(std::string & command)
+{
+    auto it = impl->gameCommands.find(command);
+    if (it != impl->gameCommands.end())
+    {
+        return it->second;
+    }
+    return -1;
+}
 
-bool Commands::addMacro(string &command) { impl->addMacro(command); }
+int Commands::playerCmd(std::string & command)
+{
+    auto it = impl->playerCommands.find(command);
+    if (it != impl->playerCommands.end())
+    {
+        return it->second;
+    }
+    return -1;
+}

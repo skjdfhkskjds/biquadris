@@ -66,7 +66,6 @@ Player::Player(vector<char> seq, int startLvl, int seed) : impl{make_unique<Play
 
 Player::~Player() = default;
 
-
 int Player::getLevel() { return impl->lvl; }
 
 int Player::getScore() { return impl->score; }
@@ -100,33 +99,22 @@ void Player::setEffect(std::string effect)
 
 void Player::levelUp()
 {
-    if (impl->lvl == MAX_LEVEL) throw invalid_level{MAX_LEVEL};
+    if (impl->lvl == MAX_LEVEL)
+        throw invalid_level{MAX_LEVEL};
     impl->lvl++;
     impl->board->setLevel(impl->lvl);
 }
 
 void Player::levelDown()
 {
-    if (impl->lvl == MIN_LEVEL) throw invalid_level{MIN_LEVEL};
+    if (impl->lvl == MIN_LEVEL)
+        throw invalid_level{MIN_LEVEL};
     impl->lvl--;
     impl->board->setLevel(impl->lvl);
 }
 
-std::map<std::string, int> Player::PlayerImpl::playerCommands 
+void Player::playTurn(int cmd)
 {
-    {"left", 0},
-    {"right", 1},
-    {"down", 2},
-    {"clockwise", 3},
-    {"counterclocwise", 4},
-    {"drop", 5},
-    {"levelup", 6},
-    {"leveldown", 7},
-};
-
-void Player::playTurn(std::string command) 
-{
-    int cmd = impl->playerCommands[command];
     switch (cmd)
     {
     case 0:
@@ -153,12 +141,18 @@ void Player::playTurn(std::string command)
     case 7:
         levelDown();
         break;
-    //add more cases later for replacing blocks
+    // add more cases later for replacing blocks
     default:
         break;
     }
 }
 
-void Player::setSequence(vector<char> newSeq) { impl->seq = newSeq; }
+void Player::setSequence(vector<char> newSeq)
+{
+    impl->seq = newSeq;
+}
 
-void Player::setup() { impl->board->setup(); }
+void Player::setup()
+{
+    impl->board->setup();
+}
