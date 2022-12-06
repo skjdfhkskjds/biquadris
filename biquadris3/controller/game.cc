@@ -7,6 +7,7 @@ using namespace std;
 
 Game::Game(int seed, int startLvl, vector<string> sequences) : interpreter{}
 {
+    turn = 0;
     vector<vector<char>> seqs;
     int len = sequences.size();
     for (int i = 0; i < len; i++)
@@ -85,4 +86,32 @@ int Game::run()
 
         interpreter.interpret(input);
     }
+}
+
+void Game::playTurn()
+{
+    int p = turn % 2;
+    //call on players[p]
+
+    //apply()
+    //get currBlock
+    //read in commands until drop
+    //check rows cleared somehow with boardstate
+    //if effect command, call other players setEffect(effect command)
+    //resetEffects()
+    //update score
+    //call board->setup()
+    players[p]->apply();
+    string input;
+    while (cin >> input)
+    {
+        if (input == "drop")   {
+            players[p]drop();
+        }
+        string command = interpreter.stringInterpret(input);
+        
+
+    }
+    turn++;
+    
 }

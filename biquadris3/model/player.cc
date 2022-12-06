@@ -25,7 +25,6 @@ struct Player::PlayerImpl
     ~PlayerImpl() = default;
 
     void apply();                         // applies all effects onto board
-    unique_ptr<AbstractBoard> playTurn(); // plays a turn
 };
 
 Player::PlayerImpl::PlayerImpl(vector<char> seq, int startLvl, int seed) : seq{seq}, lvl{startLvl}, turns{0}, score{0}, effects{{"heavy", false}, {"blind", false}, {"force", false}}
@@ -59,17 +58,11 @@ void Player::PlayerImpl::apply()
 }
 
 // play turn must call apply then create a sequence to read and execute user commands
-unique_ptr<AbstractBoard> Player::PlayerImpl::playTurn()
-{
-    
-    // update score
-}
 
 Player::Player(vector<char> seq, int startLvl, int seed) : impl{make_unique<Player::PlayerImpl>(seq, startLvl, seed)} {}
 
 Player::~Player() = default;
 
-void Player::playTurn() { impl->playTurn(); }
 
 int Player::getLevel() { return impl->lvl; }
 
@@ -115,3 +108,4 @@ void Player::levelDown()
     impl->lvl--;
     impl->board->setLevel(impl->lvl);
 }
+

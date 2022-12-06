@@ -3,11 +3,14 @@
 
 #include <string>
 #include <memory>
+#include "game.h"
+#include "../model/player.h"
 
 class Commands final
 {
     class CommandsImpl;
     std::unique_ptr<CommandsImpl> impl;
+    std::unique_ptr<Game> game; 
 
 public:
     Commands() noexcept;
@@ -18,6 +21,7 @@ public:
 
     bool rename(std::string &existing, std::string &newName); // renames a command
     bool addMacro(std::string &command);                      // adds a macro
+    std::string stringInterpret(std::string &command);
 };
 
 #endif
