@@ -10,7 +10,7 @@
 
 using namespace std;
 
-BoardState::BoardState(int lvl) : lvl{lvl}, block{nullptr}
+BoardState::BoardState(int lvl) : lvl{lvl}, totalCleared{0}, block{nullptr}
 {
     for (int x = 0; x < width; x++)
     {
@@ -136,6 +136,7 @@ int BoardState::onFloor()
         floor[coord.getX()] = (floor[coord.getX()] > coord.getY()) ? coord.getY() : floor[coord.getX()];
     }
     score += squared(lvl + rowsCleared);
+    totalCleared += rowsCleared;
     return score;
 }
 

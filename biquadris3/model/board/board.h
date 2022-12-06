@@ -20,11 +20,12 @@ public:
     void setBlock(std::shared_ptr<Block> &block) override; // sets current block to block
     void setLevel(int level) override;                     // sets the current level to level
     void setRandom(bool isRandom);                         // sets the randomness of board's level
-    void setSequence(std::vector<char> sequence);          // sets the sequence of board's level                           
+    void setSequence(std::vector<char> sequence);          // sets the sequence of board's level
 
     // getter methods
     std::vector<char> getState() override; // returns the boardState
     char getNext() override;               // returns the next block's char
+    int getCleared() override;             // returns the total number of cleared lines
 
     void setup() override; // sets up the following turn
 
@@ -32,8 +33,8 @@ public:
     void clockwise() override;        // rotates the block clockwise
     void right() override;            // shifts the block right
     void left() override;             // shifts the block left
-    int down() override;             // shifts the block down
-    int drop() override;             // drops block
+    int down() override;              // shifts the block down
+    int drop() override;              // drops block
 };
 
 #endif

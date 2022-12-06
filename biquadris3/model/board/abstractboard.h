@@ -16,6 +16,7 @@ public:
     // pure virtual getter methods
     virtual char getNext() = 0;
     virtual std::vector<char> getState() = 0;
+    virtual int getCleared() = 0;
 
     // pure virtual block manipulation methods
     virtual std::shared_ptr<Block> makeBlock(char c) = 0;

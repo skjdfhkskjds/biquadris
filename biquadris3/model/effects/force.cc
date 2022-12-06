@@ -18,6 +18,8 @@ char Force::getNext() { return component->getNext(); }
 
 vector<char> Force::getState() { return component->getState(); }
 
+int Force::getCleared() { return component->getCleared(); }
+
 shared_ptr<Block> Force::makeBlock(char c) { return component->makeBlock(c); }
 
 void Force::setBlock(shared_ptr<Block> &block) { component->setBlock(block); }

@@ -169,6 +169,7 @@ void Player::setRandom(bool isRandom)
 {
     impl->board->setRandom(isRandom);
 }
+
 void Player::setup() { impl->board->setup(); }
 
 

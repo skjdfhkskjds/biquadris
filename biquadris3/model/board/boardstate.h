@@ -9,7 +9,7 @@
 
 class BoardState
 {
-    int lvl;
+    int lvl, totalCleared;
     std::vector<Square> state;
     std::vector<int> floor;
     std::shared_ptr<Block> block;
@@ -35,6 +35,7 @@ public:
 
     // getter functions
     std::vector<char> getState(); // returns the state
+    int getCleared(); // returns total rows cleared
 
     // setter functions
     void initBlock(std::shared_ptr<Block> currBlock); // initializes the block to the boardstate

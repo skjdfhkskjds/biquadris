@@ -30,7 +30,7 @@ public:
     // player modifiers
     void levelUp();   // increases the level
     void levelDown(); // decreases the level
-    void playTurn(std::string command);
+    void playTurn(int command);
     void setRandom(bool isRandom);
     void setSequence(std::vector<char> newSeq); 
     void setup();
