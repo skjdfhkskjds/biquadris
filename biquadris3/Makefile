@@ -1,6 +1,6 @@
 CXX = g++
 CXXFLAGS = -std=c++14 -Wall -MMD
-OBJECTS = controller/main.o common/coordinates.o #board.o boardstate.o player.o subject.o observer.o commands.o exceptions.o  block.o 
+OBJECTS = main.o common/coordinates.o #board.o boardstate.o player.o subject.o observer.o commands.o exceptions.o  block.o 
 EXEC = main
 
 DEPENDS = ${OBJECTS:.o=.d}

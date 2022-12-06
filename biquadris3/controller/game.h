@@ -23,7 +23,7 @@ class Game : public Subject
     std::vector<char> read(std::string sequence); // reads in the file sequence and produces it as a char array
 
 public:
-    Game(int seed, int startLvl, std::vector<std::string> sequences);
+    Game(int seed, int startLvl, std::vector<std::string> sequences, std::vector<bool> flagStates);
     ~Game() = default;
 
     std::vector<std::unique_ptr<Player>> getPlayers();
