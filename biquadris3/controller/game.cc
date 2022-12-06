@@ -27,6 +27,10 @@ Game::Game(int seed, int startLvl, vector<string> sequences) : interpreter{}
     players.emplace_back(make_unique<Player>(seqs[1], seed, startLvl));
 }
 
+vector<std::unique_ptr<Player>> Game::getPlayers() {
+    return players;
+};
+
 vector<char> Game::read(string s)
 {
     vector<char> sequence;
