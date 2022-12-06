@@ -78,8 +78,8 @@ void Graphics::notify() {
 }
 
 Graphics::Graphics(shared_ptr<Game> game, Xwindow xWindow) : game{game}, xWindow{xWindow} {
-    players.emplace_back(game.getPlayers[0]);
-    players.emplace_back(game.getPlayers[1]);
+    players.emplace_back(game->getPlayers[0]);
+    players.emplace_back(game->getPlayers[1]);
     newStates[0] = players[0]->getState();
     newStates[1] = players[1]->getState();
     for(int i = 0; i < width * height; i++) {

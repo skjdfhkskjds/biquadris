@@ -89,7 +89,7 @@ void Text::notify() {
 }
 
 Text::Text(std::shared_ptr<Game> game) : game{game} {
-  players.emplace_back(game.getPlayers()[0]);
-    players.emplace_back(game.getPlayers()[1]); 
+    players.emplace_back(game->getPlayers()[0]);
+    players.emplace_back(game->getPlayers()[1]); 
 };
 
