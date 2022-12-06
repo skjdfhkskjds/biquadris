@@ -182,6 +182,12 @@ int BoardState::clearRow(int row)
 
 void BoardState::initBlock(std::shared_ptr<Block> currBlock)
 {
+    // get ride of old block
+    for (Coordinates coord : block->getCoords())
+    {
+        state[coord.index()].removeBlock();
+    }
+    // initialize new block onto boardstate
     block = currBlock;
     for (Coordinates coord : block->getCoords())
     {

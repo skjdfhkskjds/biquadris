@@ -27,3 +27,5 @@ void Force::left() { component->left(); }
 void Force::right() { component->right(); }
 
 void Force::down() { component->down(); }
+
+void Force::drop() { component->drop(); }

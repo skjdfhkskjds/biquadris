@@ -43,3 +43,5 @@ void Blind::left() { component->left(); }
 void Blind::right() { component->right(); }
 
 void Blind::down() { component->down(); }
+
+void Blind::drop() { component->drop(); }

@@ -27,6 +27,9 @@
 - levelfour.cc
   - implement singleton behavior
 
+- levels
+  - implement method to change file source
+
 <!-- dom working on making clockwise and counterclockwise work -->
 - block.cc:
     - implement decay() ???

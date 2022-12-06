@@ -16,30 +16,15 @@ void Heavy::apply()
 
 char Heavy::getNext() { return component->getNext(); }
 
-vector<char> Heavy::getState()
-{
-    return component->getState();
-}
+vector<char> Heavy::getState() { return component->getState(); }
 
-shared_ptr<Block> Heavy::makeBlock(char c)
-{
-    return component->makeBlock(c);
-}
+shared_ptr<Block> Heavy::makeBlock(char c) { return component->makeBlock(c); }
 
-void Heavy::setBlock(shared_ptr<Block> &block)
-{
-    component->setBlock(block);
-}
+void Heavy::setBlock(shared_ptr<Block> &block) { component->setBlock(block); }
 
-void Heavy::clockwise()
-{
-    component->clockwise();
-}
+void Heavy::clockwise() { component->clockwise(); }
 
-void Heavy::counterClockwise()
-{
-    component->counterClockwise();
-}
+void Heavy::counterClockwise() { component->counterClockwise(); }
 
 void Heavy::left()
 {
@@ -53,7 +38,4 @@ void Heavy::right()
     apply();
 }
 
-void Heavy::down()
-{
-    component->down();
-}
+void Heavy::down() { component->down(); }
