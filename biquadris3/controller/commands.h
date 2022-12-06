@@ -10,8 +10,7 @@ class Commands final
 {
     class CommandsImpl;
     std::unique_ptr<CommandsImpl> impl;
-    std::unique_ptr<Game> game;
-
+    
 public:
     Commands() noexcept;
     ~Commands() noexcept;
