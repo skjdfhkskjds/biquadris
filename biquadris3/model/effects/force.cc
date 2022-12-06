@@ -41,6 +41,6 @@ void Force::left() { component->left(); }
 
 void Force::right() { component->right(); }
 
-void Force::down() { component->down(); }
+int Force::down() { return component->down(); }
 
-void Force::drop() { component->drop(); }
+int Force::drop() { return component->drop(); }
