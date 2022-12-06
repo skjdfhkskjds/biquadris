@@ -15,6 +15,7 @@ class Game : public Subject
     int turn;
     int seed;
     int startLvl;
+    int highscore;
     std::vector<std::string> sequences;
     std::vector<std::vector<char>> seqs;
 

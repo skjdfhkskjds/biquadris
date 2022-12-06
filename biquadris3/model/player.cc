@@ -145,7 +145,7 @@ void Player::playTurn(std::string command)
         impl->board->counterClockwise();
         break;
     case 5:
-        impl->board->drop();
+        impl->score += impl->board->drop();
         break;
     case 6:
         levelUp();
@@ -161,7 +161,7 @@ void Player::playTurn(std::string command)
 
 void Player::setSequence(vector<char> newSeq) 
 { 
-    impl->seq = newSeq; 
+    impl->seq = newSeq;
     impl->board->setSequence(newSeq);
 }
 
@@ -170,3 +170,5 @@ void Player::setRandom(bool isRandom)
     impl->board->setRandom(isRandom);
 }
 void Player::setup() { impl->board->setup(); }
+
+

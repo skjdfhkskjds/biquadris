@@ -26,7 +26,7 @@ public:
     void resetEffects();                    // resets the player state and removes all effects
     void setEffect(std::string effect);     // sets effect for the player
 
-    // level modifiers
+    // player modifiers
     void levelUp();   // increases the level
     void levelDown(); // decreases the level
     void playTurn(std::string command);

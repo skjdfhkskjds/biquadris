@@ -8,6 +8,7 @@ using namespace std;
 Game::Game(int seed, int startLvl, vector<string> sequences) : seed{seed}, startLvl{startLvl}, interpreter{}
 {
     turn = 0;
+    highscore = 0;
     vector<vector<char>> seqs;
     int len = sequences.size();
     for (int i = 0; i < len; i++)
@@ -69,25 +70,13 @@ vector<vector<char>> Game::getState()
 int Game::run()
 {
     // gamestate vars
-    int turns = 0;
     // placeholder bool
     bool isFinished;
     while (!isFinished)
     {
         playTurn();
     }
-    // string input;
-    // while (cin >> input)
-    // {
-    //     if (cin.fail())
-    //     {
-    //         cin.ignore();
-    //         cin.clear();
-    //         continue;
-    //     }
-
-    //     interpreter.interpret(input);
-    // }
+    //check for player loss
 }
 
 void Game::playTurn()
@@ -101,6 +90,7 @@ void Game::playTurn()
 
     int p = turn % 2;
     players[p]->apply();
+    cout << "Player " << p << "'s turn." << endl;
     string input;
     bool dropped = false;
     while (cin >> input && !dropped)
@@ -159,11 +149,11 @@ void Game::playTurn()
             }
             else if (cmd == 3)
             {
-                // reset all game state variables
+                // restart
                 turn = 0;
                 players[0] = make_unique<Player>(seqs[0], seed, startLvl);
                 players[1] = make_unique<Player>(seqs[1], seed, startLvl);
-                // not sure if this requires change to sequences
+                // does not change highscore
             }
             else // player cmds
             {
@@ -177,6 +167,7 @@ void Game::playTurn()
     bool effectAvailable;
     if (effectAvailable)
     {
+        cout << "Effect available" << endl;
         cout << "Select an effect : blind / heavy / force" << endl;
         cin >> input;
         if (input == "blind" || input == "heavy") {
@@ -189,8 +180,13 @@ void Game::playTurn()
         }
         
     }
+    int currScore = players[p]->getScore();
+    cout << "Current Score: " <<  currScore << endl;
+    if (currScore > highscore) {
+        highscore = currScore;
+        cout << "New Highscore!" << endl;
+    }
     players[p]->resetEffects();
-    // no method to update player score
     players[p]->setup();
     turn++;
 }
