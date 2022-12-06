@@ -54,12 +54,17 @@ void Graphics::notify() {
     int p1Score = players[0].getScore();
     int p1Lvl = players[0].getLevel();
     int p2Score = players[1].getScore();
-    int p2Lvl = plyaer[1].getLevel();
+    int p2Lvl = player[1].getLevel();
     //update text and next block each time
-    xWindow.drawString(0, 0, "Level:     ");
-    xWindow.drawString(0, width - 1, to_string(p1Lvl));
-    xWindow.drawString(0, width + 6, "Level:     ");
-    xWindow.drawString(0, width * 2 + 6 - 1, to_string(p1Lvl));
+    xWindow.drawString(0, 0, "Level:");
+    xWindow.drawString(width - 1, 0, to_string(p1Lvl));
+    xWindow.drawString(width + 6, 0, "Level:");
+    xWindow.drawString(width * 2 + 6 - 1, 0, to_string(p2Lvl));
+
+    xWindow.drawString(0, 1, "Score:");
+    xWindow.drawString(width - 6, 1, to_string(p1Score));
+    xWindow.drawString(width + 6, 1, "Score:");
+    xWindow.drawString(width * 2 + 6 - 6, 1, to_string(p2Score));
     //something render deltas
     int x;
     int y;
@@ -75,6 +80,10 @@ void Graphics::notify() {
         y = (i.first / width) + 3;
         xWindow.fillRectangle(x, y, 1, 1, blockColour[i.second]);
     }
+    xWindow.drawString(0, height + 5, "Next:");
+    xWindow.drawString(width + 6, height + 5, "Next:");
+    segmentedBlockPrinter(players[0].getNext(), players[1].getNext());
+
 }
 
 Graphics::Graphics(shared_ptr<Game> game, Xwindow xWindow) : game{game}, xWindow{xWindow} {
@@ -85,5 +94,18 @@ Graphics::Graphics(shared_ptr<Game> game, Xwindow xWindow) : game{game}, xWindow
     for(int i = 0; i < width * height; i++) {
         oldStates[0][i] = '~';;
         oldStates[1][i] = '~';
+    }
+}
+
+map<char, string> zero =  {{'I', "I "}, {'J'," J"}, {'L',"L "}, {'O',"OO"}, {'S',"S "},{'Z'," Z"}, {'T',"T "}};
+map<char, string> one =   {{'I', "I "}, {'J'," J"}, {'L',"L "}, {'O',"OO"}, {'S',"SS"},{'Z',"ZZ"}, {'T',"TT"}};
+map<char, string> two =   {{'I', "I "}, {'J',"JJ"}, {'L',"LL"}, {'O',"  "}, {'S'," S"},{'Z',"Z "}, {'T',"T "}};
+map<char, string> three = {{'I', "I "}, {'J',"  "}, {'L',"  "}, {'O',"  "}, {'S',"  "},{'Z',"  "}, {'T',"  "}};
+vector<map<char, string>> blockRow = {zero, one, two, three};
+
+void segmentedBlockPrinter(char c1, char c2) {
+    for (int i = 0; i < 4; i ++) {
+        xWindow.drawString(0, height + 6 + i, blockRow[i][c1]);
+        xWindow.drawString(width + 6, height + 6 + i, blockRow[i][c1]);
     }
 }
