@@ -88,5 +88,8 @@ void Text::notify() {
     }
 }
 
-Text::Text(std::vector<std::shared_ptr<Player>> players) : players{players} {};
+Text::Text(std::shared_ptr<Game> game) : game{game} {
+  players.emplace_back(game.getPlayers()[0]);
+    players.emplace_back(game.getPlayers()[1]); 
+};
 

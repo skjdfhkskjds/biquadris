@@ -51,7 +51,15 @@ map<char,int> blockColour = {
 void Graphics::notify() {
     map<int,char> p1Deltas = getDeltas(0);
     map<int,char> p2Deltas = getDeltas(1);
+    int p1Score = players[0].getScore();
+    int p1Lvl = players[0].getLevel();
+    int p2Score = players[1].getScore();
+    int p2Lvl = plyaer[1].getLevel();
     //update text and next block each time
+    xWindow.drawString(0, 0, "Level:     ");
+    xWindow.drawString(0, width - 1, to_string(p1Lvl));
+    xWindow.drawString(0, width + 6, "Level:     ");
+    xWindow.drawString(0, width * 2 + 6 - 1, to_string(p1Lvl));
     //something render deltas
     int x;
     int y;
@@ -69,7 +77,9 @@ void Graphics::notify() {
     }
 }
 
-Graphics::Graphics(vector<shared_ptr<Player>> players, Xwindow xWindow) : players{players}, xWindow{xWindow} {
+Graphics::Graphics(shared_ptr<Game> game, Xwindow xWindow) : game{game}, xWindow{xWindow} {
+    players.emplace_back(game.getPlayers[0]);
+    players.emplace_back(game.getPlayers[1]);
     newStates[0] = players[0]->getState();
     newStates[1] = players[1]->getState();
     for(int i = 0; i < width * height; i++) {
