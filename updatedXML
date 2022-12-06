@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-12-05T23:58:55.889Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36" etag="AMgu7Z0dUhlcWPUHsyPw" version="20.6.0" type="github">
+<mxfile host="app.diagrams.net" modified="2022-12-06T00:01:43.024Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36" etag="JYnKx1CewAnzSkn51xOJ" version="20.6.0" type="github">
   <diagram id="VLrbAFW0HDBrK5zYvRRU" name="Page-1">
     <mxGraphModel dx="1700" dy="984" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -128,7 +128,7 @@
           <mxGeometry y="34" width="390" height="156" as="geometry" />
         </mxCell>
         <mxCell id="_NweYhZAIVjMJPGR2PN--11" value="Subject" style="swimlane;fontStyle=3;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" vertex="1" parent="1">
-          <mxGeometry x="-16" y="40" width="255" height="130" as="geometry" />
+          <mxGeometry x="-50" y="60" width="255" height="130" as="geometry" />
         </mxCell>
         <mxCell id="_NweYhZAIVjMJPGR2PN--12" value="-observers: vector&lt;unique_ptr&lt;Observer&gt;&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="_NweYhZAIVjMJPGR2PN--11">
           <mxGeometry y="26" width="255" height="26" as="geometry" />
@@ -136,7 +136,7 @@
         <mxCell id="_NweYhZAIVjMJPGR2PN--13" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" vertex="1" parent="_NweYhZAIVjMJPGR2PN--11">
           <mxGeometry y="52" width="255" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="_NweYhZAIVjMJPGR2PN--14" value="+attach(unique_ptr&lt;Observer&gt; o): void&#xa;+detach(unique_ptr&lt;Observer&gt; o): void&#xa;+notifyObservers(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="_NweYhZAIVjMJPGR2PN--11">
+        <mxCell id="_NweYhZAIVjMJPGR2PN--14" value="+attach(unique_ptr&lt;Observer&gt; o): void&#xa;+detach(unique_ptr&lt;Observer&gt; o): void&#xa;+notifyObservers(): void&#xa;+getState() vector&lt;vector&lt;char&gt;&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" vertex="1" parent="_NweYhZAIVjMJPGR2PN--11">
           <mxGeometry y="60" width="255" height="70" as="geometry" />
         </mxCell>
       </root>
