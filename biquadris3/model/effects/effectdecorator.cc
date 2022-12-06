@@ -1,4 +1,5 @@
 #include <memory>
+#include "../board/abstractboard.h"
 #include "effectdecorator.h"
 
 using namespace std;

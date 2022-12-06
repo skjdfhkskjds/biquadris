@@ -157,6 +157,10 @@ void Board::setLevel(int level) { impl->setLevel(level); }
 
 void Board::setup() { impl->setup(); }
 
+void Board::setRandom(bool isRandom) { impl->lvl->setRandom(isRandom); };
+
+void Board::setSequence(vector<char> sequence) { impl->lvl->setSequence(sequence); }
+
 vector<char> Board::getState() { return impl->state->getState(); }
 
 char Board::getNext() { return impl->nextBlock; }

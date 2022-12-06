@@ -2,9 +2,7 @@
 
 #define toUpper(c) (char)(('a' <= c && c <= 'z') ? (c - 'a' + 'A') : c)
 
-LevelZero::LevelZero(int seed, std::vector<char> sequence) : Level{seed, 0}, sequence{sequence}, i{0} {}
-
-void LevelZero::setRandom(bool newValue) {}
+LevelZero::LevelZero(int seed, std::vector<char> sequence) : Level{seed, 0, false, sequence} {}
 
 char LevelZero::generateBlock()
 {

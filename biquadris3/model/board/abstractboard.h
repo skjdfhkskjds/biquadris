@@ -15,12 +15,14 @@ public:
 
     // pure virtual getter methods
     virtual char getNext() = 0;
-    virtual std::vector<char> getState();
+    virtual std::vector<char> getState() = 0;
 
     // pure virtual block manipulation methods
     virtual std::shared_ptr<Block> makeBlock(char c) = 0;
     virtual void setBlock(std::shared_ptr<Block> &block) = 0;
     virtual void setLevel(int level) = 0;
+    virtual void setRandom(bool isRandom) = 0;
+    virtual void setSequence(std::vector<char> newSequence) = 0;
 
     virtual void setup() = 0;
 
