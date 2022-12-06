@@ -194,6 +194,7 @@ void BoardState::initBlock(std::shared_ptr<Block> currBlock)
     block = currBlock;
     for (Coordinates coord : block->getCoords())
     {
+        if (state[coord.index()].getChar() != ' ') throw game_over{};
         state[coord.index()].setBlock(block);
     }
 }
@@ -263,7 +264,14 @@ int BoardState::drop()
     // handles decaying the block
     for (shared_ptr<Block> b : placed)
     {
-        b->decay();
+        if (b->decay())
+        {
+            for (Coordinates coord : b->getCoords())
+            {
+                state[coord.index()].removeBlock();
+                b->updateCoords(coord);
+            }
+        }
     }
     return score;
 }

@@ -6,7 +6,7 @@
 
 // EXCEPTIONS CLASS : ADD TO IT AS NEEDED
 
-class command_not_found : public exception
+class command_not_found : public std::exception
 {
     std::string command;
 
@@ -15,7 +15,7 @@ public:
     std::string what();
 };
 
-class command_already_exists : public exception
+class command_already_exists : public std::exception
 {
     std::string command;
 
@@ -25,7 +25,7 @@ public:
 };
 
 // requires careful definition of sequences
-class file_not_found : public exception
+class file_not_found : public std::exception
 {
     static std::string sequence1;
     static std::string sequence2;
@@ -37,7 +37,7 @@ public:
     std::string getDefault(int type); // returns the default file for sequence 'type'
 };
 
-class invalid_level : public exception
+class invalid_level : public std::exception
 {
     int level;
 public:
@@ -45,10 +45,17 @@ public:
     std::string what();
 };
 
-class invalid_move : public exception
+class invalid_move : public std::exception
 {
 public:
     invalid_move();
+    std::string what();
+};
+
+class game_over : public std::exception
+{
+public:
+    game_over();
     std::string what();
 };
 

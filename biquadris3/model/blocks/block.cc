@@ -10,15 +10,15 @@ struct Block::BlockImpl
     bool isHeavy, decays; // heavinesss based on level
     std::vector<Coordinates> coords;
 
-    BlockImpl(char c, int lvl) noexcept;
+    BlockImpl(char c, int lvl, bool decays) noexcept;
     ~BlockImpl() noexcept = default;
 
     Coordinates &getCoords();
 };
 
-Block::BlockImpl::BlockImpl(char c, int lvl) noexcept : c{c}, lvl{lvl}, age{0}, maxAge{-1}, rotationState{0}, isHeavy{((lvl >= 3) ? true : false)}, decays{((lvl >= 4) ? true : false)} {}
+Block::BlockImpl::BlockImpl(char c, int lvl, bool decays) noexcept : c{c}, lvl{lvl}, age{0}, maxAge{((decays) ? 10 : -1)}, rotationState{0}, isHeavy{((lvl >= 3) ? true : false)}, decays{decays} {}
 
-Block::Block(char c, int lvl) noexcept : impl{make_unique<Block::BlockImpl>(c, lvl)} {}
+Block::Block(char c, int lvl, bool decays) noexcept : impl{make_unique<Block::BlockImpl>(c, lvl, decays)} {}
 
 Block::~Block() noexcept = default;
 
@@ -63,10 +63,10 @@ vector<vector<int>> Block::down()
     return transform;
 }
 
-
-void Block::decay()
+// doesnt move blocks down
+bool Block::decay()
 {
-    if (!impl->decays) return;
+    if (!impl->decays) return false;
     impl->age++;
     if (impl->age == impl->maxAge)
     {
@@ -74,7 +74,9 @@ void Block::decay()
         {
             coord = Coordinates{-1, -1};
         }
+        return true;
     }
+    return false;
 }
 
 void Block::updateCoords(Coordinates oldCoords, Coordinates newCoords)

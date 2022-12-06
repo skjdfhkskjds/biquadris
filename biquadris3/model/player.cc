@@ -12,10 +12,13 @@
 #define MAX_LEVEL 4
 #define MIN_LEVEL 0
 
+#define toUpper(c) (char)(('a' <= c && c <= 'z') ? (c - 'a' + 'A') : c)
+
 using namespace std;
 
 struct Player::PlayerImpl
 {
+    static map<string, int> playerCommands;
     unique_ptr<AbstractBoard> board;
     int turns, lvl, score;
     map<string, bool> effects;
@@ -52,7 +55,7 @@ void Player::PlayerImpl::apply()
         {
             char c;
             // MAKE ERROR CHECKING AND GET USER INPUT FOR c
-            board = make_unique<Force>(move(board), c);
+            board = make_unique<Force>(move(board), toUpper(c));
         }
     }
 }
@@ -109,7 +112,8 @@ void Player::levelDown()
     impl->board->setLevel(impl->lvl);
 }
 
-map<string, int> playerCommands{
+std::map<std::string, int> Player::PlayerImpl::playerCommands 
+{
     {"left", 0},
     {"right", 1},
     {"down", 2},
@@ -118,12 +122,11 @@ map<string, int> playerCommands{
     {"drop", 5},
     {"levelup", 6},
     {"leveldown", 7},
-
 };
 
 void Player::playTurn(std::string command) 
 {
-    int cmd = playerCommands[command];
+    int cmd = impl->playerCommands[command];
     switch (cmd)
     {
     case 0:
@@ -142,7 +145,7 @@ void Player::playTurn(std::string command)
         impl->board->counterClockwise();
         break;
     case 5:
-        impl->board->drop ();
+        impl->board->drop();
         break;
     case 6:
         levelUp();
@@ -156,11 +159,6 @@ void Player::playTurn(std::string command)
     }
 }
 
-void Player::setSequence(vector<char> newSeq) {
-    impl->seq = newSeq;
-}
+void Player::setSequence(vector<char> newSeq) { impl->seq = newSeq; }
 
-void Player::setup() {
-    impl->board->setup();
-}
-
+void Player::setup() { impl->board->setup(); }

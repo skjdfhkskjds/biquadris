@@ -1,4 +1,4 @@
-#ifndef _EFFECTECORATOR_
+#ifndef _EFFECTDECORATOR_
 #define _EFFECTDECORATOR_
 
 #include <memory>
@@ -7,7 +7,7 @@
 class EffectDecorator : public AbstractBoard
 {
 protected:
-    virtual void apply();
+    virtual void apply() = 0;
 
 public:
     EffectDecorator(std::unique_ptr<AbstractBoard> component);

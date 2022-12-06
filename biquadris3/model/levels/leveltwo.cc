@@ -5,9 +5,7 @@
 
 using namespace std;
 
-LevelTwo::LevelTwo(int seed, vector<char> sequence) : Level{seed, 2}, randNum{Random{seed}}, sequence{sequence} {}
-
-void LevelTwo::setRandom(bool newValue) {}
+LevelTwo::LevelTwo(int seed, vector<char> sequence) : Level{seed, 2, false, sequence}, randNum{Random{seed}} {}
 
 char LevelTwo::generateBlock()
 {
