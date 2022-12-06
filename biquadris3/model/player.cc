@@ -160,3 +160,7 @@ void Player::setSequence(vector<char> newSeq) {
     impl->seq = newSeq;
 }
 
+void Player::setup() {
+    impl->board->setup();
+}
+

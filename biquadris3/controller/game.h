@@ -13,6 +13,10 @@ class Game : public Subject
     std::vector<std::unique_ptr<Player>> players;
     Commands interpreter;
     int turn;
+    int seed;
+    int startLvl;
+    std::vector<std::string> sequences;
+    std::vector<std::vector<char>> seqs;
 
     std::vector<char> read(std::string sequence); // reads in the file sequence and produces it as a char array
 
