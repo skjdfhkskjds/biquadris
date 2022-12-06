@@ -43,7 +43,7 @@ struct Commands::CommandsImpl
     CommandsImpl();
     ~CommandsImpl() = default;
 
-    void interpret(string &command);
+    vector<string> interpret(string &command);
     void apply(string &command);
     void interpretEffect(string &Effect);
     string stringConvert(string &abbrv);
@@ -76,8 +76,11 @@ Commands::CommandsImpl::CommandsImpl()
     vector<int> restart = {RESTART};
 
     // adding the vectors to the map
-    commands = {{fullCommand[LEFT], left}, {fullCommand[RIGHT], right}, {fullCommand[DOWN], down}, {fullCommand[CLOCKWISE], clockwise}, {fullCommand[COUNTERCLOCKWISE], counterclockwise}, {fullCommand[DROP], drop}, {fullCommand[LEVELUP], levelup}, {fullCommand[LEVELDOWN], leveldown}, {fullCommand[NORANDOM], norandom}, {fullCommand[RANDOM], random}, {fullCommand[SEQUENCE], sequence}, {fullCommand[I], Iblock}, {fullCommand[J], Jblock}, {fullCommand[L], L}, {fullCommand[O], O}, {fullCommand[S], S}, {fullCommand[Z], Z}, {fullCommand[T], T}, {fullCommand[RESTART], restart}};
-
+    //commands = {{fullCommand[LEFT], left}, {fullCommand[RIGHT], right}, {fullCommand[DOWN], down}, {fullCommand[CLOCKWISE], clockwise}, {fullCommand[COUNTERCLOCKWISE], counterclockwise}, {fullCommand[DROP], drop}, {fullCommand[LEVELUP], levelup}, {fullCommand[LEVELDOWN], leveldown}, {fullCommand[NORANDOM], norandom}, {fullCommand[RANDOM], random}, {fullCommand[SEQUENCE], sequence}, {fullCommand[I], Iblock}, {fullCommand[J], Jblock}, {fullCommand[L], L}, {fullCommand[O], O}, {fullCommand[S], S}, {fullCommand[Z], Z}, {fullCommand[T], T}, {fullCommand[RESTART], restart}};
+    int len = fullCommand.size();
+    for (int i = 0; i < len; i++) {
+        commands[fullCommand[i]] = {i};
+    }
     // non multiplicative commands
     nonMultCommands = {"restart", "hint", "norandom", "random"};
 }
@@ -181,9 +184,10 @@ void Commands::CommandsImpl::interpretEffect(string &effect)
 {
 }
 
-void Commands::CommandsImpl::interpret(string &command) // doesn't handle macros including any of the nonMultiplier viable commands
+vector<string> Commands::CommandsImpl::interpret(string &command) // doesn't handle macros including any of the nonMultiplier viable commands
 {
     // rawInterpret is called by main on the first word
+    vector<string> cmdStream;
     int multiplier = 0;
     string commandName;
     std::istringstream iss{command};
@@ -194,7 +198,7 @@ void Commands::CommandsImpl::interpret(string &command) // doesn't handle macros
     {
         if (commandName == i)
         {
-            apply(commandName);
+            cmdStream.emplace_back(commandName);
             return;
         }
     }
@@ -202,13 +206,14 @@ void Commands::CommandsImpl::interpret(string &command) // doesn't handle macros
     /*sequence works funny because it takes in a file name, but also can be called multiple times*/
     if (multiplier == 1)
     {
-        apply(commandName);
+        cmdStream.emplace_back(commandName);
     }
     else
     {
         for (int i = 0; i < multiplier; i++)
-            apply(commandName);
+            cmdStream.emplace_back(commandName);
     }
+    return cmdStream;
 }
 
 string Commands::CommandsImpl::stringConvert(string &abbrv)
@@ -273,7 +278,7 @@ Commands::Commands() : impl{make_unique<Commands::CommandsImpl>()} {}
 
 Commands::~Commands() = default;
 
-void Commands::interpret(string &command) { impl->interpret(command); }
+vector<string> Commands::interpret(string &command) { impl->interpret(command); }
 
 void Commands::apply(string &command) { impl->apply(command); }
 
