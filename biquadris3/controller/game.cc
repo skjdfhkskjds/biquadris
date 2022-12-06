@@ -10,7 +10,7 @@
 
 using namespace std;
 
-Game::Game(int seed, int startLvl, vector<string> sequences) : seed{seed}, startLvl{startLvl}, interpreter{}
+Game::Game(int seed, int startLvl, vector<string> sequences, vector<bool> flagStates) : seed{seed}, startLvl{startLvl}, interpreter{}
 {
     turn = 0;
     highscore = 0;
