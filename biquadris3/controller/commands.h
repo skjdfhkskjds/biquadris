@@ -10,7 +10,7 @@ class Commands final
 {
     class CommandsImpl;
     std::unique_ptr<CommandsImpl> impl;
-    
+
 public:
     Commands() noexcept;
     ~Commands() noexcept;

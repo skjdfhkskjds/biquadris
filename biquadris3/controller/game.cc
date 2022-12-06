@@ -97,30 +97,29 @@ void Game::playTurn()
         {"random", 1},
         {"sequence", 2},
         {"restart", 3},
-        {"blind", 4},
-        {"heavy", 5},
-        {"force", 6}
     };
+
     int p = turn % 2;
     players[p]->apply();
     string input;
-    while (cin >> input && input != "drop")
+    bool dropped = false;
+    while (cin >> input && !dropped)
     {
         vector<string> commands;
         // standard processing includes pushing the command itself to commands
         commands = interpreter.interpret(input); // interpret "preprocesses" the command
         for (string command : commands)
         { // assume that commands in input file are all player commands
-            if (command == "drop")
+            if (command == "drop") 
             {
-                // do some stuff to drop
+                players[p]->playTurn("drop");
+                dropped = true;
                 break;
             }
             string file;
             int cmd = gameCommands[command];
-            if (cmd == 0)
-            { // norandom
-              // find a way to set lvl isRandom to false
+            if (cmd == 0) // norandom
+            {
                 cin >> file;
                 ifstream ifs{file};
                 if (!ifs.good())
@@ -128,55 +127,67 @@ void Game::playTurn()
                     throw file_not_found(file);
                 }
                 vector<char> blockSeq = read(file);
-                players[p]->setSequence(blockSeq); //
+                players[p]->setSequence(blockSeq);
+                players[p]->setRandom(false);
             }
             else if (cmd == 1)
-            {
-                //need setRandom
-                //players[p]->setRandom(true);
+            { // random
+                players[p]->setRandom(true);
             }
             else if (cmd == 2)
-            {
-                // sequence
+            { // sequence
                 cin >> file;
                 ifstream ifs{file};
                 if (!ifs.good())
                 {
                     throw file_not_found(file);
                 }
-                vector<char> seq = read(file);
-                int len = seq.size();
-                for (int i = 0; i < len; i++)
+                if (ifs.is_open())
                 {
-                    commands.emplace_back(seq[i]);
+                    string newCmd;
+                    while (ifs >> newCmd)
+                    {
+                        if (ifs.fail())
+                        {
+                            ifs.clear();
+                            ifs.ignore();
+                            continue;
+                        }
+                        commands.emplace_back(newCmd);
+                    }
                 }
-                // sequence(file);
             }
             else if (cmd == 3)
             {
                 // reset all game state variables
                 turn = 0;
                 players[0] = make_unique<Player>(seqs[0], seed, startLvl);
-                players[1] = make_unique<Player>(seqs[0], seed, startLvl);
-                //not sure if this requires change to sequences
+                players[1] = make_unique<Player>(seqs[1], seed, startLvl);
+                // not sure if this requires change to sequences
             }
-            else
+            else // player cmds
             {
                 players[p]->playTurn(command);
-                // player cmds
+
             }
         }
     }
-    players[p]->playTurn("drop");
-    // check rowscleared
+    // check rowscleared to use effect
     // placeholder bool
     bool effectAvailable;
-    if (effectAvailable) 
+    if (effectAvailable)
     {
-        cout<<"Select an effect : Blind / Heavy / Force"<<endl;
+        cout << "Select an effect : blind / heavy / force" << endl;
         cin >> input;
-        // check if effect is valid? (check if input == "blind" or "force" or "heavy")
-        players[p + 1 % 2]->setEffect(input);
+        if (input == "blind" || input == "heavy") {
+            players[p + 1 % 2]->setEffect(input);
+        } else if (input == "force") {
+            char c;
+            cin >> c; 
+            players[p + 1 % 2]->setForcedBlock(c);
+            players[p + 1 % 2]->setEffect(input);
+        }
+        
     }
     players[p]->resetEffects();
     // no method to update player score
@@ -193,4 +204,3 @@ void Game::playTurn()
 // resetEffects()
 // update score
 // call board->setup()
-
