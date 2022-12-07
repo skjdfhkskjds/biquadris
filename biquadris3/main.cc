@@ -26,59 +26,58 @@ int main(int argc, char **argv)
     string file2 = "sequence2.txt";
     int seed = 0;
     int startLvl = 0;
+    string argv1;
+    string argv2;
     for (int i = 0; i < argc; i++)
     {
-        if (argv[i] == "-text")
+        argv1 = argv[i];
+        if (argv1 == "-text")
         {
             flagStates[0] = true;
         }
-        else if (argv[i] == "-seed")
+        else if (argv1 == "-seed")
         {
             i++;
-            istringstream iss{argv[i]};
-            if (iss >> seed)
-            {
-            }
-            else
-            {
-                // throw something
+            argv2 = argv[i];
+            istringstream iss{argv2};
+            if (iss >> seed) {
+            } else {
+                throw arg_not_found(argv2);
             }
         }
-        else if (argv[i] == "-scriptfile")
+        else if (argv1 == "-scriptfile")
         {
             i++;
-            file1 = argv[i];
+            file1 = argv2;
         }
-        else if (argv[i] == "-scriptfile2")
+        else if (argv1 == "-scriptfile2")
         {
             i++;
             file2 = argv[i];
         }
-        else if (argv[i] == "-startlevel")
+        else if (argv1 == "-startlevel")
         {
             i++;
-            istringstream iss{argv[i]};
-            if (iss >> startLvl)
-            {
+            argv2 = argv[i];
+            istringstream iss{argv2};
+            if (iss >> startLvl) {
+            } else {
+                throw arg_not_found(argv2);
             }
-            else
-            {
-                // throw something
-            }
-        }
-        else if (argv[i] == "-macro")
+        } 
+        else if (argv1 == "-macro")
         {
             flagStates[1] = true;
-        }
-        else if (argv[i] == "-decay")
+        } 
+        else if (argv1 == "-decay")
         {
             flagStates[2] = true;
         }
-        else if (argv[i] == "-autolevel")
+        else if (argv1 == "-autolevel")
         {
             flagStates[3] = true;
         }
-        else if (argv[i] == "-multieffects")
+        else if (argv1 == "-multieffects")
         {
             flagStates[4] = true;
         }

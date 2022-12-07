@@ -31,6 +31,13 @@ string file_not_found::what()
     return file + " does not exist.";
 }
 
+arg_not_found::arg_not_found(string &arg) : arg{arg} {}
+
+string arg_not_found::what()
+{
+    return arg + " does not exist.";
+}
+
 string file_not_found::getDefault(int type)
 {
     return (type == 1) ? sequence1 : sequence2;
