@@ -175,6 +175,7 @@ void Game::playTurn()
                 break;
             }
         }
+        notifyObservers();
     }
     int totalCleared = players[p]->getCleared() - numRows;
     int numEffects = totalCleared / 2;
