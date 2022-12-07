@@ -76,6 +76,7 @@ vector<vector<char>> Game::getState()
 
 int Game::run()
 {
+    notifyObservers();
     // gamestate vars
     while (!isFinished)
     {

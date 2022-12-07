@@ -12,9 +12,9 @@ using namespace std;
 
 #define toUpper(c) (char)(('a' <= c && c <= 'z') ? (c - 'a' + 'A') : c)
 
-Game::Game(int seed, int startLvl, vector<string> sequences) : interpreter{make_unique<Commands>(false)}, turn{0}, seed{seed}, startLvl{startLvl}, highscore{0}, isFinished{false}
+Game::Game(int seed, int startLvl, vector<string> sequences, vector<bool> flagStates) : interpreter{make_unique<Commands>(flagStates[1])}, turn{0}, seed{seed}, startLvl{startLvl}, highscore{0}, isFinished{false}
 {
-    //vector<vector<char>> seqs;
+    
     int len = sequences.size();
     for (int i = 0; i < len; i++)
     {
@@ -76,6 +76,7 @@ vector<vector<char>> Game::getState()
 
 int Game::run()
 {
+    notifyObservers();
     // gamestate vars
     while (!isFinished)
     {
@@ -97,7 +98,7 @@ void Game::playTurn()
     cout << "Player " << p + 1 << "'s turn." << endl;
     string input;
     bool dropped = false;
-    while (!dropped)
+    while (!dropped && !cin.eof())
     {
         cin >> input;
         vector<string> commands;
@@ -111,6 +112,7 @@ void Game::playTurn()
             {
                 players[p]->playTurn(interpreter->playerCmd(command));
                 dropped = true;
+                notifyObservers();
                 break;
             }
             int cmd = interpreter->gameCmd(command);
@@ -173,8 +175,9 @@ void Game::playTurn()
                 }
                 break;
             }
+            notifyObservers();
+            
         }
-        notifyObservers();
     }
     int totalCleared = players[p]->getCleared() - numRows;
     int numEffects = totalCleared / 2;
@@ -207,7 +210,6 @@ void Game::playTurn()
         numEffects--;
     }
     int currScore = players[p]->getScore();
-    cout << "Current Score: " << currScore << endl;
     if (currScore > highscore)
     {
         highscore = currScore;

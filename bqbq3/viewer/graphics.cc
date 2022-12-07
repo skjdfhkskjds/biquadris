@@ -11,22 +11,6 @@ using namespace std;
 const int width = 11;
 const int height = 18;
 
-//Xwindow xWindow(width * 2 + 6, height + 9);
-/*
-class Graphics : public Observer
-{
-    std::vector<std::shared_ptr<Player>> players;
-    std::vector<std::vector<char>> oldStates;
-    std::vector<std::vector<char>> newStates;
-public:
-    Graphics(std::vector<std::shared_ptr<Player>> players);
-    ~Graphics();
-    void notify() override;
-};
-*/
-
-
-
 void Graphics::segmentedBlockPrinter(char c1, char c2) {
     map<char, string> zero =  {{'I', "I "}, {'J'," J"}, {'L',"L "}, {'O',"OO"}, {'S',"S "},{'Z'," Z"}, {'T',"T "}};
     map<char, string> one =   {{'I', "I "}, {'J'," J"}, {'L',"L "}, {'O',"OO"}, {'S',"SS"},{'Z',"ZZ"}, {'T',"TT"}};
@@ -102,15 +86,15 @@ void Graphics::notify() {
 
 }
 
-Graphics::Graphics(shared_ptr<Game> game) : game{game}, xWindow{make_unique<Xwindow>()} {
+Graphics::Graphics(shared_ptr<Game> game) : game{game} {
+    cout << "ctor" << endl;
     players.emplace_back(game->getPlayers()[0]);
     players.emplace_back(game->getPlayers()[1]);
-    newStates[0] = players[0]->getState();
-    newStates[1] = players[1]->getState();
+    newStates = game->getState();
     for(int i = 0; i < width * height; i++) {
-        oldStates[0][i] = '~';;
-        oldStates[1][i] = '~';
+        oldStates.emplace_back(vector<char>('~', '~'));
     }
+    xWindow = make_unique<Xwindow>();
 }
 
 Graphics::~Graphics() {

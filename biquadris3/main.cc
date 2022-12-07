@@ -1,14 +1,17 @@
-#include "controller/game.h"
-#include "model/player.h"
 #include <memory>
 #include <string>
 #include <iostream>
 #include <vector>
 #include <sstream>
+#include "model/player.h"
+#include "controller/game.h"
+#include "model/board/board.h"
+#include "controller/commands.h"
 #include "common/exceptions.h"
 #include "viewer/observer.h"
 #include "viewer/text.h"
 #include "viewer/graphics.h"
+
 using namespace std;
 /*
 bonus flags:
@@ -22,13 +25,13 @@ int main(int argc, char **argv)
 {
 
     vector<bool> flagStates(5, false);
-    string file1 = "sequence1.txt";
-    string file2 = "sequence2.txt";
+    string file1 = "biquadris_sequence1.txt";
+    string file2 = "biquadris_sequence2.txt";
     int seed = 0;
     int startLvl = 0;
     string argv1;
     string argv2;
-    for (int i = 0; i < argc; i++)
+    for (int i = 1; i < argc; i++)
     {
         argv1 = argv[i];
         if (argv1 == "-text")
@@ -87,10 +90,11 @@ int main(int argc, char **argv)
             throw command_not_found(command);
         }
     }
-    shared_ptr<Game> biquadris = make_shared<Game>(seed, startLvl, {file1, file2}, flagStates);
+    vector<string> files = {file1, file2};
+    shared_ptr<Game> biquadris = make_shared<Game>(seed, startLvl, files, flagStates);
     Text textObserver(biquadris);
-    if (flagStates[0]) {
+    if (!flagStates[0]) {
         Graphics graphicsObserver(biquadris);
     }
-    biquadris->playTurn();
+    biquadris->run();
 }

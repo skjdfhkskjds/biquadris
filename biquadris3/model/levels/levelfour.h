@@ -8,6 +8,7 @@
 class LevelFour : public Level
 {
     Random randNum;
+    
 
 public:
     LevelFour(int seed, std::vector<char> sequence);
