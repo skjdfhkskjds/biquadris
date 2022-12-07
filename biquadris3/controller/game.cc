@@ -114,6 +114,7 @@ void Game::playTurn()
             {
                 players[p]->playTurn(interpreter.playerCmd(command));
                 dropped = true;
+                notifyObservers();
                 break;
             }
             int cmd = interpreter.gameCmd(command);
@@ -169,6 +170,7 @@ void Game::playTurn()
                 players[p]->playTurn(interpreter.playerCmd(command));
                 break;
             }
+            notifyObservers();
         }
     }
     int totalCleared = players[p]->getCleared() - numRows;
