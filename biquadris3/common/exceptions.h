@@ -37,6 +37,18 @@ public:
     std::string getDefault(int type); // returns the default file for sequence 'type'
 };
 
+class arg_not_found : public std::exception
+{
+    static std::string sequence1;
+    static std::string sequence2;
+    std::string arg;
+
+public:
+    arg_not_found(std::string &arg);
+    std::string what();
+    std::string getDefault(int type); // returns the default file for sequence 'type'
+};
+
 class invalid_level : public std::exception
 {
     int level;
