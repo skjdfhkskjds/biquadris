@@ -156,7 +156,8 @@ void Player::playTurn(int cmd)
     case LVLDOWN:
         levelDown();
         break;
-    // add more cases later for replacing blocks
+    case S:
+        
     default:
         break;
     }
