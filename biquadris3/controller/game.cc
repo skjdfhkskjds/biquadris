@@ -10,12 +10,11 @@
 
 using namespace std;
 
-Game::Game(int seed, int startLvl, vector<string> sequences, vector<bool> flagStates) : seed{seed}, startLvl{startLvl}, interpreter{}
+#define toUpper(c) (char)(('a' <= c && c <= 'z') ? (c - 'a' + 'A') : c)
+
+Game::Game(int seed, int startLvl, vector<string> sequences) : interpreter{make_unique<Commands>(false)}, turn{0}, seed{seed}, startLvl{startLvl}, highscore{0}, isFinished{false}
 {
-    turn = 0;
-    highscore = 0;
-    isFinished = false;
-    vector<vector<char>> seqs;
+    //vector<vector<char>> seqs;
     int len = sequences.size();
     for (int i = 0; i < len; i++)
     {
@@ -31,11 +30,13 @@ Game::Game(int seed, int startLvl, vector<string> sequences, vector<bool> flagSt
         }
         seqs.emplace_back(seq);
     }
-    players.emplace_back(make_unique<Player>(seqs[0], seed, startLvl));
-    players.emplace_back(make_unique<Player>(seqs[1], seed, startLvl));
+    players.emplace_back(make_shared<Player>(seqs[0], seed, startLvl));
+    players.emplace_back(make_shared<Player>(seqs[1], seed, startLvl));
 }
 
-vector<std::unique_ptr<Player>> Game::getPlayers()
+Game::~Game() {}
+
+vector<std::shared_ptr<Player>> Game::getPlayers()
 {
     return players;
 };
@@ -81,7 +82,7 @@ int Game::run()
         playTurn();
     }
     int loser = turn % 2 + 1;
-    int winner = turn + 1 % 2 + 1;
+    int winner = (turn + 1) % 2 + 1;
 
     cout << "Player " << loser << " lost!" << endl;
     cout << "Player " << winner << " wins!" << endl;
@@ -90,34 +91,30 @@ int Game::run()
 
 void Game::playTurn()
 {
-    map<string, int> gameCommands{
-        {"norandom", 0},
-        {"random", 1},
-        {"sequence", 2},
-        {"restart", 3},
-    };
-
     int p = turn % 2;
     int numRows = players[p]->getCleared();
     players[p]->apply();
     cout << "Player " << p + 1 << "'s turn." << endl;
     string input;
     bool dropped = false;
-    while (cin >> input && !dropped)
+    while (!dropped)
     {
+        cin >> input;
         vector<string> commands;
         // standard processing includes pushing the command itself to commands
-        commands = interpreter.interpret(input); // interpret "preprocesses" the command
-        for (string command : commands)
+        commands = interpreter->interpret(input); // interpret "preprocesses" the command
+        int len = commands.size();
+        for (int i = 0; i < len; i++)
         { // assume that commands in input file are all player commands
+            string command = commands[i];
+            cout << "current command = " << command << endl;
             if (command == "drop")
             {
-                players[p]->playTurn(interpreter.playerCmd(command));
+                players[p]->playTurn(interpreter->playerCmd(command));
                 dropped = true;
-                notifyObservers();
                 break;
             }
-            int cmd = interpreter.gameCmd(command);
+            int cmd = interpreter->gameCmd(command);
             string file;
             ifstream ifs;
             vector<char> blockSeq;
@@ -157,7 +154,9 @@ void Game::playTurn()
                             ifs.ignore();
                             continue;
                         }
+                        cout << newCmd << endl;
                         commands.emplace_back(newCmd);
+                        len++;
                     }
                 }
                 break;
@@ -165,12 +164,16 @@ void Game::playTurn()
                 turn = 0;
                 players[0] = make_unique<Player>(seqs[0], seed, startLvl);
                 players[1] = make_unique<Player>(seqs[1], seed, startLvl);
-                break;
+                return;
             default: // player cmds
-                players[p]->playTurn(interpreter.playerCmd(command));
+                try {
+                    players[p]->playTurn(interpreter->playerCmd(command));
+                }
+                catch (invalid_move& e) {
+                    cout << e.what() << endl;
+                }
                 break;
             }
-            notifyObservers();
         }
     }
     int totalCleared = players[p]->getCleared() - numRows;
@@ -187,12 +190,19 @@ void Game::playTurn()
         }
         else if (input == "force")
         {
-            cout << "Enter a block" << endl; // check if real block?
+            cout << "Enter a block: " << endl; 
             char c;
-            cin >> c;
-            int next = turn + 1 % 2;
-            players[next]->setForcedChar(c);
-            players[next]->setEffect(input);
+            while (cin >> c) {
+                char blockC = toUpper(c);
+                if (blockC == 'S' || blockC == 'Z' || blockC == 'I' || blockC == 'O' || blockC == 'T' || blockC == 'L' || blockC == 'J') {
+                    int next = turn + 1 % 2;
+                    players[next]->setForcedChar(c);
+                    players[next]->setEffect(input);
+                    break;
+                } else {
+                    cout << "Invalid block. Enter new block: " << endl;
+                }
+            }
         }
         numEffects--;
     }
