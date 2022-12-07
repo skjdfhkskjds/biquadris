@@ -15,8 +15,8 @@ bonus flags:
 -multieffects
 */
 
-
-int main(int argc, char ** argv) {
+int main(int argc, char **argv)
+{
 
     vector<bool> flagStates(5, false);
     string file1 = "sequence1.txt";
@@ -27,15 +27,18 @@ int main(int argc, char ** argv) {
     {
         if (argv[i] == "-text")
         {
-           flagStates[0] = true;
+            flagStates[0] = true;
         }
         else if (argv[i] == "-seed")
         {
             i++;
             istringstream iss{argv[i]};
-            if (iss >> seed) {
-            } else {
-                //throw something
+            if (iss >> seed)
+            {
+            }
+            else
+            {
+                // throw something
             }
         }
         else if (argv[i] == "-scriptfile")
@@ -52,15 +55,18 @@ int main(int argc, char ** argv) {
         {
             i++;
             istringstream iss{argv[i]};
-            if (iss >> startLvl) {
-            } else {
-                //throw something
+            if (iss >> startLvl)
+            {
             }
-        } 
+            else
+            {
+                // throw something
+            }
+        }
         else if (argv[i] == "-macro")
         {
             flagStates[1] = true;
-        } 
+        }
         else if (argv[i] == "-decay")
         {
             flagStates[2] = true;
