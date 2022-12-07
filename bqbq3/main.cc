@@ -96,7 +96,7 @@ int main(int argc, char **argv)
     vector<string> files = {file1, file2};
     shared_ptr<Game> biquadris = make_shared<Game>(seed, startLvl, files, flagStates);
     Text textObserver(biquadris);
-    if (flagStates[0]) {
+    if (!flagStates[0]) {
         Graphics graphicsObserver(biquadris);
     }
     biquadris->run();
