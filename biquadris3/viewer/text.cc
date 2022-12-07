@@ -34,7 +34,9 @@ void segmentedBlockPrinter(char c, int row) { //twobyfourprinter
    cout <<blockRow[row][c] << "         ";
 }
 
-Text::~Text() {};
+Text::~Text() {
+    game->detach(this);
+};
 
 void Text::notify() {
 
@@ -95,4 +97,3 @@ Text::Text(std::shared_ptr<Game> game) : game{game} {
     players.emplace_back(game->getPlayers()[1]);
     game->attach(this);
 };
-

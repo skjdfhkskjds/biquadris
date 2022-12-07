@@ -87,7 +87,7 @@ int main(int argc, char **argv)
             throw command_not_found(command);
         }
     }
-    shared_ptr<Game> biquadris(new Game(seed, startLvl, {file1, file2}, flagStates));
+    shared_ptr<Game> biquadris = make_shared<Game>(seed, startLvl, {file1, file2}, flagStates);
     Text textObserver(biquadris);
     if (flagStates[0]) {
         Graphics graphicsObserver(biquadris);
