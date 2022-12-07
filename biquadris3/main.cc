@@ -6,6 +6,9 @@
 #include <vector>
 #include <sstream>
 #include "common/exceptions.h"
+#include "viewer/observer.h"
+#include "viewer/text.h"
+#include "viewer/graphics.h"
 using namespace std;
 /*
 bonus flags:
@@ -79,6 +82,10 @@ int main(int argc, char ** argv) {
             throw command_not_found(command);
         }
     }
-    Game biquadris(seed, startLvl, {file1, file2}, flagStates);
-    biquadris.playTurn();
+    shared_ptr<Game> biquadris(new Game(seed, startLvl, {file1, file2}, flagStates));
+    Text textObserver(biquadris);
+    if (flagStates[0]) {
+        Graphics graphicsObserver(biquadris);
+    }
+    biquadris->playTurn();
 }

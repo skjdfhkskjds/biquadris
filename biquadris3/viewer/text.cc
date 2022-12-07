@@ -34,6 +34,8 @@ void segmentedBlockPrinter(char c, int row) { //twobyfourprinter
    cout <<blockRow[row][c] << "         ";
 }
 
+Text::~Text() {};
+
 void Text::notify() {
 
     shared_ptr<Player> p1 = players[0];//shit to get the boardstate
@@ -90,6 +92,7 @@ void Text::notify() {
 
 Text::Text(std::shared_ptr<Game> game) : game{game} {
     players.emplace_back(game->getPlayers()[0]);
-    players.emplace_back(game->getPlayers()[1]); 
+    players.emplace_back(game->getPlayers()[1]);
+    game->attach(this);
 };
 

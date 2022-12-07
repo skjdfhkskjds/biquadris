@@ -109,3 +109,4 @@ void segmentedBlockPrinter(char c1, char c2) {
         xWindow.drawString(width + 6, height + 6 + i, blockRow[i][c1]);
     }
 }
+Graphics::~Graphics() {};
