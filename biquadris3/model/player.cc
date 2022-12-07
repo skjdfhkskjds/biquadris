@@ -156,8 +156,34 @@ void Player::playTurn(int cmd)
     case LVLDOWN:
         levelDown();
         break;
+    case I:
+        shared_ptr<Block> tempBlock = impl->board->makeBlock('I');
+        impl->board->setBlock(tempBlock);
+        break;
+    case J:
+        shared_ptr<Block> tempBlock = impl->board->makeBlock('J');
+        impl->board->setBlock(tempBlock);
+        break;
+    case L:
+        shared_ptr<Block> tempBlock = impl->board->makeBlock('L');
+        impl->board->setBlock(tempBlock);
+        break;
+    case O:
+        shared_ptr<Block> tempBlock = impl->board->makeBlock('O');
+        impl->board->setBlock(tempBlock);
+        break;
     case S:
-        
+        shared_ptr<Block> tempBlock = impl->board->makeBlock('S');
+        impl->board->setBlock(tempBlock);
+        break;
+    case Z:
+        shared_ptr<Block> tempBlock = impl->board->makeBlock('Z');
+        impl->board->setBlock(tempBlock);
+        break;
+    case T:
+        shared_ptr<Block> tempBlock = impl->board->makeBlock('T');
+        impl->board->setBlock(tempBlock);
+        break;
     default:
         break;
     }

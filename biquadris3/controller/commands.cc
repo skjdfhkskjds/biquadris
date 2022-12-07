@@ -54,7 +54,15 @@ map<string, int> Commands::CommandsImpl::playerCommands =
      {"counterclockwise", 4},
      {"drop", 5},
      {"levelup", 6},
-     {"leveldown", 7}};
+     {"leveldown", 7},
+     {"I", 8},
+     {"J", 9},
+     {"L", 10},
+     {"O", 11},
+     {"S", 12},
+     {"Z", 13},
+     {"T", 14}
+     };
 
 map<string, int> Commands::CommandsImpl::interpreterCommands =
     {{"macro", 0},
