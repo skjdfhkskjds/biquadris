@@ -107,7 +107,6 @@ void Game::playTurn()
         for (int i = 0; i < len; i++)
         { // assume that commands in input file are all player commands
             string command = commands[i];
-            cout << "current command = " << command << endl;
             if (command == "drop")
             {
                 players[p]->playTurn(interpreter->playerCmd(command));
