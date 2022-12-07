@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2022-12-07T01:30:44.680Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36" etag="vnb2BmYtrGtgRwlSCbSM" version="20.6.0" type="github">
+<mxfile host="app.diagrams.net" modified="2022-12-07T01:33:57.926Z" agent="5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36" etag="_JK_4izM-0JM_7tgKPS7" version="20.6.0" type="github">
   <diagram id="VLrbAFW0HDBrK5zYvRRU" name="Page-1">
     <mxGraphModel dx="2314" dy="906" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -137,22 +137,23 @@
         <mxCell id="_NweYhZAIVjMJPGR2PN--3" value="+getState(): vector&lt;char&gt;&#xa;+checkRow(int row): bool&#xa;+clearRow(int row): int&#xa;initBlock(shared_ptr&lt;Block&gt; block): void&#xa;+counterclockwise(): void&#xa;+clockwise(): void&#xa;+right(): void&#xa;+left(): void&#xa;+down(): void&#xa;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0" parent="_NweYhZAIVjMJPGR2PN--1" vertex="1">
           <mxGeometry y="104" width="390" height="136" as="geometry" />
         </mxCell>
-        <mxCell id="M9YhHP_B5fxsXaVXVEVc-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.469;exitY=1.007;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;startArrow=diamond;startFill=0;endArrow=open;endFill=0;exitPerimeter=0;" edge="1" parent="1" source="_NweYhZAIVjMJPGR2PN--7" target="_NweYhZAIVjMJPGR2PN--19">
+        <mxCell id="M9YhHP_B5fxsXaVXVEVc-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.998;exitY=0.868;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;startArrow=diamond;startFill=0;endArrow=open;endFill=0;exitPerimeter=0;" edge="1" parent="1" source="_NweYhZAIVjMJPGR2PN--7" target="_NweYhZAIVjMJPGR2PN--19">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
-              <mxPoint x="183" y="920" />
+              <mxPoint x="480" y="915" />
+              <mxPoint x="480" y="920" />
               <mxPoint x="665" y="920" />
             </Array>
           </mxGeometry>
         </mxCell>
         <mxCell id="_NweYhZAIVjMJPGR2PN--5" value="Player" style="swimlane;fontStyle=3;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
-          <mxGeometry y="720" width="390" height="190" as="geometry" />
+          <mxGeometry y="720" width="390" height="260" as="geometry" />
         </mxCell>
         <mxCell id="_NweYhZAIVjMJPGR2PN--6" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="_NweYhZAIVjMJPGR2PN--5" vertex="1">
           <mxGeometry y="26" width="390" height="8" as="geometry" />
         </mxCell>
-        <mxCell id="_NweYhZAIVjMJPGR2PN--7" value="+playTurn(): void&#xa;+getLevel(): int&#xa;+getScore(): int&#xa;+getNext(): int&#xa;+apply(): unique_ptr&lt;AbstractBoard&gt;&#xa;+resetEffects(): void&#xa;+setEffect(string effect): void&#xa;+levelUp(): void&#xa;+levelDown(): void&#xa;+playTurn(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0" parent="_NweYhZAIVjMJPGR2PN--5" vertex="1">
-          <mxGeometry y="34" width="390" height="156" as="geometry" />
+        <mxCell id="_NweYhZAIVjMJPGR2PN--7" value="+playTurn(): void&#xa;+getLevel(): int&#xa;+getScore(): int&#xa;+getNext(): int&#xa;+getCleared(): int&#xa;+apply(): void&#xa;+resetEffects(): void&#xa;+setEffect(string effect): void&#xa;+levelUp(): void&#xa;+levelDown(): void&#xa;+playTurn(int cmd): void&#xa;+setRandom(bool isRandom): void&#xa;+setSequence(vector&lt;char&gt; newSeq): void&#xa;+setup(): void" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;fontStyle=0" parent="_NweYhZAIVjMJPGR2PN--5" vertex="1">
+          <mxGeometry y="34" width="390" height="226" as="geometry" />
         </mxCell>
         <mxCell id="_NweYhZAIVjMJPGR2PN--11" value="Subject" style="swimlane;fontStyle=3;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
           <mxGeometry x="170" y="340" width="255" height="130" as="geometry" />
