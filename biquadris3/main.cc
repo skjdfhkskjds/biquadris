@@ -18,8 +18,8 @@ bonus flags:
 -multieffects
 */
 
-
-int main(int argc, char ** argv) {
+int main(int argc, char **argv)
+{
 
     vector<bool> flagStates(5, false);
     string file1 = "sequence1.txt";
@@ -33,7 +33,7 @@ int main(int argc, char ** argv) {
         argv1 = argv[i];
         if (argv1 == "-text")
         {
-           flagStates[0] = true;
+            flagStates[0] = true;
         }
         else if (argv1 == "-seed")
         {

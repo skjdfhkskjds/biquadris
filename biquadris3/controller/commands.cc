@@ -191,7 +191,6 @@ vector<string> Commands::CommandsImpl::interpret(string &command, bool useMacros
     int repeats = 1;
     string intParse;
     string cmd;
-
     for (char c : command)
     {
         if (!isdigit(c)) 
@@ -202,6 +201,7 @@ vector<string> Commands::CommandsImpl::interpret(string &command, bool useMacros
     }
     istringstream iss{intParse};
     iss >> repeats;
+    repeats = (repeats == 0) ? 1 : repeats;
     try
     {
         cmd = stringInterpret(cmd);
@@ -212,7 +212,6 @@ vector<string> Commands::CommandsImpl::interpret(string &command, bool useMacros
         return vector<string>();
     }
     
-
     if (useMacros)
     {
         auto it = macros.find(command);
