@@ -3,12 +3,12 @@
 
 using namespace std;
 
-void Subject::attach(unique_ptr<Observer> o)
+void Subject::attach(Observer *o)
 {
     observers.emplace_back(o);
 }
 
-void Subject::detach(unique_ptr<Observer> o)
+void Subject::detach(Observer *o)
 {
     for (auto it = observers.begin(); it != observers.end(); ++it)
     {
@@ -22,7 +22,7 @@ void Subject::detach(unique_ptr<Observer> o)
 
 void Subject::notifyObservers()
 {
-    for (auto &&ob : observers)
+    for (auto ob : observers)
     {
         ob->notify();
     }
