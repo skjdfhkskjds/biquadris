@@ -132,28 +132,28 @@ void Player::playTurn(int cmd)
 {
     switch (cmd)
     {
-    case 0:
+    case LEFT:
         impl->board->left();
         break;
-    case 1:
+    case RIGHT:
         impl->board->right();
         break;
-    case 2:
+    case DOWN:
         impl->score += impl->board->down();
         break;
-    case 3:
+    case CLOCKWISE:
         impl->board->clockwise();
         break;
-    case 4:
+    case COUNTERCLOCKWISE:
         impl->board->counterClockwise();
         break;
-    case 5:
+    case DROP:
         impl->score += impl->board->drop();
         break;
-    case 6:
+    case LVLUP:
         levelUp();
         break;
-    case 7:
+    case LVLDOWN:
         levelDown();
         break;
     // add more cases later for replacing blocks

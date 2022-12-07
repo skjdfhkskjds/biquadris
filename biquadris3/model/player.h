@@ -12,6 +12,8 @@ class Player final
     std::unique_ptr<PlayerImpl> impl;
 
 public:
+    enum{LEFT=0, RIGHT, DOWN, CLOCKWISE, COUNTERCLOCKWISE, DROP, LVLUP, LVLDOWN};
+
     Player(std::vector<char> seq, int startLvl, int seed);
     ~Player();
 
